@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from "@/components/ui/button"
-import { MaterialSymbols } from "../Icon/MaterialSymbols"
+import { MaterialSymbols } from "../Icons/MaterialSymbols"
 import React from "react";
 
 /** 
