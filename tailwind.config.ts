@@ -59,13 +59,51 @@ const config: Config = {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
-  			}
+  			},
+
+			// from alpha-dojo/apps/alpha-dojo-front/tailwind.config.js
+			// 将来的には CSS 変数で管理したいため、_p をつけて区別している
+			base_p: {
+				DEFAULT: "#FFFFFF",
+				dark: "#333333",
+				light: "#FFFFFF"
+			},
+			main_p: {
+				DEFAULT: "#78171C"
+			},
+			accent_p: {
+				DEFAULT: "#17782F"
+			},
+			info_p: {
+				DEFAULT: "#17782F"
+			},
+			success_p: {
+				DEFAULT: "#4CAF50"
+			},
+			warning_p: {
+				DEFAULT: "#FFC107"
+			},
+			error_p: {
+				DEFAULT: "#78171C"
+			},
+			background_p: "#F3F4F6"
+			
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+
+		// from alpha-dojo/apps/alpha-dojo-front/tailwind.config.js
+		minWidth: {
+			xs: "20rem",
+			sm: "24rem",
+			md: "28rem",
+			lg: "32rem",
+			xl: "36rem",
+			"2xl": "42rem"
+      	}
   	}
   },
   plugins: [require("tailwindcss-animate")],
