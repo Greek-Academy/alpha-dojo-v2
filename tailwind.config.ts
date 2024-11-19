@@ -59,7 +59,16 @@ const config: Config = {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
-  			}
+  			},
+			status: {
+				done: 'var(--status-done)',
+				reviewed: 'var(--status-reviewed)'
+			},
+			difficulty: {
+				easy: 'var(--difficulty-easy)',
+				medium: 'var(--difficulty-medium)',
+				hard: 'var(--difficulty-hard)'
+			}
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
