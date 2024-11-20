@@ -1,19 +1,14 @@
 import { Button, ButtonProps } from "@/components/ui/button"
-import { MaterialSymbols } from "../Icons/MaterialSymbols"
-import React from "react";
-import Image from "next/image";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import React, { ReactNode } from "react";
 
 /** 
- * @param iconName Material Symbols のアイコン名  
- * @param iconSrc  import した静的画像 or 外部 URL
+ * @param icon React コンポーネント
  * 
  * @remarks
  * `iconName`と`iconUrl`を同時に指定した場合の動作はサポートしません
  */
 export function ActionButton({
-    iconName,
-    iconSrc,
+    icon,
     children,
 
     // components/ui/button.tsx を参考に
@@ -23,8 +18,7 @@ export function ActionButton({
     asChild = false,
     ...props
 }: {
-    iconName?: string,
-    iconSrc?:  string | StaticImport,
+    icon?:     ReactNode,
     children?: React.ReactNode;
 } & ButtonProps) {
     return (
@@ -37,23 +31,10 @@ export function ActionButton({
                 size={size}
                 asChild={asChild}
                 {...props}>
-            {
-                iconName
-                    ?   <MaterialSymbols size={18}>
-                            {iconName}
-                        </MaterialSymbols>
-                    :   null
-            }
-            {
-                iconSrc
-                    ? <Image src={iconSrc} height={18} alt="" />
-                    : null
-            }
-            {
-                <span className="ml-2">
-                    {children}
-                </span>
-            }
+            { icon }
+            <span className="ml-2">
+                {children}
+            </span>
         </Button>
     )
 }
