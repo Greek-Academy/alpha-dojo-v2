@@ -32,7 +32,7 @@ export function ActionButton({
         //     (アイコンが小さく表示されて左右の余白がズレたように見えるから？)
         // 文字だけを表示した際には、文字の左に margin 8px をつけているので揃う
         // gap-0: shadcn がデフォルトで入れている間隔を削除
-        <Button className={`gap-0 pl-[16px] pr-[24px] py-[10px] rounded-full ${className}`}
+        <Button className={`gap-0 pl-4 pr-6 py-2 rounded-full ${className}`}
                 variant={variant}
                 size={size}
                 asChild={asChild}
@@ -50,7 +50,7 @@ export function ActionButton({
                     : null
             }
             {
-                <span className="ml-[8px]">
+                <span className="ml-2">
                     {children}
                 </span>
             }
