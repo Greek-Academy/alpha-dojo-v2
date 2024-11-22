@@ -1,20 +1,32 @@
 import "@/app/fonts/MaterialSymbols.css"
+import { cn } from "@/lib/utils";
 
-export const MaterialSymbols = ({
-    className = '',
-    size = 24,
+interface MaterialSymbolProps {
+    className?: string;
+    size?:      number;
+}
+
+export const MaterialSymbol = ({
+    className,
+    size,
     children,
 }: {
-    className?: string;
-    size?: number;
-    children: React.ReactNode;
-}) => {
+    children: React.ReactNode
+} & MaterialSymbolProps) => {
     return (
         <span
-            className={`material-symbols-outlined notranslate ${className}`}
-            style={{ fontSize: `${size}px`, height:  `${size}px`}}
+            className={cn('material-symbols-outlined notranslate', className)}
+            style={{ fontSize: size }}
         >
             {children}
         </span>
     );
 };
+
+export const AddIcon = (props: MaterialSymbolProps) => {
+    return (
+        <MaterialSymbol {...props}>
+            add
+        </MaterialSymbol>
+    )
+}
