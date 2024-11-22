@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { CircleUserRound, Play, Upload } from "lucide-react";
+import { PrimaryButton } from "../components/primary-button";
 
 export const Header = () => {
     return (
@@ -11,6 +12,7 @@ export const Header = () => {
                         <div className="items-center">Alpha Dojo</div>
                         <div className="flex gap-2">
                             <Button variant="outline"><Play />Run</Button>
+                            <PrimaryButton title="Test2" onClick={()=>{alert("success")}}></PrimaryButton>
                             <Button><Upload />Submit</Button>
                         </div>
                         <div className="items-center"><CircleUserRound size="24" /></div>
