@@ -32,13 +32,14 @@ export const Notification = ({
                             {/* 実際に使う際には、信用する URL を next.config.ts に追加する必要がある */}
                             <Link
                                 href={user.link}
+                                className="relative"
                             >
                                 <Image
                                     key={`user-${notification.userId}`}
                                     src={user.icon}
                                     width={24}
                                     height={24}
-                                    fit
+                                    fill
                                     alt={`${user.name} さん`}
                                 />
                             </Link>
