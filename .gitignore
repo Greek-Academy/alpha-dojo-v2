@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/strapi/node_modules
 /.pnp
 .pnp.*
 .yarn/*

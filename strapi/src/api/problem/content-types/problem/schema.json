@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "problems",
+  "info": {
+    "singularName": "problem",
+    "pluralName": "problems",
+    "displayName": "problem"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "model_code": {
+      "type": "text"
+    }
+  }
+}
