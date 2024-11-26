@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint app components hooks lib -c eslint.config.mjs && prettier --check \"app/**/*.ts\" \"app/**/*.tsx\" \"components/**/*.tsx\" \"hooks/**/*.tsx\" \"lib/**/*.ts\""
+    "lint": "eslint src test -c eslint.config.mjs && prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
+    "fix": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" && eslint --fix src/**/*.ts test/**/*.ts -c eslint.config.mjs",
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.2",
