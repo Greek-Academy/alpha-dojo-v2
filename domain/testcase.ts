@@ -3,4 +3,3 @@ export interface Testcase {
     input: string;
     expect: string;
   }
-  
