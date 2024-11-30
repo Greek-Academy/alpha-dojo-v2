@@ -10,8 +10,8 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-  			background: 'rgba(var(--background))',
-  			foreground: 'rgba(var(--foreground))',
+  			background: 'rgb(var(--background))',
+  			foreground: 'rgb(var(--foreground))',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -21,12 +21,12 @@ const config: Config = {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'rgba(var(--primary))',
-  				foreground: 'rgba(var(--primary-foreground))'
+  				DEFAULT: 'rgb(var(--primary))',
+  				foreground: 'rgb(var(--primary-foreground))'
   			},
   			secondary: {
-  				DEFAULT: 'rgba(var(--secondary))',
-  				foreground: 'rgba(var(--secondary-foreground))'
+  				DEFAULT: 'rgb(var(--secondary))',
+  				foreground: 'rgb(var(--secondary-foreground))'
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
@@ -40,7 +40,7 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
-  			border: 'rgba(var(--border))',
+  			border: 'rgb(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
   			chart: {
@@ -61,17 +61,17 @@ const config: Config = {
   				ring: 'hsl(var(--sidebar-ring))'
   			},
 			status: {
-				done: 'rgba(var(--status-done))',
-				reviewed: 'rgba(var(--status-reviewed))'
+				done: 'rgb(var(--status-done))',
+				reviewed: 'rgb(var(--status-reviewed))'
 			},
 			difficulty: {
-				easy: 'rgba(var(--difficulty-easy))',
-				medium: 'rgba(var(--difficulty-medium))',
-				hard: 'rgba(var(--difficulty-hard))'
+				easy: 'rgb(var(--difficulty-easy))',
+				medium: 'rgb(var(--difficulty-medium))',
+				hard: 'rgb(var(--difficulty-hard))'
 			}
   		},
   		borderRadius: {
-  			lg: 'rgba(var(--radius))',
+  			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
