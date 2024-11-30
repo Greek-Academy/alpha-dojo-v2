@@ -26,7 +26,8 @@ const config: Config = {
   			},
   			secondary: {
   				DEFAULT: 'rgb(var(--secondary))',
-  				foreground: 'rgb(var(--secondary-foreground))'
+  				foreground: 'rgb(var(--secondary-foreground))',
+				container:  'rgb(var(--secondary-container))'
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
@@ -41,6 +42,17 @@ const config: Config = {
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
   			border: 'rgb(var(--border))',
+			outline: {
+				variant: 'rgb(var(--outline-variant))',
+			},
+			on: {
+				secondary: {
+					container: 'rgb(var(--on-secondary-container))'
+				},
+				surface: {
+					variant: 'rgb(var(--on-surface-variant))'
+				}
+			},
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
   			chart: {
@@ -71,7 +83,7 @@ const config: Config = {
 			}
   		},
   		borderRadius: {
-  			lg: 'var(--radius)',
+  			lg: 'var(--radius))',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
