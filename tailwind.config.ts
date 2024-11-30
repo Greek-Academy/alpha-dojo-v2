@@ -10,8 +10,8 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-  			background: 'var(--background)',
-  			foreground: 'var(--foreground)',
+  			background: 'rgba(var(--background))',
+  			foreground: 'rgba(var(--foreground))',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -21,12 +21,12 @@ const config: Config = {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'var(--primary)',
-  				foreground: 'var(--primary-foreground)'
+  				DEFAULT: 'rgba(var(--primary))',
+  				foreground: 'rgba(var(--primary-foreground))'
   			},
   			secondary: {
-  				DEFAULT: 'var(--secondary)',
-  				foreground: 'var(--secondary-foreground)'
+  				DEFAULT: 'rgba(var(--secondary))',
+  				foreground: 'rgba(var(--secondary-foreground))'
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
@@ -40,7 +40,7 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
-  			border: 'var(--border)',
+  			border: 'rgba(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
   			chart: {
@@ -61,17 +61,17 @@ const config: Config = {
   				ring: 'hsl(var(--sidebar-ring))'
   			},
 			status: {
-				done: 'var(--status-done)',
-				reviewed: 'var(--status-reviewed)'
+				done: 'rgba(var(--status-done))',
+				reviewed: 'rgba(var(--status-reviewed))'
 			},
 			difficulty: {
-				easy: 'var(--difficulty-easy)',
-				medium: 'var(--difficulty-medium)',
-				hard: 'var(--difficulty-hard)'
+				easy: 'rgba(var(--difficulty-easy))',
+				medium: 'rgba(var(--difficulty-medium))',
+				hard: 'rgba(var(--difficulty-hard))'
 			}
   		},
   		borderRadius: {
-  			lg: 'var(--radius)',
+  			lg: 'rgba(var(--radius))',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
