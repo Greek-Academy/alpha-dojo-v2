@@ -26,4 +26,3 @@ services:
       - 9150:9150
       - 4500:4500
     working_dir: /opt/firebase
-    command: firebase emulators:start --export-on-exit data/backup --import data/backup

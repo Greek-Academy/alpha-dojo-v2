@@ -9,3 +9,5 @@ RUN apt-get update && apt-get install -y \
     npm install -g firebase-tools
 
 RUN mkdir data
+
+CMD ["firebase", "emulators:start", "--export-on-exit", "data/backup", "--import", "data/backup"]
