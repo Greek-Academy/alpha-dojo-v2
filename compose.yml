@@ -1,0 +1,11 @@
+services:
+  linter:
+    image: alpha-dojo-linter:latest
+    container_name: alpha-dojo-linter
+    build:
+      context: ./docker/linter
+      dockerfile: ./Dockerfile
+    ports:
+      - ${LINTER_PORT}:${LINTER_PORT}
+    environment:
+      - LINTER_PORT=${LINTER_PORT} 
