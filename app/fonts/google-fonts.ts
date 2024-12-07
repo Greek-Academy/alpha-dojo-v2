@@ -6,4 +6,11 @@ const notoSansJP = Noto_Sans_JP({
   display:  'swap',
 })
 
-export { notoSansJP }
+/** Roboto Flex (Roboto は Variable Font 非対応なため) */
+const roboto = Roboto_Flex({
+  subsets:  ["latin"],
+  variable: '--roboto',
+  display:  'swap',
+})
+
+export { notoSansJP, roboto }

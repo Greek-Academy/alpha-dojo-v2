@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { notoSansJP } from './fonts/google-fonts';
+import { notoSansJP, roboto } from './fonts/google-fonts';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${notoSansJP.variable}`}>
+    <html lang="en" className={`${notoSansJP.variable} ${roboto.variable}`}>
       <body>
         <div className="w-screen h-screen">
           <div className="w-full h-full">{children}</div>
