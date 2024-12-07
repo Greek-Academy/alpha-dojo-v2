@@ -11,7 +11,10 @@ const config: Config = {
   	extend: {
   		colors: {
   			background: 'rgb(var(--background))',
-  			foreground: 'rgb(var(--foreground))',
+  			foreground: {
+				DEFAULT: 'rgb(var(--foreground))',
+				variant: 'rgb(var(--foreground-variant))'
+			},
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -27,7 +30,10 @@ const config: Config = {
   			secondary: {
   				DEFAULT: 'rgb(var(--secondary))',
   				foreground: 'rgb(var(--secondary-foreground))',
-				container:  'rgb(var(--secondary-container))'
+				container:  {
+					DEFAULT: 'rgb(var(--secondary-container))',
+					foreground: 'rgb(var(--secondary-container-foreground))'
+				}
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
@@ -41,17 +47,9 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
-  			border: 'rgb(var(--border))',
-			outline: {
-				variant: 'rgb(var(--outline-variant))',
-			},
-			on: {
-				secondary: {
-					container: 'rgb(var(--on-secondary-container))'
-				},
-				surface: {
-					variant: 'rgb(var(--on-surface-variant))'
-				}
+  			border: {
+				DEFAULT: 'rgb(var(--border))',
+				variant: 'rgb(var(--border-variant))'
 			},
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
