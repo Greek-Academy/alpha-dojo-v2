@@ -7,6 +7,6 @@ interface IButtonInfo {
 
 export function PrimaryButton(props: IButtonInfo){
     return(
-        <Button variant="outline" onClick={props.onClick}>{props.title}</Button>
+        <Button onClick={props.onClick}>{props.title}</Button>
     )
 }
