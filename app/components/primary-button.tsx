@@ -1,12 +1,11 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
+import { ReactNode } from 'react';
 
-interface IButtonInfo {
-    onClick: (e: React.FormEvent) => void;
-    title: string;
+interface PrimaryButtonProps {
+  onClick: (e: React.FormEvent) => void;
+  children: ReactNode;
 }
 
-export function PrimaryButton(props: IButtonInfo){
-    return(
-        <Button onClick={props.onClick}>{props.title}</Button>
-    )
+export function PrimaryButton(props: PrimaryButtonProps) {
+  return <Button onClick={props.onClick}>{props.children}</Button>;
 }

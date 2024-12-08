@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CircleUserRound, Play, Upload } from 'lucide-react';
+import { PrimaryButton } from '../components/primary-button';
 
 export const Header = () => {
   return (
@@ -14,10 +15,10 @@ export const Header = () => {
                 <Play />
                 Run
               </Button>
-              <Button>
+              <PrimaryButton onClick={() => alert('success')}>
                 <Upload />
                 Submit
-              </Button>
+              </PrimaryButton>
             </div>
             <div className="items-center">
               <CircleUserRound size="24" />
