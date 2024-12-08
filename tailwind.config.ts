@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		width: {
+			'100': '25rem'
+		},
   		colors: {
   			background: 'rgb(var(--background))',
   			foreground: {
