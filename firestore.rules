@@ -1,0 +1,50 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isUser(id) {
+      return request.auth.uid == id;
+    }
+
+    function isUserRoleOf(role) {
+      let user = get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+      return get(user.authorityRef).id == role;
+    }
+
+    match /users/{userId} {
+      allow read, create: if isSignedIn();
+      allow update, delete: if isSignedIn() && isUser(userId);
+    }
+
+    match /problems/{problemId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isUserRoleOf('teacher');
+
+      match /hints/{hintId} {
+        allow read: if isSignedIn();
+        allow write: if isSignedIn() && isUserRoleOf('teacher');
+      }
+    }
+
+    match /submissions/{submissionId} {
+      function isValidSubmission() {
+        let subm = request.resource.data;
+        return exists(subm.userRef);
+      }
+
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isValidSubmission();
+      allow update, delete: if isSignedIn() && isUser(get(resource.data.userRef).id) && isValidSubmission();
+
+      match /reviews/{reviewId} {
+        allow read, create: if isSignedIn();
+        // review データに userRef が必要
+        allow update, delete: if isSignedIn();
+      }
+    }
+  }
+}
