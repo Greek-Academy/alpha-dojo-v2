@@ -2,23 +2,42 @@
   "kind": "collectionType",
   "collectionName": "problems",
   "info": {
+    "displayName": "Problem",
     "singularName": "problem",
-    "pluralName": "problems",
-    "displayName": "problem"
+    "pluralName": "problems"
   },
-  "options": {
-    "draftAndPublish": true
-  },
-  "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "description": {
-      "type": "richtext"
+      "type": "text",
+      "required": true
     },
-    "model_code": {
-      "type": "text"
+    "testcases": {
+      "type": "json"
+    },
+    "parsers": {
+      "type": "json"
+    },
+    "initialCodes": {
+      "type": "json"
+    },
+    "modelCodes": {
+      "type": "json"
+    },
+    "isDraft": {
+      "type": "boolean"
+    },
+    "solutions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::solution.solution",
+      "mappedBy": "problem"
     }
+  },
+  "options": {
+    "draftAndPublish": false
   }
 }

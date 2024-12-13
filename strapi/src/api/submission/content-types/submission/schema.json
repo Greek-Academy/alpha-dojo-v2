@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "submissions",
+  "info": {
+    "singularName": "submission",
+    "pluralName": "submissions",
+    "displayName": "Submission"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "code": {
+      "type": "text"
+    },
+    "lang": {
+      "type": "string"
+    },
+    "timeComplexity": {
+      "type": "string"
+    },
+    "spaceComplexity": {
+      "type": "string"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "submission"
+    }
+  }
+}

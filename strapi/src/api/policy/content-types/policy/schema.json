@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "policies",
+  "info": {
+    "displayName": "Policy",
+    "singularName": "policy",
+    "pluralName": "policies"
+  },
+  "attributes": {
+    "policy": {
+      "type": "string",
+      "required": true
+    },
+    "roles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::role.role",
+      "inversedBy": "policies"
+    }
+  },
+  "options": {
+    "draftAndPublish": false
+  }
+}

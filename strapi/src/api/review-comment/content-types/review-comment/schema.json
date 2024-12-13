@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "review_comments",
+  "info": {
+    "singularName": "review-comment",
+    "pluralName": "review-comments",
+    "displayName": "Review Comment"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "comment": {
+      "type": "string"
+    },
+    "lineStart": {
+      "type": "integer"
+    },
+    "lineEnd": {
+      "type": "integer"
+    },
+    "review": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::review.review",
+      "inversedBy": "reviewComments"
+    }
+  }
+}
