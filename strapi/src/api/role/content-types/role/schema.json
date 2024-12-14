@@ -1,0 +1,27 @@
+{
+    "kind": "collectionType",
+    "collectionName": "roles",
+    "info": {
+      "displayName": "Role",
+      "singularName": "role",
+      "pluralName": "roles"
+    },
+    "attributes": {
+      "policies": {
+        "type": "relation",
+        "relation": "manyToMany",
+        "target": "api::policy.policy",
+        "inversedBy": "roles"
+      },
+      "users": {
+        "type": "relation",
+        "relation": "oneToMany",
+        "target": "plugin::users-permissions.user",
+        "mappedBy": "role"
+      }
+    },
+    "options": {
+      "draftAndPublish": false
+    }
+  }
+  

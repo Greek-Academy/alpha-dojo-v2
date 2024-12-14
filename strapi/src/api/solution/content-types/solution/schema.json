@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "solutions",
+  "info": {
+    "displayName": "Solution",
+    "singularName": "solution",
+    "pluralName": "solutions"
+  },
+  "attributes": {
+    "userRef": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::user.user"
+    },
+    "problemRef": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::problem.problem"
+    },
+    "status": {
+      "type": "string"
+    },
+    "code": {
+      "type": "json"
+    },
+    "selectedLang": {
+      "type": "string"
+    },
+    "problem": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::problem.problem",
+      "inversedBy": "solutions"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "solutions"
+    }
+  },
+  "options": {
+    "draftAndPublish": false
+  }
+}
