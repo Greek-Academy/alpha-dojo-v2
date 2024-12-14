@@ -1,4 +1,32 @@
 services:
+
+  firebase:
+    build:
+      context: .
+      dockerfile: ./docker/firebase/Dockerfile
+    volumes:
+      - ./.firebaserc:/opt/firebase/.firebaserc
+      - ./firebase.json:/opt/firebase/firebase.json
+      - ./storage.rules:/opt/firebase/storage.rules
+      - ./firestore.rules:/opt/firebase/firestore.rules
+      - ./docker/firebase/bin/:/root/.cache:cached
+      - ./docker/firebase/config/:/root/.config:cached
+      - ./functions:/opt/firebase/functions
+      - ./extensions:/opt/firebase/extensions
+      - ./docker/firebase/data:/opt/firebase/data
+    ports:
+      - 9099:9099 # Firebase Authentication
+      - 5001:5001 # Clound Functions
+      - 8080:8080 # Cloud Firestore
+      - 9001:9000 # Realtime Database
+      - 5000:5000 # Firebase Hosting
+      - 8085:8085 # Cloud Pub/Sub
+      - 9199:9199 # Cloud Storage
+      - 4000:4000 # Emulator Suite UI
+      - 9150:9150
+      - 4500:4500
+    working_dir: /opt/firebase
+
   strapi:
     container_name: strapi
     build: ./strapi
