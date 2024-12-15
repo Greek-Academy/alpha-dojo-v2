@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CircleUserRound, Play, Upload } from 'lucide-react';
+import Link from 'next/link';
 
 export const Header = () => {
   return (
@@ -8,7 +9,7 @@ export const Header = () => {
       <Card>
         <CardContent>
           <div className="w-full flex justify-between items-center">
-            <div className="items-center">Alpha Dojo</div>
+            <Link className="items-center" href="/">Alpha Dojo</Link>
             <div className="flex gap-2">
               <Button variant="outline">
                 <Play />
