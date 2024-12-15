@@ -17,17 +17,15 @@ export default function Home() {
             </ToggleGroup>
             <div>
                 <h1 className="text-xl">課題一覧がここに表示されます</h1>
-                <Link href="/submissions/1/edit" className="font-bold underline text-blue-600 visited:text-purple-600">編集画面へ</Link>
+                <Link href="/submissions/1/edit">編集画面へ</Link>
             </div>
         </div>
-        <div className="w-100 flex flex-col gap-3">
-            <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-accent text-accent-foreground">
+        <div className="w-100">
+            <div>
                 <h1 className="text-xl">Notifications</h1>
-                通知がここに表示されます
             </div>
-            <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-accent text-accent-foreground">
+            <div>
                 <h1 className="text-xl">Achievements</h1>
-                実績がここに表示されます
             </div>
         </div>
     </div>
