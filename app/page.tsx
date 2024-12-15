@@ -1,36 +1,46 @@
-'use client';
-import { Header } from './layout/header';
-import { ProbremTab } from './components/problem-tab';
-import { TestTab } from './components/test-tab';
-import { CodeTab } from './components/code-tab';
-
-class Person {
-  name: string = '';
-  age: number = 0;
-  addr: string = '';
-
-  constructor(name: string, age: number, addr: string) {
-    this.name = name;
-    this.age = age;
-    this.addr = addr;
-  }
-}
-
-const samplePersons: Person[] = [];
-samplePersons.push(new Person('aさん', 14, 'kobe'));
-samplePersons.push(new Person('bさん', 15, 'Kyoto'));
-samplePersons.push(new Person('cさん', 25, 'Nagoya'));
-samplePersons.push(new Person('dさん', 32, 'Osaka'));
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { AddIcon } from './components/icons/material-symbols';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 export default function Home() {
   return (
-    <main className="w-full h-full flex flex-col gap-2 items-center sm:items-start">
-      <Header />
-      <div className="w-full h-full grid grid-cols-2 grid-rows-2 gap-2">
-        <ProbremTab />
-        <CodeTab />
-        <TestTab />
+    <div className="px-4 py-2.5 flex gap-2.5">
+      <div className="flex-grow flex flex-col items-start gap-4">
+        <Button>
+          <AddIcon /> Add New Problem
+        </Button>
+        <ToggleGroup variant="outline" type="single" className="justify-start">
+          <ToggleGroupItem value="2期生" checkWithSelect>
+            2期生 (3)
+          </ToggleGroupItem>
+          <ToggleGroupItem value="Array" checkWithSelect>
+            Array (5)
+          </ToggleGroupItem>
+          <ToggleGroupItem value="HashMap" checkWithSelect>
+            HashMap (3)
+          </ToggleGroupItem>
+        </ToggleGroup>
+        <div>
+          <h1 className="text-xl">課題一覧がここに表示されます</h1>
+          <Link
+            href="/submissions/1/edit"
+            className="font-bold underline text-blue-600 visited:text-purple-600"
+          >
+            編集画面へ
+          </Link>
+        </div>
       </div>
-    </main>
+      <div className="w-100 flex flex-col gap-3">
+        <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-accent text-accent-foreground">
+          <h1 className="text-xl">Notifications</h1>
+          通知がここに表示されます
+        </div>
+        <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-accent text-accent-foreground">
+          <h1 className="text-xl">Achievements</h1>
+          実績がここに表示されます
+        </div>
+      </div>
+    </div>
   );
 }
