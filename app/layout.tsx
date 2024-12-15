@@ -14,9 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="w-screen h-screen flex flex-col gap-2 items-center sm:items-start">
+      <body className='w-screen h-screen flex flex-col gap-2 items-center sm:items-start'>
         <Header />
-        <main className="w-full h-full">{children}</main>
+        <main className='w-full h-full'>
+          {children}
+        </main>
       </body>
     </html>
   );

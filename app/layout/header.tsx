@@ -9,9 +9,7 @@ export const Header = () => {
       <Card>
         <CardContent>
           <div className="w-full flex justify-between items-center">
-            <Link className="items-center" href="/">
-              Alpha Dojo
-            </Link>
+            <Link className="items-center" href="/">Alpha Dojo</Link>
             <div className="flex gap-2">
               <Button variant="outline">
                 <Play />
