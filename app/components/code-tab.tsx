@@ -4,24 +4,20 @@ import { Code } from 'lucide-react';
 
 export const CodeTab = () => {
   return (
-    <Card className="w-full h-full">
-      <Tabs defaultValue="code" className="w-full h-full">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="code" className="w-full">
-            <Code size="14" />
-            code
-          </TabsTrigger>
-        </TabsList>
-        <div className="h-full">
-          <TabsContent value="code" className="h-full bg-white">
-            <Card className="h-full">
-              <CardContent className="space-y-2">
-                ここにコードを書きます。。
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </div>
-      </Tabs>
-    </Card>
+    <Tabs defaultValue="code" className='h-full flex flex-col [&:not(:first-child)]:*:flex-grow' /** flex 以降は DOJO-31 で実装予定なので、今後不要 */>
+      <TabsList className="grid w-full grid-cols-3">
+        <TabsTrigger value="code" className="w-full">
+          <Code size="14" />
+          code
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="code">
+        <Card className="h-full">
+          <CardContent className="space-y-2">
+            ここにコードを書きます。。
+          </CardContent>
+        </Card>
+      </TabsContent>
+    </Tabs>
   );
 };
