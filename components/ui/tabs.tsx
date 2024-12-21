@@ -30,7 +30,7 @@ const TabsList = React.forwardRef<
       // shadcn original:
       // "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground",
       "inline-flex h-10 items-center justify-center bg-neutral-200 p-1 text-muted-foreground",
-      "gap-1 !flex !justify-start",
+      "gap-1 flex justify-start",
       className
     )}
     {...props}
