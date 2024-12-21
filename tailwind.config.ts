@@ -85,6 +85,9 @@ const config: Config = {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
+		fontSize: {
+			"label-medium-prominent": ['12px', {fontWeight: '600', letterSpacing: '0.5px', lineHeight: '16px'}]
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],
