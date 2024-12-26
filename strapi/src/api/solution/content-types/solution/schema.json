@@ -7,16 +7,6 @@
     "pluralName": "solutions"
   },
   "attributes": {
-    "userRef": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::user.user"
-    },
-    "problemRef": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::problem.problem"
-    },
     "status": {
       "type": "string"
     },

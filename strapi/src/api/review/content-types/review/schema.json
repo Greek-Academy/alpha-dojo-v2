@@ -10,16 +10,16 @@
     "draftAndPublish": false
   },
   "attributes": {
-    "reviewer": {
+    "users": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::user.user"
+      "target": "plugin::users-permissions.user"
     },
     "submission": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::submission.submission",
-      "inversedBy": "review"
+      "inversedBy": "reviews"
     },
     "reviewComments": {
       "type": "relation",
