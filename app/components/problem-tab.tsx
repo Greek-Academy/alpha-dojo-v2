@@ -6,11 +6,18 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { cn } from '@/lib/utils';
 import { ClipboardPenLine, FileText, FlaskConical } from 'lucide-react';
 
-export const ProbremTab = () => {
+export const ProbremTab = ({ className }: { className?: string }) => {
   return (
-    <Tabs defaultValue="description" className='h-full flex flex-col [&:not(:first-child)]:*:flex-grow' /** flex 以降は DOJO-19 でデザインを修正予定なので、今後不要 */>
+    <Tabs
+      defaultValue="description"
+      className={cn(
+        'h-full flex flex-col [&:not(:first-child)]:*:flex-grow',
+        className
+      )} /** flex 以降は DOJO-19 でデザインを修正予定なので、今後不要 */
+    >
       <TabsList className="grid grid-cols-3">
         <TabsTrigger value="description">
           <FileText size="14" />

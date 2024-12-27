@@ -1,9 +1,8 @@
 'use client';
-import { Header } from './layout/header';
 import { ProbremTab } from './components/problem-tab';
 import { TestTab } from './components/test-tab';
 import { CodeTab } from './components/code-tab';
-import Split from 'react-split'
+import Split from 'react-split';
 
 class Person {
   name: string = '';
@@ -25,19 +24,20 @@ samplePersons.push(new Person('dさん', 32, 'Osaka'));
 
 export default function Home() {
   return (
-    <main className="w-full h-full flex flex-col gap-2 items-center sm:items-start">
-      <Header />
+    <Split
+      direction="horizontal"
+      minSize={200}
+      className="flex w-full h-full px-2.5 pb-2.5 min-w-100 min-h-100"
+    >
+      <ProbremTab className="overflow-auto" />
       <Split
-        direction='horizontal'
-        className='flex w-full h-full px-2.5 pb-2.5'>
-        <ProbremTab />
-        <Split
-          direction='vertical'
-          className='flex w-full h-full flex-col'>
-          <CodeTab />
-          <TestTab />
-        </Split>
+        direction="vertical"
+        minSize={200}
+        className="flex w-full h-full flex-col"
+      >
+        <CodeTab className="overflow-auto" />
+        <TestTab className="overflow-auto" />
       </Split>
-    </main>
+    </Split>
   );
 }
