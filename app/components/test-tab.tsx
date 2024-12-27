@@ -10,7 +10,7 @@ import { MonitorCheck, SquareCheckBig, Text } from 'lucide-react';
 
 export const TestTab = () => {
   return (
-    <Tabs defaultValue="testcase" className='h-full flex flex-col [&:not(:first-child)]:*:flex-grow' /** flex 以降は DOJO-31 で実装予定なので、今後不要 */>
+    <Tabs defaultValue="testcase" className='h-full flex flex-col [&:not(:first-child)]:*:flex-grow' /** flex 以降は DOJO-19 でデザインを修正予定なので、今後不要 */>
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="testcase" className="w-full">
           <SquareCheckBig size="14" />
