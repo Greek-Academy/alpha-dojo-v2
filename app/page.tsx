@@ -3,6 +3,7 @@ import { Header } from './layout/header';
 import { ProbremTab } from './components/problem-tab';
 import { TestTab } from './components/test-tab';
 import { CodeTab } from './components/code-tab';
+import Split from 'react-split'
 
 class Person {
   name: string = '';
@@ -26,11 +27,17 @@ export default function Home() {
   return (
     <main className="w-full h-full flex flex-col gap-2 items-center sm:items-start">
       <Header />
-      <div className="w-full h-full grid grid-cols-2 grid-rows-2 gap-2">
+      <Split
+        direction='horizontal'
+        className='flex w-full h-full px-2.5 pb-2.5'>
         <ProbremTab />
-        <CodeTab />
-        <TestTab />
-      </div>
+        <Split
+          direction='vertical'
+          className='flex w-full h-full flex-col'>
+          <CodeTab />
+          <TestTab />
+        </Split>
+      </Split>
     </main>
   );
 }
