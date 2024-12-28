@@ -25,35 +25,29 @@ samplePersons.push(new Person('cさん', 25, 'Nagoya'));
 samplePersons.push(new Person('dさん', 32, 'Osaka'));
 
 export default function Home() {
-  const splitVariants = cva(
-    'flex w-full h-full',
-    {
-      variants: {
-        direction: {
-          horizontal: 'flex-row',
-          vertical: 'flex-col',
-        },
+  const splitVariants = cva('flex w-full h-full', {
+    variants: {
+      direction: {
+        horizontal: 'flex-row',
+        vertical: 'flex-col',
       },
-      defaultVariants: {
-        direction: 'horizontal',
-      },
-    }
-  );
+    },
+    defaultVariants: {
+      direction: 'horizontal',
+    },
+  });
 
-  const gutterVariants = cva(
-    'flex items-center justify-center group',
-    {
-      variants: {
-        direction: {
-          horizontal: 'hover:cursor-col-resize',
-          vertical: 'hover:cursor-row-resize',
-        },
+  const gutterVariants = cva('flex items-center justify-center group', {
+    variants: {
+      direction: {
+        horizontal: 'hover:cursor-col-resize',
+        vertical: 'hover:cursor-row-resize',
       },
-      defaultVariants: {
-        direction: 'horizontal',
-      },
-    }
-  );
+    },
+    defaultVariants: {
+      direction: 'horizontal',
+    },
+  });
 
   const gutterChildVariants = cva(
     'bg-border-variant opacity-0 group-hover:opacity-100 transition-[opacity,width,height]',
@@ -61,7 +55,7 @@ export default function Home() {
       variants: {
         direction: {
           horizontal: 'w-1 h-full group-active:w-0.5',
-          vertical:   'h-1 w-full group-active:h-0.5',
+          vertical: 'h-1 w-full group-active:h-0.5',
         },
       },
       defaultVariants: {
@@ -81,11 +75,11 @@ export default function Home() {
       gutterSize: 10,
       gutter: () => {
         const gutterElement = document.createElement('div');
-        gutterElement.className = gutterVariants({direction});
+        gutterElement.className = gutterVariants({ direction });
 
         // 子要素 (区切り線の可視化・アニメーション)
         const gutterChild = document.createElement('div');
-        gutterChild.className = gutterChildVariants({direction});
+        gutterChild.className = gutterChildVariants({ direction });
         gutterElement.appendChild(gutterChild);
 
         return gutterElement;
