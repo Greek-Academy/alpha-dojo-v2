@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Header } from './layout/header';
 import { notoSansJP, roboto } from './fonts/google-fonts';
 
 export const metadata: Metadata = {
@@ -14,10 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${notoSansJP.variable} ${roboto.variable}`}>
-      <body>
-        <div className="w-screen h-screen">
-          <div className="w-full h-full">{children}</div>
-        </div>
+      <body className="w-screen h-screen flex flex-col gap-2 items-center sm:items-start">
+        <Header />
+        <main className="w-full h-full">{children}</main>
       </body>
     </html>
   );
