@@ -1,99 +1,46 @@
-'use client';
-import { ProbremTab } from './components/problem-tab';
-import { TestTab } from './components/test-tab';
-import { CodeTab } from './components/code-tab';
-import Split, { SplitProps } from 'react-split';
-import { cn } from '@/lib/utils';
-import { cva } from 'class-variance-authority';
-
-class Person {
-  name: string = '';
-  age: number = 0;
-  addr: string = '';
-
-  constructor(name: string, age: number, addr: string) {
-    this.name = name;
-    this.age = age;
-    this.addr = addr;
-  }
-}
-
-const samplePersons: Person[] = [];
-samplePersons.push(new Person('aさん', 14, 'kobe'));
-samplePersons.push(new Person('bさん', 15, 'Kyoto'));
-samplePersons.push(new Person('cさん', 25, 'Nagoya'));
-samplePersons.push(new Person('dさん', 32, 'Osaka'));
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { AddIcon } from './components/icons/material-symbols';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 export default function Home() {
-  const splitVariants = cva('flex w-full h-full', {
-    variants: {
-      direction: {
-        horizontal: 'flex-row',
-        vertical: 'flex-col',
-      },
-    },
-    defaultVariants: {
-      direction: 'horizontal',
-    },
-  });
-
-  const gutterVariants = cva('flex items-center justify-center group', {
-    variants: {
-      direction: {
-        horizontal: 'hover:cursor-col-resize',
-        vertical: 'hover:cursor-row-resize',
-      },
-    },
-    defaultVariants: {
-      direction: 'horizontal',
-    },
-  });
-
-  const gutterChildVariants = cva(
-    'bg-border-variant opacity-0 group-hover:opacity-100 transition-[opacity,width,height]',
-    {
-      variants: {
-        direction: {
-          horizontal: 'w-1 h-full group-active:w-0.5',
-          vertical: 'h-1 w-full group-active:h-0.5',
-        },
-      },
-      defaultVariants: {
-        direction: 'horizontal',
-      },
-    }
-  );
-
-  const splitProps = (
-    direction: 'horizontal' | 'vertical' | undefined,
-    className?: string
-  ): SplitProps => {
-    return {
-      direction,
-      minSize: 200,
-      className: cn(splitVariants({ direction, className })),
-      gutterSize: 10,
-      gutter: () => {
-        const gutterElement = document.createElement('div');
-        gutterElement.className = gutterVariants({ direction });
-
-        // 子要素 (区切り線の可視化・アニメーション)
-        const gutterChild = document.createElement('div');
-        gutterChild.className = gutterChildVariants({ direction });
-        gutterElement.appendChild(gutterChild);
-
-        return gutterElement;
-      },
-    };
-  };
-
   return (
-    <Split {...splitProps('horizontal', 'px-2.5 pb-2.5 min-w-100 min-h-100')}>
-      <ProbremTab className="overflow-auto" />
-      <Split {...splitProps('vertical')}>
-        <CodeTab className="overflow-auto" />
-        <TestTab className="overflow-auto" />
-      </Split>
-    </Split>
+    <div className="px-4 py-2.5 flex gap-2.5">
+      <div className="flex-grow flex flex-col items-start gap-4">
+        <Button>
+          <AddIcon /> Add New Problem
+        </Button>
+        <ToggleGroup variant="outline" type="single" className="justify-start">
+          <ToggleGroupItem value="2期生" checkWithSelect>
+            2期生 (3)
+          </ToggleGroupItem>
+          <ToggleGroupItem value="Array" checkWithSelect>
+            Array (5)
+          </ToggleGroupItem>
+          <ToggleGroupItem value="HashMap" checkWithSelect>
+            HashMap (3)
+          </ToggleGroupItem>
+        </ToggleGroup>
+        <div>
+          <h1 className="text-xl">課題一覧がここに表示されます</h1>
+          <Link
+            href="/submissions/1/edit"
+            className="font-bold underline text-blue-600 visited:text-purple-600"
+          >
+            編集画面へ
+          </Link>
+        </div>
+      </div>
+      <div className="w-100 flex flex-col gap-3">
+        <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-accent text-accent-foreground">
+          <h1 className="text-xl">Notifications</h1>
+          通知がここに表示されます
+        </div>
+        <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-accent text-accent-foreground">
+          <h1 className="text-xl">Achievements</h1>
+          実績がここに表示されます
+        </div>
+      </div>
+    </div>
   );
 }
