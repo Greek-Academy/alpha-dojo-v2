@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${notoSansJP.variable} ${roboto.variable}`}>
+    <html lang="ja" className={`${notoSansJP.variable} ${roboto.variable}`}>
       <body className="w-screen h-screen flex flex-col gap-2 items-center sm:items-start">
         <Header />
         <main className="w-full h-full">{children}</main>
