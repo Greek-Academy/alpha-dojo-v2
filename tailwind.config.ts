@@ -9,9 +9,15 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		width: {
+			'100': '25rem'
+		},
   		colors: {
-  			background: 'var(--background)',
-  			foreground: 'var(--foreground)',
+  			background: 'rgb(var(--background))',
+  			foreground: {
+				DEFAULT: 'rgb(var(--foreground))',
+				variant: 'rgb(var(--foreground-variant))'
+			},
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -21,12 +27,16 @@ const config: Config = {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'var(--primary)',
-  				foreground: 'var(--primary-foreground)'
+  				DEFAULT: 'rgb(var(--primary))',
+  				foreground: 'rgb(var(--primary-foreground))'
   			},
   			secondary: {
-  				DEFAULT: 'var(--secondary)',
-  				foreground: 'var(--secondary-foreground)'
+  				DEFAULT: 'rgb(var(--secondary))',
+  				foreground: 'rgb(var(--secondary-foreground))',
+				container:  {
+					DEFAULT: 'rgb(var(--secondary-container))',
+					foreground: 'rgb(var(--secondary-container-foreground))'
+				}
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
@@ -40,7 +50,10 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
-  			border: 'var(--border)',
+  			border: {
+				DEFAULT: 'rgb(var(--border))',
+				variant: 'rgb(var(--border-variant))'
+			},
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
   			chart: {
@@ -61,20 +74,23 @@ const config: Config = {
   				ring: 'hsl(var(--sidebar-ring))'
   			},
 			status: {
-				done: 'var(--status-done)',
-				reviewed: 'var(--status-reviewed)'
+				done: 'rgb(var(--status-done))',
+				reviewed: 'rgb(var(--status-reviewed))'
 			},
 			difficulty: {
-				easy: 'var(--difficulty-easy)',
-				medium: 'var(--difficulty-medium)',
-				hard: 'var(--difficulty-hard)'
+				easy: 'rgb(var(--difficulty-easy))',
+				medium: 'rgb(var(--difficulty-medium))',
+				hard: 'rgb(var(--difficulty-hard))'
 			}
   		},
   		borderRadius: {
-  			lg: 'var(--radius)',
+  			lg: 'calc(var(--radius))',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
+		fontSize: {
+			"label-medium-prominent": ['12px', {fontWeight: '600', letterSpacing: '0.5px', lineHeight: '16px'}]
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],
