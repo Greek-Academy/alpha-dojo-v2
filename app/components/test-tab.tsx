@@ -11,13 +11,7 @@ import { MonitorCheck, SquareCheckBig, Text } from 'lucide-react';
 
 export const TestTab = ({ className }: { className?: string }) => {
   return (
-    <Tabs
-      defaultValue="testcase"
-      className={cn(
-        'h-full',
-        className
-      )}
-    >
+    <Tabs defaultValue="testcase" className={cn('h-full', className)}>
       <TabsList>
         <TabsTrigger value="testcase">
           <SquareCheckBig size="14" />

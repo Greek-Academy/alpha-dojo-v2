@@ -5,13 +5,7 @@ import { Code } from 'lucide-react';
 
 export const CodeTab = ({ className }: { className?: string }) => {
   return (
-    <Tabs
-      defaultValue="code"
-      className={cn(
-        'h-full',
-        className
-      )}
-    >
+    <Tabs defaultValue="code" className={cn('h-full', className)}>
       <TabsList>
         <TabsTrigger value="code">
           <Code size="14" />

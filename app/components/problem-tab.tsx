@@ -11,13 +11,7 @@ import { ClipboardPenLine, FileText, FlaskConical } from 'lucide-react';
 
 export const ProbremTab = ({ className }: { className?: string }) => {
   return (
-    <Tabs
-      defaultValue="description"
-      className={cn(
-        'h-full',
-        className
-      )}
-    >
+    <Tabs defaultValue="description" className={cn('h-full', className)}>
       <TabsList>
         <TabsTrigger value="description">
           <FileText size="14" />
@@ -32,7 +26,7 @@ export const ProbremTab = ({ className }: { className?: string }) => {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="description">
-        <Card className='border-0 shadow-none'>
+        <Card className="border-0 shadow-none">
           <CardHeader>
             <CardTitle>最大の利益を持つ期間を探せ</CardTitle>
           </CardHeader>
@@ -43,7 +37,7 @@ export const ProbremTab = ({ className }: { className?: string }) => {
         </Card>
       </TabsContent>
       <TabsContent value="submissions">
-        <Card className='border-0 shadow-none'>
+        <Card className="border-0 shadow-none">
           <CardHeader>
             <CardTitle>Submissions</CardTitle>
           </CardHeader>
@@ -52,7 +46,7 @@ export const ProbremTab = ({ className }: { className?: string }) => {
         </Card>
       </TabsContent>
       <TabsContent value="solutions">
-        <Card className='border-0 shadow-none'>
+        <Card className="border-0 shadow-none">
           <CardHeader>
             <CardTitle>Solutions</CardTitle>
           </CardHeader>
