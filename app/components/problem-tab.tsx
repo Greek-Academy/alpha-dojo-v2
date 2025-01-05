@@ -14,11 +14,11 @@ export const ProbremTab = ({ className }: { className?: string }) => {
     <Tabs
       defaultValue="description"
       className={cn(
-        'h-full flex flex-col [&:not(:first-child)]:*:flex-grow',
+        'h-full',
         className
-      )} /** flex 以降は DOJO-19 でデザインを修正予定なので、今後不要 */
+      )}
     >
-      <TabsList className="grid grid-cols-3">
+      <TabsList>
         <TabsTrigger value="description">
           <FileText size="14" />
           Description
@@ -32,7 +32,7 @@ export const ProbremTab = ({ className }: { className?: string }) => {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="description">
-        <Card className="h-full bg-neutral-100">
+        <Card className='border-0 shadow-none'>
           <CardHeader>
             <CardTitle>最大の利益を持つ期間を探せ</CardTitle>
           </CardHeader>
@@ -42,8 +42,8 @@ export const ProbremTab = ({ className }: { className?: string }) => {
           <CardFooter>Footer...</CardFooter>
         </Card>
       </TabsContent>
-      <TabsContent value="submissions" className="bg-white">
-        <Card className="h-full bg-gray-100">
+      <TabsContent value="submissions">
+        <Card className='border-0 shadow-none'>
           <CardHeader>
             <CardTitle>Submissions</CardTitle>
           </CardHeader>
@@ -51,8 +51,8 @@ export const ProbremTab = ({ className }: { className?: string }) => {
           <CardFooter>Footer...</CardFooter>
         </Card>
       </TabsContent>
-      <TabsContent value="solutions" className="bg-white">
-        <Card className="h-full bg-gray-100">
+      <TabsContent value="solutions">
+        <Card className='border-0 shadow-none'>
           <CardHeader>
             <CardTitle>Solutions</CardTitle>
           </CardHeader>

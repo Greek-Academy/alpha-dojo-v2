@@ -14,25 +14,25 @@ export const TestTab = ({ className }: { className?: string }) => {
     <Tabs
       defaultValue="testcase"
       className={cn(
-        'h-full flex flex-col [&:not(:first-child)]:*:flex-grow',
+        'h-full',
         className
-      )} /** flex 以降は DOJO-19 でデザインを修正予定なので、今後不要 */
+      )}
     >
-      <TabsList className="grid w-full grid-cols-3">
-        <TabsTrigger value="testcase" className="w-full">
+      <TabsList>
+        <TabsTrigger value="testcase">
           <SquareCheckBig size="14" />
           Test Case
         </TabsTrigger>
-        <TabsTrigger value="testresult" className="w-full">
+        <TabsTrigger value="testresult">
           <MonitorCheck size="14" />
           Test Result
         </TabsTrigger>
-        <TabsTrigger value="lintresult" className="w-full">
+        <TabsTrigger value="lintresult">
           <Text size="14" /> Lint Result
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="testcase" className="bg-white">
-        <Card className="h-full">
+      <TabsContent value="testcase">
+        <Card className="border-0 shadow-none">
           <CardHeader>
             <CardTitle>テストケースです</CardTitle>
           </CardHeader>
@@ -41,8 +41,8 @@ export const TestTab = ({ className }: { className?: string }) => {
           </CardContent>
         </Card>
       </TabsContent>
-      <TabsContent value="testresult" className="bg-white">
-        <Card className="h-full">
+      <TabsContent value="testresult">
+        <Card className="border-0 shadow-none">
           <CardHeader>
             <CardTitle>テスト結果</CardTitle>
           </CardHeader>
@@ -51,8 +51,8 @@ export const TestTab = ({ className }: { className?: string }) => {
           </CardContent>
         </Card>
       </TabsContent>
-      <TabsContent value="lintresult" className="bg-white">
-        <Card className="h-full">
+      <TabsContent value="lintresult">
+        <Card className="border-0 shadow-none">
           <CardHeader>
             <CardTitle>Solutions</CardTitle>
           </CardHeader>
