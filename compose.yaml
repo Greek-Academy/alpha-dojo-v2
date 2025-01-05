@@ -1,5 +1,60 @@
-services:
+x-logging:
+  &default-logging
+  logging:
+    driver: json-file
+    options:
+      max-size: 100M
 
+services:
+  # docker/judge0
+  server:
+    image: judge0/judge0:latest
+    volumes:
+      - ./docker/judge0/judge0.conf:/judge0.conf:ro
+    ports:
+      - "2358:2358"
+    privileged: true
+    <<: *default-logging
+    restart: always
+
+  worker:
+    image: judge0/judge0:latest
+    command: ["./scripts/workers"]
+    volumes:
+      - ./docker/judge0/judge0.conf:/judge0.conf:ro
+    privileged: true
+    <<: *default-logging
+    restart: always
+
+  db:
+    image: postgres:16.2
+    env_file: ./docker/judge0/judge0.conf
+    volumes:
+      - data:/var/lib/postgresql/data/
+    <<: *default-logging
+    restart: always
+
+  redis:
+    image: redis:7.2.4
+    command: [
+      "bash", "-c",
+      'docker-entrypoint.sh --appendonly no --requirepass "$$REDIS_PASSWORD"'
+    ]
+    env_file: ./docker/judge0/judge0.conf
+    <<: *default-logging
+    restart: always
+  # docker/linter
+  linter:
+    image: alpha-dojo-linter:latest
+    container_name: alpha-dojo-linter
+    build:
+      context: ./docker/linter
+      dockerfile: ./Dockerfile
+    ports:
+      - ${LINTER_PORT}:${LINTER_PORT}
+    environment:
+      - LINTER_PORT=${LINTER_PORT} 
+  # docker/firebase
   firebase:
     build:
       context: .
@@ -26,7 +81,7 @@ services:
       - 9150:9150
       - 4500:4500
     working_dir: /opt/firebase
-
+  # strapi
   strapi:
     container_name: strapi
     build: ./strapi
@@ -95,3 +150,7 @@ networks:
   strapi:
     name: Strapi
     driver: bridge
+
+# ※judge0 で使用している名前付きボリューム
+volumes:
+  data:
