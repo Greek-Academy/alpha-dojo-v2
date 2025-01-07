@@ -1,3 +1,4 @@
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import {
   Card,
   CardContent,
@@ -7,6 +8,7 @@ import {
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ClipboardPenLine, FileText, FlaskConical } from 'lucide-react';
+import { Lightbulb2 } from './icons/material-symbols';
 
 export const ProbremTab = () => {
   return (
@@ -34,7 +36,36 @@ export const ProbremTab = () => {
               <CardContent className="space-y-2">
                 あなたはとある店舗のマネージャーです。・・・・・問題文が続きます。
               </CardContent>
-              <CardFooter>Footer...</CardFooter>
+              <CardFooter>
+                <Accordion type="multiple" className="w-full">
+                  <AccordionItem value="hint-1">
+                    <AccordionTrigger>
+                      <Lightbulb2 />
+                      Hint 1
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      ヒント その1<br />
+                      ヒント その1<br />
+                      ヒント その1<br />
+                      ヒント その1<br />
+                      ヒント その1
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="hint-2">
+                    <AccordionTrigger>
+                      <Lightbulb2 />
+                      Hint 2
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      ヒント その2<br />
+                      ヒント その2<br />
+                      ヒント その2<br />
+                      ヒント その2<br />
+                      ヒント その2
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </CardFooter>
             </Card>
           </TabsContent>
           <TabsContent value="submissions" className="h-full bg-white">

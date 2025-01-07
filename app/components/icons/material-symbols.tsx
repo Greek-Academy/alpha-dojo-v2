@@ -30,3 +30,7 @@ export const AddIcon = (props: MaterialSymbolProps) => {
 export const CheckIcon = (props: MaterialSymbolProps) => {
   return <MaterialSymbol {...props}>check</MaterialSymbol>;
 };
+
+export const Lightbulb2 = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>lightbulb_2</MaterialSymbol>;
+};
