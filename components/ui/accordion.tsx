@@ -14,11 +14,7 @@ const AccordionItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >(({ className, ...props }, ref) => (
   <>
-    <AccordionPrimitive.Item
-      ref={ref}
-      className={className}
-      {...props}
-    />
+    <AccordionPrimitive.Item ref={ref} className={className} {...props} />
     {/* 仕切り線 */}
     <div className="bg-border-variant w-full h-px my-1.5 last:hidden" />
   </>
@@ -36,7 +32,7 @@ const AccordionTrigger = React.forwardRef<
         // shadcn original:
         // 'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left [&[data-state=open]>svg]:rotate-180',
         'flex flex-1 items-center justify-between py-1.5 text-sm font-medium transition-all text-left group ' +
-        'gap-1.5',
+          'gap-1.5',
         className
       )}
       {...props}
