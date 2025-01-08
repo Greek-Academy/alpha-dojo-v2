@@ -5,9 +5,9 @@ import Link from 'next/link';
 
 export const Header = () => {
   return (
-    <div className="w-screen h-9 mt-2">
+    <div className="w-screen h-11 mt-2">
       <Card>
-        <CardContent>
+        <CardContent className="h-11">
           <div className="w-full flex justify-between items-center">
             <Link className="items-center" href="/">
               Alpha Dojo

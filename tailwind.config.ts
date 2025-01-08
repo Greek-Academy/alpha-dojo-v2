@@ -75,7 +75,8 @@ const config: Config = {
   			},
 			status: {
 				done: 'rgb(var(--status-done))',
-				reviewed: 'rgb(var(--status-reviewed))'
+				reviewed: 'rgb(var(--status-reviewed))',
+				submitted: 'rgb(var(--status-submitted))'
 			},
 			difficulty: {
 				easy: 'rgb(var(--difficulty-easy))',
