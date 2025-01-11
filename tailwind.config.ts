@@ -103,45 +103,11 @@ const config: Config = {
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
-        },
-        // Material Design 3 の Emphasized easing set
-        // CSS では 1 つの曲線につき 3 次ベジェ曲線を 1 つしか指定できないため、分割している
-        'accordion-down-md3-emphasized-1': {
-          from: { height: '0' },
-          to: {
-            height: 'calc(var(--radix-accordion-content-height) * 0.166666)',
-          },
-        },
-        'accordion-down-md3-emphasized-2': {
-          from: {
-            height: 'calc(var(--radix-accordion-content-height) * 0.166666)',
-          },
-          to: { height: 'var(--radix-accordion-content-height)' },
-        },
-        'accordion-up-md3-emphasized-1': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: {
-            height: 'calc(var(--radix-accordion-content-height) * 0.833334)',
-          },
-        },
-        'accordion-up-md3-emphasized-2': {
-          from: {
-            height: 'calc(var(--radix-accordion-content-height) * 0.833334)',
-          },
-          to: { height: '0' },
-        },
+        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
-        'accordion-down-md3-emphasized': `accordion-down-md3-emphasized-1 0.066666s cubic-bezier(0.3, 0, 0.8, 0.15) 0s forwards,
-				 accordion-down-md3-emphasized-2 0.333334s cubic-bezier(0.05, 0.7, 0.1, 1) 0.066666s forwards`,
-        'accordion-up-md3-emphasized':
-          // Radix UI の仕様により、どちらかのアニメーションが終了したタイミングで
-          // CSS 変数「--radix-accordion-content-height」が削除されるため、
-          // 1 つ目のアニメーションを 6 回繰り返して時間を延長している
-          `accordion-up-md3-emphasized-1 0.066666s cubic-bezier(0.3, 0, 0.8, 0.15) 0s 6 forwards,
-			   accordion-up-md3-emphasized-2 0.333334s cubic-bezier(0.05, 0.7, 0.1, 1) 0.0666666s forwards`,
+        'accordion-up': 'accordion-up 0.2s ease-out'
       },
       transitionDuration: {
         '400': '400ms',
