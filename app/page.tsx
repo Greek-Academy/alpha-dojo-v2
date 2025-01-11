@@ -6,15 +6,15 @@ import { Sample, SubmissionTable } from './components/submission-table';
 
 export default function Home() {
   const data: Sample[] = [
-    { status: "submitted", title: "sample", difficulty: 2, author: "Satou", published: "2025-01-05T15:00:00" }, // publishedはISO8601形式で仮設定
-    { status: "", title: "サンプル", difficulty: 1, author: "Satou", published: "2025-01-05T10:00:00" },
-    { status: "reviewed", title: "sample", difficulty: 2, author: "Suzuki", published: "2025-01-04T10:00:00" },
-    { status: "reviewed", title: "sample", difficulty: 1, author: "Suzuki", published: "2025-01-04T10:00:00" },
-    { status: "reviewed", title: "sample", difficulty: 3, author: "Satou", published: "2024-12-31T10:00:00" },
-    { status: "submitted", title: "sample", difficulty: 3, author: "Takahashi", published: "2024-12-31T10:00:00" },
-    { status: "submitted", title: "sample", difficulty: 1, author: "Takahashi", published: "2024-11-04T10:00:00" },
-    { status: "submitted", title: "sample", difficulty: 1, author: "Tanaka", published: "2024-11-04T10:00:00" },
-    { status: "submitted", title: "sample", difficulty: 2, author: "Itou", published: "2024-10-04T10:00:00" },
+    { status: "submitted", title: "Sum of Digits", difficulty: 1, author: "Suzuki", published: "2025-01-04T10:00:00" },
+    { status: "", title: "最大公約数", difficulty: 1, author: "Satou", published: "2025-01-05T10:00:00" },
+    { status: "reviewed", title: "最大の連続和", difficulty: 2, author: "Takahashi", published: "2024-12-31T10:00:00" },
+    { status: "reviewed", title: "Reverse String", difficulty: 1, author: "Suzuki", published: "2025-01-04T10:00:00" },
+    { status: "reviewed", title: "3Sum", difficulty: 2, author: "Satou", published: "2024-12-31T10:00:00" },
+    { status: "submitted", title: "N-クイーン問題", difficulty: 3, author: "Itou", published: "2024-10-04T10:00:00" },
+    { status: "submitted", title: "最短経路問題（ダイクストラ法）", difficulty: 3, author: "Tanaka", published: "2024-11-04T10:00:00" },
+    { status: "submitted", title: "FizzBuzz", difficulty: 1, author: "Satou", published: "2025-01-05T15:00:00" },
+    { status: "submitted", title: "動的計画法によるナップサック問題", difficulty: 3, author: "Takahashi", published: "2024-12-31T10:00:00" },
   ]
   return (
     <div className="px-4 py-2.5 flex gap-2.5 w-full">
