@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import './globals.css';
 import { Header } from './layout/header';
 import { notoSansJP, roboto } from './fonts/google-fonts';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,10 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={`${notoSansJP.variable} ${roboto.variable}`}>
-      <body className="w-screen h-screen flex flex-col gap-2 items-center sm:items-start">
+    <html lang="ja" className={`${notoSansJP.variable} ${roboto.variable} w-screen h-screen`}>
+      <body className="w-full h-full flex flex-col items-center sm:items-start">
         <Header />
-        <main className="w-full h-full">{children}</main>
+        <main className="w-full h-full grow overflow-auto">{children}</main>
       </body>
     </html>
   );
