@@ -4,9 +4,9 @@ import React from "react"
 
 const innerTextVariants = {
   default: '',
-  Easy:    'text-difficulty-easy',
-  Medium:  'text-difficulty-medium',
-  Hard:    'text-difficulty-hard',
+  Easy:    'text-green-800',
+  Medium:  'text-yellow-800',
+  Hard:    'text-red-700',
 }
 
 const ChipVariants = cva(
