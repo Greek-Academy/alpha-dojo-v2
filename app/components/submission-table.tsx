@@ -99,4 +99,3 @@ export const SubmissionTable = ({data, className}: Props) => {
         </Card>
     );
 };
-  
