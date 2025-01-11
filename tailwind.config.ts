@@ -89,6 +89,7 @@ const config: Config = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
 		fontSize: {
+			"body-medium":            ['14px', {fontWeight: '400', letterSpacing: '0.25px', lineHeight: '20px'}],
 			"label-medium-prominent": ['12px', {fontWeight: '600', letterSpacing: '0.5px', lineHeight: '16px'}]
 		}
   	}
