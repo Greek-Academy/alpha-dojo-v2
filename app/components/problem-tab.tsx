@@ -7,6 +7,34 @@ import {
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ClipboardPenLine, FileText, FlaskConical } from 'lucide-react';
+import { Submission, SubmissionList } from './submission-list';
+
+export const sampleSubmissions: Submission[] = [
+  {
+    status: 'failed',
+    language: 'typescript',
+    runtime_ms: 50,
+    date: new Date('2024-10-27'),
+  },
+  {
+    status: 'in-review',
+    language: 'typescript',
+    runtime_ms: 50,
+    date: new Date('2024-10-27'),
+  },
+  {
+    status: 'reviewed',
+    language: 'python',
+    runtime_ms: 50,
+    date: new Date('2024-10-27'),
+  },
+  {
+    status: 'finished',
+    language: 'typescript',
+    runtime_ms: 50,
+    date: new Date('2024-10-27'),
+  },
+];
 
 export const ProbremTab = () => {
   return (
@@ -39,11 +67,9 @@ export const ProbremTab = () => {
           </TabsContent>
           <TabsContent value="submissions" className="h-full bg-white">
             <Card className="h-full bg-gray-100">
-              <CardHeader>
-                <CardTitle>Submissions</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">回答が並びます。</CardContent>
-              <CardFooter>Footer...</CardFooter>
+              <CardContent className="space-y-2">
+                <SubmissionList submissions={sampleSubmissions} />
+              </CardContent>
             </Card>
           </TabsContent>
           <TabsContent value="solutions" className="h-full bg-white">
