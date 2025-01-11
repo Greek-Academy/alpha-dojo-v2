@@ -29,7 +29,7 @@ export const ProbremTab = () => {
         <div className="h-full">
           <TabsContent value="description" className="h-full">
             <Card className="h-full bg-gray-100">
-              <CardHeader className='items-start'>
+              <CardHeader className="items-start">
                 <CardTitle>最大の利益を持つ期間を探せ</CardTitle>
                 <Chip>Easy</Chip>
                 <Chip>Medium</Chip>
