@@ -2,6 +2,7 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import tseslintparser from "@typescript-eslint/parser";
+import eslintConfigPrettier from "eslint-config-prettier";
 
 // prettier との連携のため
 const tsParser = {
@@ -18,7 +19,6 @@ const tsParser = {
 }
 
 const myRules = {
-  // files: ["src/**/*.{ts}", "test/**/*.{ts}"],
   rules: {
     eqeqeq: 'error', // ===にしないとエラー
     'no-console': 'warn', // console.xxxを使うと警告
@@ -58,14 +58,18 @@ const myRules = {
   }
 };
 
-export default [
-  tsParser,
-  {
-    languageOptions: {
-      globals: globals.node
-    }
-  },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  myRules,
-];
+export default tseslint.config({
+  files: [
+    "app/**/*.{ts,tsx}",
+    "components/**/*.{ts,tsx}",
+    "hooks/**/*.{ts,tsx}",
+    "lib/**/*.{ts,tsx}"
+  ],
+  extends: [
+    pluginJs.configs.recommended,
+    tseslint.configs.recommended,
+    tsParser,
+    eslintConfigPrettier,
+    myRules
+  ],
+})
