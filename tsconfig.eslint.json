@@ -5,6 +5,12 @@
     },
     "include": [
         "app/**/*.ts",
-        "app/**/*.tsx"
+        "app/**/*.tsx",
+        "components/**/*.ts",
+        "components/**/*.tsx",
+        "hooks/**/*.ts",
+        "hooks/**/*.tsx",
+        "lib/**/*.ts",
+        "lib/**/*.tsx",
     ]
 }
