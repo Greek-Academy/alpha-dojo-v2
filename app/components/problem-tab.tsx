@@ -65,11 +65,7 @@ export const ProbremTab = ({ className }: { className?: string }) => {
         </Card>
       </TabsContent>
       <TabsContent value="submissions">
-        <Card className="border-0 shadow-none">
-          <CardContent className="space-y-2">
-            <SubmissionList submissions={sampleSubmissions} />
-          </CardContent>
-        </Card>
+        <SubmissionList submissions={sampleSubmissions} />
       </TabsContent>
       <TabsContent value="solutions">
         <Card className="border-0 shadow-none">
