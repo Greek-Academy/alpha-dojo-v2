@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "users-permissions_user",
+  "info": {
+    "displayName": "User",
+    "singularName": "user",
+    "pluralName": "users"
+  },
+  "attributes": {
+    "role": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::role.role",
+      "inversedBy": "users"
+    },
+    "solutions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::solution.solution",
+      "mappedBy": "user"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "user"
+    }
+  }
+}

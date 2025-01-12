@@ -6,7 +6,10 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /opt/
 COPY package.json package-lock.json ./
-RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install
+# RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install
+RUN npm config set fetch-retry-maxtimeout 600000 -g \
+    && npm install \
+    && npm install mysql2 --save
 
 WORKDIR /opt/app
 COPY . .

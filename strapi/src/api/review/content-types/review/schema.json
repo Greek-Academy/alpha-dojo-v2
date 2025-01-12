@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reviews",
+  "info": {
+    "singularName": "review",
+    "pluralName": "reviews",
+    "displayName": "Review"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "users": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "submission": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::submission.submission",
+      "inversedBy": "reviews"
+    },
+    "reviewComments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review-comment.review-comment",
+      "mappedBy": "review"
+    }
+  }
+}
