@@ -10,7 +10,7 @@
     "fix": "prettier --write \"app/**/*.tsx\" && eslint --fix app -c eslint.config.mjs"
   },
   "dependencies": {
-    "@monaco-editor/react": "^4.6.0",
+    "@monaco-editor/react": "4.7.0-rc.0",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
