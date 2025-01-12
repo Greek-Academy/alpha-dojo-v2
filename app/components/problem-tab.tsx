@@ -30,9 +30,9 @@ export const ProbremTab = ({ className }: { className?: string }) => {
         <Card className="border-0 shadow-none">
           <CardHeader className="items-start">
             <CardTitle>最大の利益を持つ期間を探せ</CardTitle>
-            <Chip>Easy</Chip>
-            <Chip>Medium</Chip>
-            <Chip>Hard</Chip>
+            <Chip className="text-green-800">Easy</Chip>
+            <Chip className="text-yellow-800">Medium</Chip>
+            <Chip className="text-red-800">Hard</Chip>
             <Chip>default</Chip>
           </CardHeader>
           <CardContent className="space-y-2">
