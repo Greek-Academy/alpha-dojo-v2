@@ -1,9 +1,4 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import {
   Card,
   CardContent,
@@ -49,14 +44,10 @@ export const ProbremTab = () => {
                       Hint 1
                     </AccordionTrigger>
                     <AccordionContent>
-                      ヒント その1
-                      <br />
-                      ヒント その1
-                      <br />
-                      ヒント その1
-                      <br />
-                      ヒント その1
-                      <br />
+                      ヒント その1<br />
+                      ヒント その1<br />
+                      ヒント その1<br />
+                      ヒント その1<br />
                       ヒント その1
                     </AccordionContent>
                   </AccordionItem>
@@ -66,14 +57,10 @@ export const ProbremTab = () => {
                       Hint 2
                     </AccordionTrigger>
                     <AccordionContent>
-                      ヒント その2
-                      <br />
-                      ヒント その2
-                      <br />
-                      ヒント その2
-                      <br />
-                      ヒント その2
-                      <br />
+                      ヒント その2<br />
+                      ヒント その2<br />
+                      ヒント その2<br />
+                      ヒント その2<br />
                       ヒント その2
                     </AccordionContent>
                   </AccordionItem>
