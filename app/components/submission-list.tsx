@@ -87,6 +87,7 @@ export const SubmissionList = ({
           <TableHead>Status</TableHead>
           <TableHead>Language</TableHead>
           <TableHead>Runtime</TableHead>
+          <TableHead></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
