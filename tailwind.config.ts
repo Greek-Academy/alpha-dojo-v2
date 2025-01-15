@@ -82,6 +82,9 @@ const config: Config = {
 				easy: 'rgb(var(--difficulty-easy))',
 				medium: 'rgb(var(--difficulty-medium))',
 				hard: 'rgb(var(--difficulty-hard))'
+			},
+			'state-layers': {
+				primary: 'rgb(var(--state-layers-primary))'
 			}
   		},
   		borderRadius: {
@@ -90,7 +93,15 @@ const config: Config = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
 		fontSize: {
+			"body-small":             ['12px', {fontWeight: '400', letterSpacing: '0.4px', lineHeight: '16px'}],
 			"label-medium-prominent": ['12px', {fontWeight: '600', letterSpacing: '0.5px', lineHeight: '16px'}]
+		},
+		spacing: {
+			'100': '25rem'
+		},
+		opacity: {
+			'8': '.08',
+			'12': '.12',
 		}
   	}
   },
