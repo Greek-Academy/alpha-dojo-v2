@@ -1,5 +1,6 @@
 import React from 'react';
-import Editor from '@monaco-editor/react';
+import Editor, { EditorProps } from '@monaco-editor/react';
+import { Language } from '@/lib/languages';
 
 const defaultValue = `class Solution {
 public:
@@ -22,6 +23,12 @@ public:
 };
 `;
 
-export function CodeEditor() {
-  return <Editor defaultValue={defaultValue} defaultLanguage="c" value="" />;
-}
+export const CodeEditor = ({ language, ...props }: EditorProps) => {
+  return (
+    <Editor
+      defaultValue={defaultValue}
+      language={language || Language.typescript.id.monaco}
+      {...props}
+    />
+  );
+};
