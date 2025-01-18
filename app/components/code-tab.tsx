@@ -11,17 +11,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import React from 'react';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+import { Confirm } from '@/components/ui/alert-dialog';
 import { OnMount } from '@monaco-editor/react';
+import { DialogPortalProps } from '@radix-ui/react-dialog';
 
 const defaultCodes: { [key in SupportedLanguage]: string } = {
   typescript: String.raw`class Cat {
@@ -89,21 +81,9 @@ export const CodeTab = ({ className }: { className?: string }) => {
   const [language, setLanguage] =
     React.useState<SupportedLanguage>(defaultLanguage);
 
-  /** Monaco Editor のコード内容の設定 (取得不可) */
-  const [codeValue, setCodeValue] = React.useState<string>(
-    defaultCodes[defaultLanguage]
-  );
-
   /** Monaco Editor の現在のコード内容 (設定不可) */
-  const currentCodeValue = () => editorRef?.current?.getValue();
-
-  /** Alert Dialog の開閉状態 */
-  const [alertOpen, setAlertOpen] = React.useState(false);
-
-  /** Alert Dialog の Promise (を React で Handle できるように) */
-  const [alertPromise, setAlertPromise] = React.useState<
-    ((value: boolean) => void) | null
-  >(null);
+  const getCodeValue = () => editorRef?.current?.getValue();
+  const setCodeValue = (code: string) => editorRef?.current?.setValue(code);
 
   /** 言語の変更を適用 (ハイライト・デフォルトコードの両方) */
   const changeLanguage = (newLanguage: SupportedLanguage) => {
@@ -111,20 +91,21 @@ export const CodeTab = ({ className }: { className?: string }) => {
     setCodeValue(defaultCodes[newLanguage]);
   };
 
+  /** Alert のレンダリング先 */
+  const [alertContainer, setAlertContainer] =
+    React.useState<DialogPortalProps['container']>(null);
+
   /** 言語選択の onChange イベントハンドラ */
   const handleLanguageChange = async (newLanguage: SupportedLanguage) => {
-    /** デフォルトから変更されたか？ */
-    if (currentCodeValue() === defaultCodes[language])
+    if (getCodeValue() === defaultCodes[language])
+      /** デフォルトから変更されていないので、確認無しで変更 */
       return changeLanguage(newLanguage);
 
-    const result = await new Promise<boolean>((resolve) => {
-      setAlertPromise(() => resolve);
-      setAlertOpen(true);
-      setTimeout(() => {
-        setAlertOpen(false);
-        resolve(false);
-      }, 60000);
-    });
+    const result = await Confirm(
+      '言語を切り替えますか？',
+      'コーディング言語を切り替えると今までの作業内容は失われ、デフォルトの状態に戻ります。',
+      alertContainer
+    );
 
     if (result) changeLanguage(newLanguage);
   };
@@ -137,7 +118,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
           code
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="code">
+      <TabsContent value="code" className="relative">
         <div className="flex flex-col w-full h-full">
           <div className="p-2 flex">
             {/* 言語選択 */}
@@ -165,42 +146,12 @@ export const CodeTab = ({ className }: { className?: string }) => {
           <CodeEditor
             language={Language[language].id.monaco}
             defaultValue={defaultCodes[defaultLanguage]}
-            value={codeValue}
             onMount={(editor) => {
               editorRef.current = editor;
             }}
           />
         </div>
-
-        {/* コーディング言語変更の確認 */}
-        <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>言語を切り替えますか？</AlertDialogTitle>
-              <AlertDialogDescription>
-                コーディング言語を切り替えると今までの作業内容は失われ、デフォルトの状態に戻ります。
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel
-                onClick={() => {
-                  alertPromise?.(false);
-                  setAlertPromise(null);
-                }}
-              >
-                キャンセル
-              </AlertDialogCancel>
-              <AlertDialogAction
-                onClick={() => {
-                  alertPromise?.(true);
-                  setAlertPromise(null);
-                }}
-              >
-                続行
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <div ref={setAlertContainer} />
       </TabsContent>
     </Tabs>
   );
