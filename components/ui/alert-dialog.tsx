@@ -150,7 +150,7 @@ AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName
  * );
  * 
  * return (
- *   position: relative でダイアログの表示範囲を指定
+ *   // position: relative でダイアログの表示範囲を指定
  *   <div className='relative'>
  *     ...
  *     <div ref={setContainer} />
