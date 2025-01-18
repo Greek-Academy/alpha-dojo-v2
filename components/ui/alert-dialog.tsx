@@ -4,7 +4,7 @@ import * as React from "react"
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 
 import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { ButtonProps, buttonVariants } from "@/components/ui/button"
 import { createRoot } from 'react-dom/client';
 import { DialogPortalProps } from "@radix-ui/react-dialog"
 
@@ -111,10 +111,11 @@ AlertDialogDescription.displayName =
 const AlertDialogAction = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Action>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>
->(({ className, ...props }, ref) => (
+    & { variant?: ButtonProps["variant"] }
+>(({ className, variant, ...props }, ref) => (
   <AlertDialogPrimitive.Action
     ref={ref}
-    className={cn(buttonVariants(), className)}
+    className={cn(buttonVariants({ variant }), className)}
     {...props}
   />
 ))
@@ -160,6 +161,7 @@ AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName
 export const Confirm = (
   title?: string,
   description?: string,
+  variant?: ButtonProps["variant"],
   /** Confirm Dialog のレンダリング先。デフォルトは `document.body`
    * @see Radix UI Alert Dialog's {@link https://www.radix-ui.com/primitives/docs/components/alert-dialog#custom-portal-container | Custom portal container}
    */
@@ -195,7 +197,7 @@ export const Confirm = (
               <AlertDialogCancel onClick={handleCancel}>
                   キャンセル
               </AlertDialogCancel>
-              <AlertDialogAction onClick={handleAction}>
+              <AlertDialogAction onClick={handleAction} variant={variant}>
                   続行
               </AlertDialogAction>
             </AlertDialogFooter>

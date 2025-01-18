@@ -104,6 +104,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
     const result = await Confirm(
       '言語を切り替えますか？',
       'コーディング言語を切り替えると今までの作業内容は失われ、デフォルトの状態に戻ります。',
+      'destructive',
       alertContainer
     );
 
