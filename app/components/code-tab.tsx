@@ -14,6 +14,8 @@ import React from 'react';
 import { Confirm } from '@/components/ui/alert-dialog';
 import { OnMount } from '@monaco-editor/react';
 import { DialogPortalProps } from '@radix-ui/react-dialog';
+import { Button } from '@/components/ui/button';
+import { RestartAltIcon } from './icons/material-symbols';
 
 const defaultCodes: { [key in SupportedLanguage]: string } = {
   typescript: String.raw`class Cat {
@@ -111,6 +113,21 @@ export const CodeTab = ({ className }: { className?: string }) => {
     if (result) changeLanguage(newLanguage);
   };
 
+  const handleCodeReset = async () => {
+    if (getCodeValue() === defaultCodes[language])
+      /** 変更されていなので、リセットの必要なし */
+      return;
+
+    const result = await Confirm(
+      'リセットしますか？',
+      '今までの作業内容は失われ、デフォルトの状態に戻ります。',
+      'destructive',
+      alertContainer
+    );
+
+    if (result) setCodeValue(defaultCodes[language]);
+  };
+
   return (
     <Tabs defaultValue="code" className={cn('h-full', className)}>
       <TabsList>
@@ -121,14 +138,14 @@ export const CodeTab = ({ className }: { className?: string }) => {
       </TabsList>
       <TabsContent value="code" className="relative">
         <div className="flex flex-col w-full h-full">
-          <div className="p-2 flex">
+          <div className="px-2 flex h-9">
             {/* 言語選択 */}
             <Select
               defaultValue={defaultLanguage}
               onValueChange={handleLanguageChange}
               value={language}
             >
-              <SelectTrigger className="w-auto border-0 shadow-none gap-2 p-0 h-auto">
+              <SelectTrigger className="w-auto border-0 shadow-none gap-2 p-0 h-auto mr-auto">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -141,6 +158,16 @@ export const CodeTab = ({ className }: { className?: string }) => {
                 })}
               </SelectContent>
             </Select>
+
+            {/* コードのリセット */}
+            <Button
+              variant="ghost"
+              className="w-auto h-auto p-2"
+              aria-label="リセット"
+              onClick={handleCodeReset}
+            >
+              <RestartAltIcon size={20} />
+            </Button>
           </div>
 
           {/* Monaco Editor */}
