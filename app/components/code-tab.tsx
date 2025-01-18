@@ -11,6 +11,17 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import React from 'react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import { OnMount } from '@monaco-editor/react';
 
 const defaultCodes: { [key in SupportedLanguage]: string } = {
   typescript: String.raw`class Cat {
@@ -68,14 +79,55 @@ int main() {
 };
 
 export const CodeTab = ({ className }: { className?: string }) => {
+  /** Monaco Editor への Ref */
+  const editorRef = React.useRef<Parameters<OnMount>[0] | null>(null);
+
+  /** 既定の言語 */
   const defaultLanguage: SupportedLanguage = 'typescript';
 
+  /** Monaco Editor のコーディング言語 */
   const [language, setLanguage] =
     React.useState<SupportedLanguage>(defaultLanguage);
 
+  /** Monaco Editor のコード内容の設定 (取得不可) */
   const [codeValue, setCodeValue] = React.useState<string>(
     defaultCodes[defaultLanguage]
   );
+
+  /** Monaco Editor の現在のコード内容 (設定不可) */
+  const currentCodeValue = () => editorRef?.current?.getValue();
+
+  /** Alert Dialog の開閉状態 */
+  const [alertOpen, setAlertOpen] = React.useState(false);
+
+  /** Alert Dialog の Promise (を React で Handle できるように) */
+  const [alertPromise, setAlertPromise] = React.useState<
+    ((value: boolean) => void) | null
+  >(null);
+
+  /** 言語の変更を適用 (ハイライト・デフォルトコードの両方) */
+  const changeLanguage = (newLanguage: SupportedLanguage) => {
+    setLanguage(newLanguage);
+    setCodeValue(defaultCodes[newLanguage]);
+  };
+
+  /** 言語選択の onChange イベントハンドラ */
+  const handleLanguageChange = async (newLanguage: SupportedLanguage) => {
+    /** デフォルトから変更されたか？ */
+    if (currentCodeValue() === defaultCodes[language])
+      return changeLanguage(newLanguage);
+
+    const result = await new Promise<boolean>((resolve) => {
+      setAlertPromise(() => resolve);
+      setAlertOpen(true);
+      setTimeout(() => {
+        setAlertOpen(false);
+        resolve(false);
+      }, 60000);
+    });
+
+    if (result) changeLanguage(newLanguage);
+  };
 
   return (
     <Tabs defaultValue="code" className={cn('h-full', className)}>
@@ -91,10 +143,8 @@ export const CodeTab = ({ className }: { className?: string }) => {
             {/* 言語選択 */}
             <Select
               defaultValue={defaultLanguage}
-              onValueChange={(value) => {
-                setLanguage(value as SupportedLanguage);
-                setCodeValue(defaultCodes[value as SupportedLanguage]);
-              }}
+              onValueChange={handleLanguageChange}
+              value={language}
             >
               <SelectTrigger className="w-auto border-0 shadow-none gap-2 p-0 h-auto">
                 <SelectValue />
@@ -111,12 +161,46 @@ export const CodeTab = ({ className }: { className?: string }) => {
             </Select>
           </div>
 
+          {/* Monaco Editor */}
           <CodeEditor
             language={Language[language].id.monaco}
             defaultValue={defaultCodes[defaultLanguage]}
             value={codeValue}
+            onMount={(editor) => {
+              editorRef.current = editor;
+            }}
           />
         </div>
+
+        {/* コーディング言語変更の確認 */}
+        <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>言語を切り替えますか？</AlertDialogTitle>
+              <AlertDialogDescription>
+                コーディング言語を切り替えると今までの作業内容は失われ、デフォルトの状態に戻ります。
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel
+                onClick={() => {
+                  alertPromise?.(false);
+                  setAlertPromise(null);
+                }}
+              >
+                キャンセル
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  alertPromise?.(true);
+                  setAlertPromise(null);
+                }}
+              >
+                続行
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </TabsContent>
     </Tabs>
   );
