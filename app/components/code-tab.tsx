@@ -174,6 +174,9 @@ export const CodeTab = ({ className }: { className?: string }) => {
           <CodeEditor
             language={Language[language].id.monaco}
             defaultValue={defaultCodes[defaultLanguage]}
+            // CodeEditor の兄弟要素 (親以上の兄弟も含む) の高さが確定していないと、高さ調整がバグる。
+            // calc は大丈夫そう。
+            height={'calc(100% - 36px)'}
             onMount={(editor) => {
               editorRef.current = editor;
             }}
