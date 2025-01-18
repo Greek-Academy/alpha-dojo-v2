@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="w-screen h-screen">
-      <body className="w-full h-full flex flex-col items-center sm:items-start">
+      <body className="w-full h-full flex flex-col items-center sm:items-start text-foreground">
         <Header />
         <main className="w-full h-full grow overflow-auto">{children}</main>
       </body>
