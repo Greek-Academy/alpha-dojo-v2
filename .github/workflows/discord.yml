@@ -1,0 +1,18 @@
+name: Discord Message
+
+on:
+  pull_request:
+    types: [opened, review_requested]
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord Message
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{
+              "content": "A new Pull Request has been opened: **${{ github.event.pull_request.title }}**\n<${{ github.event.pull_request.html_url }}>"
+            }' \
+            https://discord.com/api/webhooks/${{ secrets.DISCORD_WEBHOOK_ID }}/${{ secrets.DISCORD_WEBHOOK_TOKEN }}
