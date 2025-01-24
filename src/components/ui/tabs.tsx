@@ -29,8 +29,8 @@ const TabsList = React.forwardRef<
     className={cn(
       // shadcn original:
       // "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground",
-      'inline-flex h-10 items-center justify-center bg-neutral-200 p-1 text-muted-foreground',
-      'gap-1 flex justify-start text-primary shrink-0',
+      'inline-flex h-auto items-center justify-center bg-neutral-200 p-1 text-muted-foreground',
+      'gap-1 flex justify-start text-primary overflow-x-auto shrink-0',
       className
     )}
     {...props}
@@ -56,7 +56,8 @@ const TabsTrigger = React.forwardRef<
       )}
       {...props}
     />
-    <div className="bg-neutral-400 w-px h-5 last:hidden" />
+    {/* 縦の区切り線 */}
+    <div className="bg-neutral-400 w-px h-5 last:hidden shrink-0" />
   </>
 ));
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
