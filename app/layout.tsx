@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Header } from './layout/header';
+import { notoSansJP, roboto } from './fonts/google-fonts';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -13,8 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="w-screen h-screen">
-      <body className="w-full h-full flex flex-col items-center sm:items-start text-foreground">
+    <html
+      lang="ja"
+      className={`${notoSansJP.variable} ${roboto.variable} w-screen h-screen`}
+    >
+      <body className="w-full h-full flex flex-col items-center sm:items-start text-foreground text-body-medium">
         <Header />
         <main className="w-full h-full grow overflow-auto">{children}</main>
       </body>
