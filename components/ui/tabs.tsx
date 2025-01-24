@@ -12,7 +12,8 @@ const Tabs = React.forwardRef<
   <TabsPrimitive.Root
     ref={ref}
     className={cn(
-      "rounded-xl overflow-hidden border",
+      "rounded-xl overflow-hidden border " +
+      "flex flex-col",
       className
     )}
     {...props}
@@ -30,7 +31,7 @@ const TabsList = React.forwardRef<
       // shadcn original:
       // "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground",
       "inline-flex h-auto items-center justify-center bg-neutral-200 p-1 text-muted-foreground",
-      "gap-1 flex justify-start text-primary overflow-x-auto",
+      "gap-1 flex justify-start text-primary overflow-x-auto shrink-0",
       className
     )}
     {...props}
@@ -72,7 +73,7 @@ const TabsContent = React.forwardRef<
       // shadcn original:
       // "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
       "ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-      "flex-grow",
+      "flex-grow overflow-auto",
       className
     )}
     {...props}

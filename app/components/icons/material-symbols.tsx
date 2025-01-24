@@ -38,3 +38,7 @@ export const KeyboardArrowDownIcon = (props: MaterialSymbolProps) => {
 export const Lightbulb2 = (props: MaterialSymbolProps) => {
   return <MaterialSymbol {...props}>lightbulb_2</MaterialSymbol>;
 };
+
+export const TaskAltIcon = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>task_alt</MaterialSymbol>;
+};

@@ -89,10 +89,10 @@ export default function Home() {
 
   return (
     <Split {...splitProps('horizontal', 'px-2.5 pb-2.5 min-w-100 min-h-100')}>
-      <ProbremTab className="overflow-auto" />
+      <ProbremTab />
       <Split {...splitProps('vertical')}>
-        <CodeTab className="overflow-auto" />
-        <TestTab className="overflow-auto" />
+        <CodeTab />
+        <TestTab />
       </Split>
     </Split>
   );
