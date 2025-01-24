@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Chip } from '@/components/ui/chip';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { ClipboardPenLine, FileText, FlaskConical } from 'lucide-react';
@@ -62,8 +63,12 @@ export const ProbremTab = ({ className }: { className?: string }) => {
       </TabsList>
       <TabsContent value="description">
         <Card className="border-0 shadow-none">
-          <CardHeader>
+          <CardHeader className="items-start">
             <CardTitle>最大の利益を持つ期間を探せ</CardTitle>
+            <Chip className="text-green-800">Easy</Chip>
+            <Chip className="text-yellow-800">Medium</Chip>
+            <Chip className="text-red-800">Hard</Chip>
+            <Chip>default</Chip>
           </CardHeader>
           <CardContent className="space-y-2">
             あなたはとある店舗のマネージャーです。・・・・・問題文が続きます。
