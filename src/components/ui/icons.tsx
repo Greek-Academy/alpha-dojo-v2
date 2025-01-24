@@ -1,4 +1,4 @@
-import '@/app/fonts/MaterialSymbols.css';
+import '@/fonts/MaterialSymbols.css';
 import { cn } from '@/lib/utils';
 
 interface MaterialSymbolProps {

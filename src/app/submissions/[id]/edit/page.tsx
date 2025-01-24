@@ -1,7 +1,7 @@
 'use client';
-import { ProbremTab } from '@/app/components/problem-tab';
-import { TestTab } from '@/app/components/test-tab';
-import { CodeTab } from '@/app/components/code-tab';
+import { ProbremTab } from '@/components/problem-tab';
+import { TestTab } from '@/components/test-tab';
+import { CodeTab } from '@/components/code-tab';
 import Split, { SplitProps } from 'react-split';
 import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';

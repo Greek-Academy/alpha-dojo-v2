@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
-import { CheckIcon, TaskAltIcon } from './icons/material-symbols';
+import { CheckIcon, TaskAltIcon } from '@/components/ui/icons';
 
 export type Sample = {
   status: '' | 'submitted' | 'reviewed'; // 提出物の状態

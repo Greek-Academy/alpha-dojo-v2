@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint && prettier --check ./app ./components ./hooks ./lib ./*.config.*",
-    "fix": "prettier --write ./app ./components ./hooks ./lib ./*.config.* && eslint --fix"
+    "lint": "eslint && prettier --check ./src ./*.config.*",
+    "fix": "prettier --write ./src ./*.config.* && eslint --fix"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.2",

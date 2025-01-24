@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { AddIcon } from './components/icons/material-symbols';
+import { AddIcon } from '@/components/ui/icons';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { Sample, SubmissionTable } from './components/submission-table';
+import { Sample, SubmissionTable } from '@/components/submission-table';
 
 export default function Home() {
   const data: Sample[] = [
