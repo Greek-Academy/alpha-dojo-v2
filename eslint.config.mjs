@@ -1,22 +1,22 @@
-import globals from 'globals';
-import pluginJs from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import tseslintparser from '@typescript-eslint/parser';
-import eslintConfigPrettier from 'eslint-config-prettier';
+import globals from "globals";
+import pluginJs from "@eslint/js";
+import tseslint from "typescript-eslint";
+import tseslintparser from "@typescript-eslint/parser";
+import eslintConfigPrettier from "eslint-config-prettier";
 
 // prettier との連携のため
 const tsParser = {
   languageOptions: {
     parser: tseslintparser,
     parserOptions: {
-      sourceType: 'module',
-      project: 'tsconfig.eslint.json',
+      sourceType: "module",
+      project: "tsconfig.eslint.json"
     },
   },
   plugins: {
-    tseslint,
+    tseslint
   },
-};
+}
 
 const myRules = {
   rules: {
@@ -55,21 +55,21 @@ const myRules = {
     // '@typescript-eslint/no-require-imports': ['error'],
     '@typescript-eslint/no-namespace': ['off'],
     'linebreak-style': ['error', 'unix'],
-  },
+  }
 };
 
 export default tseslint.config({
   files: [
-    'app/**/*.{ts,tsx}',
-    'components/**/*.{ts,tsx}',
-    'hooks/**/*.{ts,tsx}',
-    'lib/**/*.{ts,tsx}',
+    "app/**/*.{ts,tsx}",
+    "components/**/*.{ts,tsx}",
+    "hooks/**/*.{ts,tsx}",
+    "lib/**/*.{ts,tsx}"
   ],
   extends: [
     pluginJs.configs.recommended,
     tseslint.configs.recommended,
     tsParser,
     eslintConfigPrettier,
-    myRules,
+    myRules
   ],
-});
+})
