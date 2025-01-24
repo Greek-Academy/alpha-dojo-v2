@@ -58,23 +58,18 @@ const myRules = {
   },
 };
 
-export default tseslint.config(
-  {
-    ignores: ['docker/*', 'strapi/*'],
-  },
-  {
-    files: [
-      'app/**/*.{ts,tsx}',
-      'components/**/*.{ts,tsx}',
-      'hooks/**/*.{ts,tsx}',
-      'lib/**/*.{ts,tsx}',
-    ],
-    extends: [
-      pluginJs.configs.recommended,
-      tseslint.configs.recommended,
-      tsParser,
-      eslintConfigPrettier,
-      myRules,
-    ],
-  }
-);
+export default tseslint.config({
+  files: [
+    'app/**/*.{ts,tsx}',
+    'components/**/*.{ts,tsx}',
+    'hooks/**/*.{ts,tsx}',
+    'lib/**/*.{ts,tsx}',
+  ],
+  extends: [
+    pluginJs.configs.recommended,
+    tseslint.configs.recommended,
+    tsParser,
+    eslintConfigPrettier,
+    myRules,
+  ],
+});
