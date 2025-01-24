@@ -1,4 +1,10 @@
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import {
   Card,
   CardContent,
   CardFooter,
@@ -8,6 +14,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { ClipboardPenLine, FileText, FlaskConical } from 'lucide-react';
+import { Lightbulb2 } from './icons/material-symbols';
 import { Submission, SubmissionList } from './submission-list';
 
 export const sampleSubmissions: Submission[] = [
@@ -61,7 +68,44 @@ export const ProbremTab = ({ className }: { className?: string }) => {
           <CardContent className="space-y-2">
             あなたはとある店舗のマネージャーです。・・・・・問題文が続きます。
           </CardContent>
-          <CardFooter>Footer...</CardFooter>
+          <CardFooter>
+            <Accordion type="multiple" className="w-full">
+              <AccordionItem value="hint-1">
+                <AccordionTrigger>
+                  <Lightbulb2 />
+                  Hint 1
+                </AccordionTrigger>
+                <AccordionContent>
+                  ヒント その1
+                  <br />
+                  ヒント その1
+                  <br />
+                  ヒント その1
+                  <br />
+                  ヒント その1
+                  <br />
+                  ヒント その1
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="hint-2">
+                <AccordionTrigger>
+                  <Lightbulb2 />
+                  Hint 2
+                </AccordionTrigger>
+                <AccordionContent>
+                  ヒント その2
+                  <br />
+                  ヒント その2
+                  <br />
+                  ヒント その2
+                  <br />
+                  ヒント その2
+                  <br />
+                  ヒント その2
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </CardFooter>
         </Card>
       </TabsContent>
       <TabsContent value="submissions">

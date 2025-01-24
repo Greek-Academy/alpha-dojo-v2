@@ -31,6 +31,14 @@ export const CheckIcon = (props: MaterialSymbolProps) => {
   return <MaterialSymbol {...props}>check</MaterialSymbol>;
 };
 
+export const KeyboardArrowDownIcon = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>keyboard_arrow_down</MaterialSymbol>;
+};
+
+export const Lightbulb2 = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>lightbulb_2</MaterialSymbol>;
+};
+
 export const TaskAltIcon = (props: MaterialSymbolProps) => {
   return <MaterialSymbol {...props}>task_alt</MaterialSymbol>;
 };
