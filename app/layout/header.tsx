@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { Button } from '@/components/ui/button';
 import { CircleUserRound, Play, Upload } from 'lucide-react';
