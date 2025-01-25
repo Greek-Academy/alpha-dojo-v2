@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		width: {
+			'100': '25rem'
+		},
   		colors: {
   			background: 'rgb(var(--background))',
   			foreground: {
@@ -72,12 +75,16 @@ const config: Config = {
   			},
 			status: {
 				done: 'rgb(var(--status-done))',
-				reviewed: 'rgb(var(--status-reviewed))'
+				reviewed: 'rgb(var(--status-reviewed))',
+				submitted: 'rgb(var(--status-submitted))'
 			},
 			difficulty: {
 				easy: 'rgb(var(--difficulty-easy))',
 				medium: 'rgb(var(--difficulty-medium))',
 				hard: 'rgb(var(--difficulty-hard))'
+			},
+			'state-layers': {
+				primary: 'rgb(var(--state-layers-primary))'
 			}
   		},
   		borderRadius: {
@@ -85,7 +92,34 @@ const config: Config = {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
+		fontSize: {
+			"body-medium":            ['14px', {fontWeight: '400', letterSpacing: '0.25px', lineHeight: '20px'}],
+			"body-small":             ['12px', {fontWeight: '400', letterSpacing: '0.4px', lineHeight: '16px'}],
+			"label-medium-prominent": ['12px', {fontWeight: '600', letterSpacing: '0.5px', lineHeight: '16px'}]
+		},
+    // shadcn accordion
+    keyframes: {
+      "accordion-down": {
+        from: { height: "0" },
+        to: { height: "var(--radix-accordion-content-height)" },
+      },
+      "accordion-up": {
+        from: { height: "var(--radix-accordion-content-height)" },
+        to: { height: "0" },
+      },
+    },
+    animation: {
+      "accordion-down": "accordion-down 0.2s ease-out",
+      "accordion-up": "accordion-up 0.2s ease-out",
+    },
+		spacing: {
+			'100': '25rem'
+		},
+		opacity: {
+			'8': '.08',
+			'12': '.12',
   	}
+		},
   },
   plugins: [require("tailwindcss-animate")],
 };
