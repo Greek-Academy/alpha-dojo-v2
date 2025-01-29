@@ -24,7 +24,11 @@ export default function Page() {
           </ToggleGroupItem>
         </ToggleGroup>
         <div className="w-full">
-          <SubmissionTable data={submissions} users={users} className="w-full" />
+          <SubmissionTable
+            data={submissions}
+            users={users}
+            className="w-full"
+          />
           <Link
             href="/submissions/1/edit"
             className="font-bold underline text-blue-600 visited:text-purple-600"

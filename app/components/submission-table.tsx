@@ -10,11 +10,11 @@ import {
 import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { CheckIcon, TaskAltIcon } from './icons/material-symbols';
-import { Submission, User } from './sample-data'; 
+import { Submission, User } from './sample-data';
 import Link from 'next/link';
 
 export type Props = {
-  data: Submission[];  // 提出物データ
+  data: Submission[]; // 提出物データ
   users: Record<string, User>; // ユーザー情報
   className?: string;
 };
@@ -66,7 +66,9 @@ const statusIcon = (status: string): JSX.Element => {
 
 export const SubmissionTable = ({ data, users, className }: Props) => {
   // IDで昇順に並べ替え
-  const sortedData = [...data].sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime());
+  const sortedData = [...data].sort(
+    (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime()
+  );
 
   return (
     <Card className={cn('w-full border-none', className)}>
@@ -106,13 +108,17 @@ export const SubmissionTable = ({ data, users, className }: Props) => {
                   <Link href={`/submission/${item.id}/edit`}>{item.title}</Link>
                 </TableCell>
                 <TableCell className={difficultyColor}>
-                  <Link href={`/submission/${item.id}/edit`}>{difficultyText}</Link>
+                  <Link href={`/submission/${item.id}/edit`}>
+                    {difficultyText}
+                  </Link>
                 </TableCell>
                 <TableCell>
                   <Link href={`/submission/${item.id}/edit`}>{authorName}</Link>
                 </TableCell>
                 <TableCell>
-                  <Link href={`/submission/${item.id}/edit`}>{timeAgo(item.published)}</Link>
+                  <Link href={`/submission/${item.id}/edit`}>
+                    {timeAgo(item.published)}
+                  </Link>
                 </TableCell>
               </TableRow>
             );
