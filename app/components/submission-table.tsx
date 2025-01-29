@@ -10,17 +10,12 @@ import {
 import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { CheckIcon, TaskAltIcon } from './icons/material-symbols';
-
-export type Sample = {
-  status: '' | 'submitted' | 'reviewed'; // 提出物の状態
-  title: string; // 提出物のタイトル
-  difficulty: number; // 提出物の難易度（1: Easy, 2: Normal, 3: Hard）
-  author: string; // 提出物の作成者
-  published: string; // 提出物の公開日
-};
+import { Submission, User } from './sample-data'; 
+import Link from 'next/link';
 
 export type Props = {
-  data: Sample[];
+  data: Submission[];  // 提出物データ
+  users: Record<string, User>; // ユーザー情報
   className?: string;
 };
 
@@ -69,7 +64,10 @@ const statusIcon = (status: string): JSX.Element => {
   }
 };
 
-export const SubmissionTable = ({ data, className }: Props) => {
+export const SubmissionTable = ({ data, users, className }: Props) => {
+  // IDで昇順に並べ替え
+  const sortedData = [...data].sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime());
+
   return (
     <Card className={cn('w-full border-none', className)}>
       <Table>
@@ -83,25 +81,39 @@ export const SubmissionTable = ({ data, className }: Props) => {
           </TableRow>
         </TableHeader>
         <TableBody className="text-base">
-          {data.map((item, index) => {
+          {sortedData.map((item, index) => {
             const { text: difficultyText, color: difficultyColor } =
               getDifficultyInfo(item.difficulty);
+
+            // usersデータからauthorIdに対応するnameを取得
+            const authorName = users[item.authorId]?.name || 'Unknown Author';
+
             return (
               <TableRow
-                key={index}
+                key={item.id}
                 className={
                   index % 2 === 0
-                    ? 'bg-white border-none'
-                    : 'bg-gray-100 border-none'
+                    ? 'bg-white border-none cursor-pointer'
+                    : 'bg-gray-100 border-none cursor-pointer'
                 }
               >
-                <TableCell>{statusIcon(item.status)}</TableCell>
-                <TableCell>{item.title}</TableCell>
-                <TableCell className={difficultyColor}>
-                  {difficultyText}
+                <TableCell>
+                  <Link href={`/submission/${item.id}/edit`}>
+                    {statusIcon(item.status)}
+                  </Link>
                 </TableCell>
-                <TableCell>{item.author}</TableCell>
-                <TableCell>{timeAgo(item.published)}</TableCell>
+                <TableCell>
+                  <Link href={`/submission/${item.id}/edit`}>{item.title}</Link>
+                </TableCell>
+                <TableCell className={difficultyColor}>
+                  <Link href={`/submission/${item.id}/edit`}>{difficultyText}</Link>
+                </TableCell>
+                <TableCell>
+                  <Link href={`/submission/${item.id}/edit`}>{authorName}</Link>
+                </TableCell>
+                <TableCell>
+                  <Link href={`/submission/${item.id}/edit`}>{timeAgo(item.published)}</Link>
+                </TableCell>
               </TableRow>
             );
           })}
