@@ -53,3 +53,57 @@
 
 3. 再度dockerコンテナを立ち上げ
     - コマンド: `docker compose up -d`
+
+
+## Strapi の起動方法
+### 0. 前提条件
+* Docker
+  * Windows 環境の場合はいくつか注意点があるので、[Windows 環境の注意点](#windows-環境の注意点) を参照してください。
+* ストレージ: 約 5GB
+* メモリ: 約 4GB
+
+### 1. 環境変数の設定
+* `.env.sample` を `.env` に変更してください。
+
+### 2. Docker コンテナの作成・起動
+* Docker Compose で、Strapi やそれに必要なアプリ (MySQL など) を起動します。
+  ```bash
+  docker compose up strapi -d
+  ```
+* 上記を実行すると、Strapi がバックグラウンドで実行されます。
+* ストレージを約 5GB 消費します。
+* メモリが約 4GB 必要です
+
+### 3. Docker の停止
+* 以下を実行すると、Docker の全体が停止します。
+  ```bash
+  docker compose down
+  ```
+
+### トラブルシューティング
+#### Windows 環境の注意点
+* Docker Desktop バックエンドを WSL にすることをお勧めします。
+  * Settings -> General -> Use the WSL 2 based engine
+    * WSL 上の Linux で、Windows の Docker を操作可能
+  * Settings -> Resources -> Network -> Enable host networking
+    * Docker container で `localhost` としてホストしているアプリに、Windows からアクセスする際に必要
+* WSL の Docker (docker-desktop) が時々故障 (消滅) することがあります。
+  * この場合、Docker Desktop の再インストールが必要
+* Windows 環境で `docker compose build` や `docker compose up --build` を実行 (特に、再ビルド時) すると、以下のようなエラーが発生することがあります。
+  ```
+  ERROR [strapi internal] load build context
+  failed to solve: archive/tar: unknown file mode ?rwxr-xr-x
+  ```
+  * Docker Desktop で WSL integration を有効にし、WSL 上の Linux 上から Windows の Docker を操作することで回避
+  * WSL から Windows の Docker Desktop を操作するには、以下の要件が必要
+    * WSL に docker-desktop 以外のディストリビューションがインストールされていること
+    * Docker Desktop の WSL integration が有効になっていること
+      * Settings -> Resources -> WSL integration -> Enable integration with ...
+
+#### Docker のキャッシュクリア
+* 何か不具合が発生した場合は、以下を実行するとキャッシュを無効化して再ビルドできます。
+  ```bash
+  docker compose down
+  docker image prune -a
+  docker compose build strapi --no-cache
+  ```

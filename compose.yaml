@@ -103,9 +103,9 @@ services:
       - ./strapi/config:/opt/app/config
       - ./strapi/src:/opt/app/src
       - ./strapi/package.json:/opt/package.json
-      - ./strapi/package-lock.json:/opt/package-lock.json
+      # - ./strapi/package-lock.json:/opt/package-lock.json
 
-      - ./strapi/.env:/opt/app/.env
+      - ./.env:/opt/app/.env
       - ./strapi/public/uploads:/opt/app/public/uploads
     ports:
       - '1337:1337'
@@ -133,8 +133,6 @@ services:
       - '3306:3306'
     networks:
       - strapi
-    # 所有者を明示 (再ビルド時の strapi-data フォルダへの権限不足を回避)
-    user: 1000:1000
 
   strapiAdminer:
     container_name: strapiAdminer
