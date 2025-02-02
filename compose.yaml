@@ -132,6 +132,8 @@ services:
       - '3306:3306'
     networks:
       - strapi
+    # 所有者を明示 (再ビルド時の strapi-data フォルダへの権限不足を回避)
+    user: 1000:1000
 
   strapiAdminer:
     container_name: strapiAdminer
