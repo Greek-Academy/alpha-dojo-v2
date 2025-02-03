@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "validators",
+  "info": {
+    "singularName": "validator",
+    "pluralName": "validators",
+    "displayName": "validator",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "problem_id": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::problem.problem",
+      "inversedBy": "validators"
+    },
+    "language_id": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::language.language",
+      "inversedBy": "validators"
+    },
+    "code_file": {
+      "type": "string"
+    }
+  }
+}
