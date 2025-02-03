@@ -68,12 +68,20 @@
 ### 2. Docker コンテナの作成・起動
 * Docker Compose で、Strapi やそれに必要なアプリ (MySQL など) を起動します。
   ```bash
+  docker compose up strapi
+  ```
+  バックグラウンドで起動したい場合は、オプション -d を付けます
+  ```bash
   docker compose up strapi -d
   ```
-* 上記を実行すると、Strapi がバックグラウンドで実行されます。
+* 上記を実行すると、Strapi が実行されます。
 * ストレージを約 5GB 消費します。
 * メモリが約 4GB 必要です。
 * [http://localhost:1337/admin](http://localhost:1337/admin) から管理画面にアクセスできます。
+  * Strapi の起動には時間がかかります。バックグラウンドで動作している場合にログを確認するには以下を実行します。
+    ```bash
+    docker compose logs strapi
+    ```
 
 ### 3. Docker の停止
 * 以下を実行すると、Docker の全体が停止します。
@@ -102,9 +110,10 @@
       * Settings -> Resources -> WSL integration -> Enable integration with ...
 
 #### Docker のキャッシュクリア
-* 何か不具合が発生した場合は、以下を実行するとキャッシュを無効化して再ビルドできます。
+* 何か不具合が発生した場合や、ファイルの変更を確実に反映させたい場合には、以下を実行するとキャッシュを無効化して再ビルドできます。
   ```bash
   docker compose down
   docker image prune -a
   docker compose build strapi --no-cache
+  docker compose up strapi
   ```
