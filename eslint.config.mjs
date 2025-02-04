@@ -63,12 +63,6 @@ export default tseslint.config(
     ignores: ['docker/*', 'strapi/*'],
   },
   {
-    files: [
-      'app/**/*.{ts,tsx}',
-      'components/**/*.{ts,tsx}',
-      'hooks/**/*.{ts,tsx}',
-      'lib/**/*.{ts,tsx}',
-    ],
     extends: [
       pluginJs.configs.recommended,
       tseslint.configs.recommended,
