@@ -4,7 +4,8 @@
   "info": {
     "singularName": "problem",
     "pluralName": "problems",
-    "displayName": "problem"
+    "displayName": "problem",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -21,7 +22,7 @@
       "type": "string"
     },
     "constrains": {
-      "type": "string"
+      "type": "richtext"
     },
     "validators": {
       "type": "relation",
