@@ -25,6 +25,7 @@ export class ApiProblemRepository implements ProblemRepository {
           problem.attributes.title,
           problem.attributes.description,
           problem.attributes.difficulty,
+          problem.attributes.constraints,
           new Date(problem.attributes.createdAt),
           new Date(problem.attributes.updatedAt)
         )
@@ -49,31 +50,33 @@ export class ApiProblemRepository implements ProblemRepository {
       json.data.attributes.title,
       json.data.attributes.description,
       json.data.attributes.difficulty,
+      json.data.attributes.constraints,
       new Date(json.data.attributes.createdAt),
       new Date(json.data.attributes.updatedAt)
     );
     return problem;
   }
 
-  async createProblem(problem: Problem): Promise<Problem> {
+  async createProblem(input: Omit<Problem, 'id'>): Promise<Problem> {
     const response = await fetch(`${STRAPI_API_URL}/problems`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_JWT}`,
       },
-      body: JSON.stringify(problem),
+      body: JSON.stringify(input),
     });
 
-    const data = await response.json();
+    const json = await response.json();
 
     return new Problem(
-      data.data.id,
-      data.data.attributes.title,
-      data.data.attributes.description,
-      data.data.attributes.difficulty,
-      new Date(data.data.attributes.createdAt),
-      new Date(data.data.attributes.updatedAt)
+      json.data.id,
+      json.data.attributes.title,
+      json.data.attributes.description,
+      json.data.attributes.difficulty,
+      json.data.attributes.constraints,
+      new Date(json.data.attributes.createdAt),
+      new Date(json.data.attributes.updatedAt)
     );
   }
 

@@ -6,6 +6,7 @@ export type ProblemDTO = {
     title: string;
     description: string;
     difficulty: Difficulty;
+    constraints: string;
     createdAt: string;
     updatedAt: string;
   };

@@ -22,20 +22,16 @@ export async function POST(req: Request) {
   try {
     const data = await req.json();
 
-    if (!data.title || !data.description || !data.difficulty) {
+    if (
+      !data.title ||
+      !data.description ||
+      !data.difficulty ||
+      !data.constraints
+    ) {
       return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
     }
 
-    const newProblem: Problem = {
-      title: data.title,
-      description: data.description,
-      difficulty: data.difficulty,
-      constrains: data.constrains,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-
-    const problem = await problemUseCase.createProblem(newProblem);
+    const problem = await problemUseCase.createProblem(data);
     return NextResponse.json(problem, { status: 201 });
   } catch (error) {
     return NextResponse.json(

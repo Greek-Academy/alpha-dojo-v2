@@ -12,8 +12,8 @@ export class ProblemUseCase {
     return await this.problemRepository.getProblemById(id);
   }
 
-  async createProblem(problem: Problem): Promise<void> {
-    await this.problemRepository.createProblem(problem);
+  async createProblem(input: Omit<Problem, 'id'>): Promise<Problem> {
+    return await this.problemRepository.createProblem(input);
   }
 
   async updateProblem(problem: Problem): Promise<void> {
