@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { AddIcon } from './components/icons/material-symbols';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { SubmissionTable } from './components/submission-table';
-import { submissions, users } from './components/sample-data';
+import { submissions} from '../lib/submissions';
 
 export default function Page() {
   return (
@@ -26,7 +26,6 @@ export default function Page() {
         <div className="w-full">
           <SubmissionTable
             data={submissions}
-            users={users}
             className="w-full"
           />
           <Link
@@ -39,11 +38,11 @@ export default function Page() {
       </div>
       <div className="w-100 flex flex-col gap-3">
         <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-accent text-accent-foreground">
-          <h1 className="text-xl font-bold">Notifications</h1>
+          <h1 className="text-xl font-semibold">Notifications</h1>
           通知がここに表示されます
         </div>
         <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-accent text-accent-foreground">
-          <h1 className="text-xl font-bold">Achievements</h1>
+          <h1 className="text-xl font-semibold">Achievements</h1>
           実績がここに表示されます
         </div>
       </div>

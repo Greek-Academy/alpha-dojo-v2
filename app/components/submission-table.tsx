@@ -10,12 +10,11 @@ import {
 import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { CheckIcon, TaskAltIcon } from './icons/material-symbols';
-import { Submission, User } from './sample-data';
+import { Submission } from '../../lib/submissions';
 import Link from 'next/link';
 
 export type Props = {
   data: Submission[]; // 提出物データ
-  users: Record<string, User>; // ユーザー情報
   className?: string;
 };
 
@@ -35,11 +34,13 @@ const getDifficultyInfo = (
   }
 };
 
-// 現在との日時差を「...ago」で返す
+// publishedの表示は'...ago'
 const timeAgo = (dateString: string): string => {
   const published = new Date(dateString);
+  if (isNaN(published.getTime())) {
+    return '';
+  }
   const timeAgoString = formatDistanceToNow(published, { addSuffix: true });
-  // 文頭の in, about を削除
   return timeAgoString.replace(/^in /, '').replace(/^about /, '');
 };
 
@@ -64,12 +65,7 @@ const statusIcon = (status: string): JSX.Element => {
   }
 };
 
-export const SubmissionTable = ({ data, users, className }: Props) => {
-  // IDで昇順に並べ替え
-  const sortedData = [...data].sort(
-    (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime()
-  );
-
+export const SubmissionTable = ({ data, className }: Props) => {
   return (
     <Card className={cn('w-full border-none', className)}>
       <Table>
@@ -83,12 +79,9 @@ export const SubmissionTable = ({ data, users, className }: Props) => {
           </TableRow>
         </TableHeader>
         <TableBody className="text-base">
-          {sortedData.map((item, index) => {
+          {data.map((item, index) => {
             const { text: difficultyText, color: difficultyColor } =
               getDifficultyInfo(item.difficulty);
-
-            // usersデータからauthorIdに対応するnameを取得
-            const authorName = users[item.authorId]?.name || 'Unknown Author';
 
             return (
               <TableRow
@@ -113,7 +106,9 @@ export const SubmissionTable = ({ data, users, className }: Props) => {
                   </Link>
                 </TableCell>
                 <TableCell>
-                  <Link href={`/submission/${item.id}/edit`}>{authorName}</Link>
+                  <Link href={`/submission/${item.id}/edit`}>
+                    {item.authorName}
+                  </Link>
                 </TableCell>
                 <TableCell>
                   <Link href={`/submission/${item.id}/edit`}>
