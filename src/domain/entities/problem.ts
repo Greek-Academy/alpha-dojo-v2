@@ -2,7 +2,7 @@ export type Difficulty = 'Easy' | 'Medium' | 'Hard';
 
 export class Problem {
   constructor(
-    public readonly id: number,
+    public readonly id: number | null,
     public readonly title: string,
     public readonly description: string,
     public readonly difficulty: Difficulty,
