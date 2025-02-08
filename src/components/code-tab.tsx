@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { Code } from 'lucide-react';
 import { CodeEditor } from './code-editor';
-import { Language, SupportedLanguage } from '@/lib/languages';
+import { Language, SupportedLanguage } from '../../lib/languages';
 import {
   Select,
   SelectContent,
@@ -15,7 +15,7 @@ import { Confirm } from '@/components/ui/alert-dialog';
 import { OnMount } from '@monaco-editor/react';
 import { DialogPortalProps } from '@radix-ui/react-dialog';
 import { Button } from '@/components/ui/button';
-import { RestartAltIcon } from './icons/material-symbols';
+import { RestartAltIcon } from '@/components/ui/icons';
 
 const defaultCodes: { [key in SupportedLanguage]: string } = {
   typescript: String.raw`class Cat {
