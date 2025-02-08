@@ -85,8 +85,7 @@ services:
   strapi:
     container_name: strapi
     build: ./strapi
-    # Strapi 公式の Docker image は Ver 3.6.8 なので、image は使わず自前で構築
-    # image: strapi/strapi:latest
+    image: strapi/strapi:latest
     restart: unless-stopped
     env_file: .env
     environment:
@@ -103,9 +102,9 @@ services:
       - ./strapi/config:/opt/app/config
       - ./strapi/src:/opt/app/src
       - ./strapi/package.json:/opt/package.json
-      # - ./strapi/package-lock.json:/opt/package-lock.json
+      - ./strapi/package-lock.json:/opt/package-lock.json
 
-      - ./.env:/opt/app/.env
+      - ./strapi/.env:/opt/app/.env
       - ./strapi/public/uploads:/opt/app/public/uploads
     ports:
       - '1337:1337'
