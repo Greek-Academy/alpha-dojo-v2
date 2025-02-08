@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint && prettier --check ./src ./*.config.*",
-    "fix": "prettier --write ./src ./*.config.* && eslint --fix"
+    "fix": "prettier --write ./src ./*.config.* && eslint --fix",
+    "strapi": "docker compose up strapi"
   },
   "dependencies": {
     "@monaco-editor/react": "4.7.0-rc.0",
