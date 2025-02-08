@@ -1,9 +1,8 @@
-'use client';
-
 import { Button } from '@/components/ui/button';
-import { CircleUserRound, Play, Upload } from 'lucide-react';
+import { Play, Upload } from 'lucide-react';
 import { PrimaryButton } from '../components/primary-button';
 import Link from 'next/link';
+import { MyAccount } from '@/components/my-account';
 
 export const Header = () => {
   return (
@@ -17,13 +16,13 @@ export const Header = () => {
             <Play />
             Run
           </Button>
-          <PrimaryButton onClick={() => alert('success')}>
+          <PrimaryButton>
             <Upload />
             Submit
           </PrimaryButton>
         </div>
         <div className="items-center">
-          <CircleUserRound size="24" />
+          <MyAccount />
         </div>
       </div>
     </div>
