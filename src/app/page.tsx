@@ -2,9 +2,8 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { AddIcon } from '@/components/ui/icons';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { SubmissionTable } from './components/submission-table';
-import { submissions} from '../lib/submissions';
-
+import { SubmissionTable } from '@/components/submission-table';
+import { submissions } from '../../lib/submissions';
 
 export default function Page() {
   return (
