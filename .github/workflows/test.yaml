@@ -1,0 +1,40 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  test:
+    name: Test
+    timeout-minutes: 60
+    # needs: setup
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: test
+        # run: pnpm test
+        id: run_tests
+        run: |
+          exit 1
+
+  discord_notify:
+    needs: test
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send failure message to Discord
+        run: |
+          echo "Test Failed! ❌"
+          # curl -X POST -H "Content-Type: application/json" \
+          #   -d '{
+          #     "content": "**Test Failed!** ❌\n- **Repository:** `${{ github.repository }}`\n- **Branch:** `${{ github.ref }}`
+          #     \n- **Commit:** `${{ github.sha }}`
+          #     \n- **Error Logs:** [Download Here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          #     \n- **Triggered by:** `${{ github.actor }}`
+          #     \n- **Check Details:** [View Workflow](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+          #   }' \
+          #   https://discord.com/api/webhooks/${{ secrets.DISCORD_WEBHOOK_ID }}/${{ secrets.DISCORD_WEBHOOK_TOKEN }}
