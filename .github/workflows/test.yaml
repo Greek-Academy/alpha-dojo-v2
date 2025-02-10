@@ -25,13 +25,12 @@ jobs:
     steps:
       - name: Send failure message to Discord
         run: |
-          echo "Test Failed! ❌"
-          # curl -X POST -H "Content-Type: application/json" \
-          #   -d '{
-          #     "content": "**Test Failed!** ❌\n- **Repository:** `${{ github.repository }}`\n- **Branch:** `${{ github.ref }}`
-          #     \n- **Commit:** `${{ github.sha }}`
-          #     \n- **Error Logs:** [Download Here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-          #     \n- **Triggered by:** `${{ github.actor }}`
-          #     \n- **Check Details:** [View Workflow](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
-          #   }' \
-          #   https://discord.com/api/webhooks/${{ secrets.DISCORD_WEBHOOK_ID }}/${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{
+              "content": "**Test Failed!** ❌\n- **Repository:** `${{ github.repository }}`\n- **Branch:** `${{ github.ref }}`
+              \n- **Commit:** `${{ github.sha }}`
+              \n- **Error Logs:** [Download Here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+              \n- **Triggered by:** `${{ github.actor }}`
+              \n- **Check Details:** [View Workflow](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+            }' \
+            https://discord.com/api/webhooks/${{ secrets.DISCORD_WEBHOOK_ID }}/${{ secrets.DISCORD_WEBHOOK_TOKEN }}
