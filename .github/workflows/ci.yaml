@@ -7,5 +7,13 @@ on:
       - main
 
 jobs:
+  setup:
+    uses: ./.github/workflows/ci-setup.yaml
+
   lint:
+    needs: setup
     uses: ./.github/workflows/lint.yaml
+
+  test:
+    needs: setup
+    uses: ./.github/workflows/test.yaml
