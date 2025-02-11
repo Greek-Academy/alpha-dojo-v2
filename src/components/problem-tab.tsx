@@ -15,7 +15,7 @@ import { Chip } from '@/components/ui/chip';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { ClipboardPenLine, FileText, FlaskConical } from 'lucide-react';
-import { Lightbulb2 } from '@/components/ui/icons';
+import { Lightbulb2 } from '@icons';
 import { Submission, SubmissionList } from './submission-list';
 
 export const sampleSubmissions: Submission[] = [

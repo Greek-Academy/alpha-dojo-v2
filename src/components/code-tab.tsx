@@ -15,7 +15,7 @@ import { Confirm } from '@/components/ui/alert-dialog';
 import { OnMount } from '@monaco-editor/react';
 import { DialogPortalProps } from '@radix-ui/react-dialog';
 import { Button } from '@/components/ui/button';
-import { RestartAltIcon } from '@/components/ui/icons';
+import { RestartAltIcon } from '@icons';
 
 const defaultCodes: { [key in SupportedLanguage]: string } = {
   typescript: String.raw`class Cat {
