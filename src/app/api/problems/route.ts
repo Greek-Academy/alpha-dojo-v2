@@ -9,8 +9,7 @@ export async function GET() {
   try {
     const problems = await problemUseCase.getAllProblems();
     return NextResponse.json(problems, { status: 200 });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { error: 'Failed to fetch problems' },
       { status: 500 }

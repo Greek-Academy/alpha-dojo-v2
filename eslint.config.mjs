@@ -43,15 +43,18 @@ const myRules = {
     // ],
     // '@typescript-eslint/no-explicit-any': ['error'],
     // FIXME: _ が無視されない
-    // '@typescript-eslint/no-unused-vars': [
-    //     'warn',
-    //     {
-    //         "argsIgnorePattern": "^_",
-    //         "varsIgnorePattern": "^_",
-    //         "caughtErrorsIgnorePattern": "^_",
-    //         "destructuredArrayIgnorePattern": "^_"
-    //     }
-    // ],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        args: 'all',
+        argsIgnorePattern: '^_',
+        caughtErrors: 'all',
+        caughtErrorsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        ignoreRestSiblings: true,
+      },
+    ],
     // '@typescript-eslint/no-require-imports': ['error'],
     '@typescript-eslint/no-namespace': ['off'],
     'linebreak-style': ['error', 'unix'],
