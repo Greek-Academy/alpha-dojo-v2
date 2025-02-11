@@ -2,8 +2,8 @@ import { Button } from '@/components/ui/button';
 import { ReactNode } from 'react';
 
 interface PrimaryButtonProps {
-  onClick?: (e: React.FormEvent) => void;
-  children?: ReactNode;
+  onClick: (e: React.FormEvent) => void;
+  children: ReactNode;
 }
 
 export function PrimaryButton(props: PrimaryButtonProps) {
