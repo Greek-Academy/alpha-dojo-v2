@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { Code } from 'lucide-react';
 import { CodeEditor } from './code-editor';
-import { Language, SupportedLanguage } from '../../lib/languages';
+import { Language, SupportedLanguage } from '@/../lib/languages';
 import {
   Select,
   SelectContent,

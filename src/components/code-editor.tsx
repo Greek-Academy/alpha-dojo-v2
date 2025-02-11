@@ -1,8 +1,8 @@
 import React from 'react';
 import Editor, { EditorProps } from '@monaco-editor/react';
-import { Language } from '@/lib/languages';
+import { Language } from '../../lib/languages';
 import Image from 'next/image';
-import Spinner from '@/public/spinner.svg';
+import Spinner from '@/../public/spinner.svg';
 import { cn } from '@/lib/utils';
 
 export const CodeEditor = ({
