@@ -7,4 +7,8 @@ export class ProblemUseCase {
   async getAllProblems(): Promise<Problem[]> {
     return await this.problemRepository.getProblems();
   }
+
+  async getProblem(id: number): Promise<Problem> {
+    return await this.problemRepository.getProblem(id);
+  }
 }

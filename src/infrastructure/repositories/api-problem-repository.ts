@@ -41,4 +41,29 @@ export class ApiProblemRepository implements ProblemRepository {
 
     return problems;
   }
+
+  async getProblem(id: number): Promise<Problem> {
+    const authToken = await getAuthToken();
+    const response = await fetch(`${STRAPI_API_URL}/problems/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    const json: ProblemDTO = await response.json();
+
+    const problem = new Problem(
+      json.id,
+      json.attributes.title,
+      json.attributes.description,
+      json.attributes.difficulty,
+      json.attributes.constraints,
+      new Date(json.attributes.createdAt),
+      new Date(json.attributes.updatedAt)
+    );
+
+    return problem;
+  }
 }
