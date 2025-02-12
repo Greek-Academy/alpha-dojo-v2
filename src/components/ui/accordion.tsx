@@ -2,10 +2,9 @@
 
 import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import { ChevronDown } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { KeyboardArrowDownIcon } from '@/components/ui/icons';
+import { KeyboardArrowDownIcon } from '@icons';
 
 const Accordion = AccordionPrimitive.Root;
 
