@@ -1,5 +1,20 @@
 # Alpha DOJO v2
 
+## フロントエンドの起動について
+* フロントエンド (Next.js) を起動する際には、Strapi を利用したログイン状態の管理が必須になっています。
+* 非ログイン状態では `/login` ページ以外を表示できません。
+
+### 1. Strapi の起動
+* [Strapi の起動方法](#strapi-の起動方法) を参照してください
+
+### 2. Strapi の設定
+* [Strapi の公式ガイド](https://strapi.io/blog/how-to-implement-github-social-login-in-next-js-with-strapi) の "Setting Up Strapi Github Auth Provider" の内容を参照してください。
+    * 管理画面にログインし、`Settings` -> `Users & Permissions plugin` -> `Providers` -> `github` の内容を設定してください。
+
+### 3. フロントエンドの起動
+```bash
+pnpm run dev
+```
 
 ## Firebaseエミュレータの設定方法
 

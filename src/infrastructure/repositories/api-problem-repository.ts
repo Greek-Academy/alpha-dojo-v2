@@ -4,7 +4,7 @@ import { ProblemDTO } from '@/infrastructure/dto/problem-dto';
 import { cookies } from 'next/headers';
 
 const STRAPI_API_URL =
-  process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337/api';
+  (process.env.STRAPI_PUBLIC_URL || 'http://localhost:1337') + '/api';
 
 // ライブラリとして共有すべき？
 export async function getAuthToken() {
