@@ -1,6 +1,6 @@
 import { Problem } from '@/domain/entities/problem';
 
 export interface ProblemRepository {
-  getProblems(): Promise<Problem[]>;
-  getProblem(id: number): Promise<Problem>;
+  getProblems(authToken: string): Promise<Problem[]>;
+  getProblem(id: number, authToken: string): Promise<Problem>;
 }

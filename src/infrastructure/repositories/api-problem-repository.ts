@@ -1,21 +1,12 @@
 import { ProblemRepository } from '@/domain/repositories/problem-repository';
 import { Problem } from '@/domain/entities/problem';
 import { ProblemDTO } from '@/infrastructure/dto/problem-dto';
-import { cookies } from 'next/headers';
 
 const STRAPI_API_URL =
   (process.env.STRAPI_PUBLIC_URL || 'http://localhost:1337') + '/api';
 
-// ライブラリとして共有すべき？
-export async function getAuthToken() {
-  const authToken = (await cookies()).get('jwt')?.value;
-  return authToken;
-}
-
 export class ApiProblemRepository implements ProblemRepository {
-  async getProblems(): Promise<Problem[]> {
-    const authToken = await getAuthToken();
-
+  async getProblems(authToken: string): Promise<Problem[]> {
     const response = await fetch(`${STRAPI_API_URL}/problems`, {
       method: 'GET',
       headers: {
@@ -42,8 +33,7 @@ export class ApiProblemRepository implements ProblemRepository {
     return problems;
   }
 
-  async getProblem(id: number): Promise<Problem> {
-    const authToken = await getAuthToken();
+  async getProblem(id: number, authToken: string): Promise<Problem> {
     const response = await fetch(`${STRAPI_API_URL}/problems/${id}`, {
       method: 'GET',
       headers: {
