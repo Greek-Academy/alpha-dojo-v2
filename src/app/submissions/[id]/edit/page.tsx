@@ -25,7 +25,11 @@ samplePersons.push(new Person('bさん', 15, 'Kyoto'));
 samplePersons.push(new Person('cさん', 25, 'Nagoya'));
 samplePersons.push(new Person('dさん', 32, 'Osaka'));
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ id: number }>;
+}) {
   return (
     <ResizablePanelGroup
       autoSaveId="submissions-1"
@@ -33,7 +37,7 @@ export default async function Home() {
       className="px-2.5 pb-2.5 min-w-100 min-h-100"
     >
       <ResizablePanel defaultSize={30}>
-        <ProbremTab />
+        <ProbremTab problemId={(await params).id} />
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel defaultSize={70}>
