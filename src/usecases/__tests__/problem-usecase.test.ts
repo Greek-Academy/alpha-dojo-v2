@@ -54,7 +54,7 @@ describe('ProblemUseCase', () => {
             // not found
             throw new TypeError();
 
-          return mockProblems[id - 1];
+          return problem;
         }),
     };
     problemUseCase = new ProblemUseCase(mockProblemRepository);
