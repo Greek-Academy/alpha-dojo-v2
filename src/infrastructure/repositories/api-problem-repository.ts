@@ -42,16 +42,17 @@ export class ApiProblemRepository implements ProblemRepository {
       },
     });
 
-    const json: ProblemDTO = await response.json();
+    const json = await response.json();
+    const problemDTO: ProblemDTO = json.data;
 
     const problem = new Problem(
-      json.id,
-      json.attributes.title,
-      json.attributes.description,
-      json.attributes.difficulty,
-      json.attributes.constraints,
-      new Date(json.attributes.createdAt),
-      new Date(json.attributes.updatedAt)
+      problemDTO.id,
+      problemDTO.attributes.title,
+      problemDTO.attributes.description,
+      problemDTO.attributes.difficulty,
+      problemDTO.attributes.constraints,
+      new Date(problemDTO.attributes.createdAt),
+      new Date(problemDTO.attributes.updatedAt)
     );
 
     return problem;
