@@ -61,7 +61,7 @@ export const ProbremTab = async ({
   /** 課題一覧の取得 */
   const problem = await fetchProblem(problemId);
 
-  const difficultyChip = (difficulty: Difficulty) => {
+  const DifficultyChip = (props: {difficulty: Difficulty}) => {
     const difficultyChipVariants = cva('', {
       variants: {
         difficulty: {
@@ -73,8 +73,8 @@ export const ProbremTab = async ({
     });
 
     return (
-      <Chip className={difficultyChipVariants({ difficulty })}>
-        {difficulty}
+      <Chip className={difficultyChipVariants({ difficulty: props.difficulty })}>
+        {props.difficulty}
       </Chip>
     );
   };
@@ -101,8 +101,8 @@ export const ProbremTab = async ({
       <TabsContent value="description">
         <Card className="border-0 shadow-none">
           <CardHeader className="items-start">
-            <CardTitle>{problem.title}</CardTitle>
-            {difficultyChip(problem.difficulty)}
+            <CardTitle className='mb-2.5'>{problem.title}</CardTitle>
+            <DifficultyChip difficulty={problem.difficulty} />
           </CardHeader>
           <CardContent className="space-y-2">
             <Markdown>{problem.description}</Markdown>
