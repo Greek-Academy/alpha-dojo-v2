@@ -29,18 +29,64 @@ describe('ProblemUseCase', () => {
     ),
   ];
 
+  const mockAuthToken: string = 'authToken';
+
   beforeEach(() => {
     jest.clearAllMocks();
 
     mockProblemRepository = {
-      getProblems: jest.fn().mockResolvedValue(mockProblems),
+      getProblems: jest.fn().mockImplementation((authToken: string) => {
+        if (authToken !== mockAuthToken)
+          // Invalid AuthToken
+          throw new TypeError();
+
+        return mockProblems;
+      }),
+      getProblem: jest
+        .fn()
+        .mockImplementation((id: number, authToken: string) => {
+          if (authToken !== mockAuthToken)
+            // invalid authToken
+            throw new TypeError();
+
+          const problem = mockProblems[id - 1];
+          if (!problem)
+            // not found
+            throw new TypeError();
+
+          return mockProblems[id - 1];
+        }),
     };
     problemUseCase = new ProblemUseCase(mockProblemRepository);
   });
 
   it('should return all problems', async () => {
-    const problems = await problemUseCase.getAllProblems();
+    const problems = await problemUseCase.getAllProblems(mockAuthToken);
     expect(problems.length).toBe(2);
     expect(mockProblemRepository.getProblems).toHaveBeenCalledTimes(1);
+  });
+
+  it('should throw TypeError (invalid authToken)', async () => {
+    expect(() => mockProblemRepository.getProblems('')).toThrow(
+      new TypeError()
+    );
+  });
+
+  it('should return a problem', async () => {
+    const problem = await problemUseCase.getProblem(1, mockAuthToken);
+    expect(problem).toBe(mockProblems[0]);
+    expect(mockProblemRepository.getProblem).toHaveBeenCalledTimes(1);
+  });
+
+  it('should throw TypeError (invalid authToken)', async () => {
+    expect(() => mockProblemRepository.getProblem(1, '')).toThrow(
+      new TypeError()
+    );
+  });
+
+  it('should throw TypeError (not found)', async () => {
+    expect(() => mockProblemRepository.getProblem(3, mockAuthToken)).toThrow(
+      new TypeError()
+    );
   });
 });
