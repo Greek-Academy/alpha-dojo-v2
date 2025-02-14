@@ -368,7 +368,10 @@ export const SubmissionTable = ({ data, className }: Props) => {
           {paginatedData.map((item, index) => {
             const { text: difficultyText, color: difficultyColor } =
               getDifficultyInfo(item.difficulty);
-
+            const handleRowClick = () => {
+              window.location.href = `/submissions/${item.id}/edit`;
+            };
+  
             return (
               <TableRow
                 key={item.id}
@@ -377,29 +380,22 @@ export const SubmissionTable = ({ data, className }: Props) => {
                     ? 'bg-white border-none cursor-pointer'
                     : 'bg-gray-100 border-none cursor-pointer'
                 }
+                onClick={handleRowClick}
               >
                 <TableCell>
-                  <Link href={`/submissions/${item.id}/edit`}>
-                    {statusIcon(item.status)}
-                  </Link>
+                  {statusIcon(item.status) || <span>&nbsp;</span>}
                 </TableCell>
                 <TableCell>
-                  <Link href={`/submissions/${item.id}/edit`}>{item.title}</Link>
+                  {item.title || <span>&nbsp;</span>}
                 </TableCell>
                 <TableCell className={difficultyColor}>
-                  <Link href={`/submissions/${item.id}/edit`}>
-                    {difficultyText}
-                  </Link>
+                  {difficultyText || <span>&nbsp;</span>}
                 </TableCell>
                 <TableCell>
-                  <Link href={`/submissions/${item.id}/edit`}>
-                    {item.authorName}
-                  </Link>
+                  {item.authorName || <span>&nbsp;</span>}
                 </TableCell>
                 <TableCell>
-                  <Link href={`/submissions/${item.id}/edit`}>
-                    {timeAgo(item.published)}
-                  </Link>
+                  {timeAgo(item.published) || <span>&nbsp;</span>}
                 </TableCell>
               </TableRow>
             );
