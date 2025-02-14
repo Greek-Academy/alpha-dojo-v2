@@ -70,15 +70,19 @@ const statusIcon = (status: string): JSX.Element => {
 
 const TableHeaderWithFilters = ({
   onTogglePopup,
-  filterValues, 
+  filterValues,
 }: {
   onSort: (key: keyof Submission, direction: 'asc' | 'desc') => void;
   onFilter: (key: keyof Submission, values: string[]) => void;
   onTogglePopup: (key: keyof Submission, rect: DOMRect) => void;
   data: Submission[];
-  filterValues: Record<'status' | 'title' | 'difficulty' | 'authorName', string[]>; 
+  filterValues: Record<
+    'status' | 'title' | 'difficulty' | 'authorName',
+    string[]
+  >;
 }) => {
-  const isFiltered = (key: 'status' | 'title' | 'difficulty' | 'authorName') => filterValues[key].length > 0;
+  const isFiltered = (key: 'status' | 'title' | 'difficulty' | 'authorName') =>
+    filterValues[key].length > 0;
 
   return (
     <TableHeader>
@@ -88,12 +92,12 @@ const TableHeaderWithFilters = ({
             Status
             <div
               className={cn('cursor-pointer ml-auto', {
-                'border-2 border-gray-500': isFiltered('status'), 
+                'border-2 border-gray-500': isFiltered('status'),
               })}
               style={{
-                width: '24px', 
-                height: '24px', 
-                display: 'flex', 
+                width: '24px',
+                height: '24px',
+                display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
@@ -111,7 +115,7 @@ const TableHeaderWithFilters = ({
             Title
             <div
               className={cn('cursor-pointer ml-auto', {
-                'border-2 border-gray-500': isFiltered('title'), 
+                'border-2 border-gray-500': isFiltered('title'),
               })}
               style={{
                 width: '24px',
@@ -134,7 +138,7 @@ const TableHeaderWithFilters = ({
             Difficulty
             <div
               className={cn('cursor-pointer ml-auto', {
-                'border-2 border-gray-500': isFiltered('difficulty'), 
+                'border-2 border-gray-500': isFiltered('difficulty'),
               })}
               style={{
                 width: '24px',
@@ -160,7 +164,7 @@ const TableHeaderWithFilters = ({
             Author
             <div
               className={cn('cursor-pointer ml-auto', {
-                'border-2 border-gray-500': isFiltered('authorName'), 
+                'border-2 border-gray-500': isFiltered('authorName'),
               })}
               style={{
                 width: '24px',
@@ -218,9 +222,16 @@ export const SubmissionTable = ({ data, className }: Props) => {
     difficulty: '',
     authorName: '',
   });
-  const [popupVisible, setPopupVisible] = useState<keyof Submission | null>(null);
-  const [popupPosition, setPopupPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
-  const [filterValues, setFilterValues] = useState<Record<'status' | 'title' | 'difficulty' | 'authorName', string[]>>({
+  const [popupVisible, setPopupVisible] = useState<keyof Submission | null>(
+    null
+  );
+  const [popupPosition, setPopupPosition] = useState<{
+    top: number;
+    left: number;
+  }>({ top: 0, left: 0 });
+  const [filterValues, setFilterValues] = useState<
+    Record<'status' | 'title' | 'difficulty' | 'authorName', string[]>
+  >({
     status: [],
     title: [],
     difficulty: [],
@@ -230,7 +241,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
   const rowsPerPage = 7; // 1ページあたりの行数
 
   useEffect(() => {
-    filterColumn(); 
+    filterColumn();
   }, [filterValues, filterText]); // filterValuesとfilterTextの変更時にフィルタを再適用
 
   const sortColumn = (key: keyof Submission, direction: 'asc' | 'desc') => {
@@ -246,10 +257,13 @@ export const SubmissionTable = ({ data, className }: Props) => {
     let filtered = [...data];
     Object.keys(filterText).forEach((key) => {
       const filterKey = key as 'status' | 'title' | 'difficulty' | 'authorName';
-      const textFilter = filterText[filterKey];  
+      const textFilter = filterText[filterKey];
       if (textFilter) {
         filtered = filtered.filter((item) =>
-          item[filterKey]?.toString().toLowerCase().includes(textFilter.toLowerCase())
+          item[filterKey]
+            ?.toString()
+            .toLowerCase()
+            .includes(textFilter.toLowerCase())
         );
       }
     });
@@ -258,7 +272,9 @@ export const SubmissionTable = ({ data, className }: Props) => {
       const keyAs = key as 'status' | 'title' | 'difficulty' | 'authorName';
       const filter = filterValues[keyAs];
       if (filter.length > 0) {
-        filtered = filtered.filter((item) => filter.includes(item[keyAs].toString()));
+        filtered = filtered.filter((item) =>
+          filter.includes(item[keyAs].toString())
+        );
       }
     });
 
@@ -274,15 +290,19 @@ export const SubmissionTable = ({ data, className }: Props) => {
   };
 
   const getUniqueValues = (key: keyof Submission) => {
-    return Array.from(new Set(data.map(item => item[key])));
+    return Array.from(new Set(data.map((item) => item[key])));
   };
 
-  const handleCheckboxChange = (key: 'status' | 'title' | 'difficulty' | 'authorName', value: string, checked: boolean) => {
-    setFilterValues(prev => ({
+  const handleCheckboxChange = (
+    key: 'status' | 'title' | 'difficulty' | 'authorName',
+    value: string,
+    checked: boolean
+  ) => {
+    setFilterValues((prev) => ({
       ...prev,
       [key]: checked
         ? [...prev[key], value]
-        : prev[key].filter(v => v !== value),
+        : prev[key].filter((v) => v !== value),
     }));
   };
 
@@ -293,25 +313,28 @@ export const SubmissionTable = ({ data, className }: Props) => {
 
   // 対象の列のフィルタをクリア
   const handleClearFilter = (key: keyof Submission) => {
-    setFilterValues(prev => ({
+    setFilterValues((prev) => ({
       ...prev,
-      [key]: [], 
+      [key]: [],
     }));
-    setFilterText(prev => ({
+    setFilterText((prev) => ({
       ...prev,
-      [key]: '', 
+      [key]: '',
     }));
   };
-  
+
   const handleFilterTextChange = (key: keyof Submission, value: string) => {
-    setFilterText(prev => ({
+    setFilterText((prev) => ({
       ...prev,
       [key]: value,
     }));
   };
 
   // ページネーション処理
-  const paginatedData = sortedData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  const paginatedData = sortedData.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
   const totalPages = Math.ceil(sortedData.length / rowsPerPage);
 
   const goToFirstPage = () => {
@@ -321,7 +344,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
-  }; 
+  };
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -330,7 +353,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
   const goToLastPage = () => {
     setCurrentPage(totalPages);
   };
-  
+
   return (
     <Card className={cn('w-full border-none', className)}>
       <Table>
@@ -343,27 +366,40 @@ export const SubmissionTable = ({ data, className }: Props) => {
         />
         <TableBody className="text-base">
           {paginatedData.map((item, index) => {
-            const { text: difficultyText, color: difficultyColor } = getDifficultyInfo(item.difficulty);
+            const { text: difficultyText, color: difficultyColor } =
+              getDifficultyInfo(item.difficulty);
 
             return (
               <TableRow
                 key={item.id}
-                className={index % 2 === 0 ? 'bg-white border-none cursor-pointer' : 'bg-gray-100 border-none cursor-pointer'}
+                className={
+                  index % 2 === 0
+                    ? 'bg-white border-none cursor-pointer'
+                    : 'bg-gray-100 border-none cursor-pointer'
+                }
               >
                 <TableCell>
-                  <Link href={`/submission/${item.id}/edit`}>{statusIcon(item.status)}</Link>
+                  <Link href={`/submission/${item.id}/edit`}>
+                    {statusIcon(item.status)}
+                  </Link>
                 </TableCell>
                 <TableCell>
                   <Link href={`/submission/${item.id}/edit`}>{item.title}</Link>
                 </TableCell>
                 <TableCell className={difficultyColor}>
-                  <Link href={`/submission/${item.id}/edit`}>{difficultyText}</Link>
+                  <Link href={`/submission/${item.id}/edit`}>
+                    {difficultyText}
+                  </Link>
                 </TableCell>
                 <TableCell>
-                  <Link href={`/submission/${item.id}/edit`}>{item.authorName}</Link>
+                  <Link href={`/submission/${item.id}/edit`}>
+                    {item.authorName}
+                  </Link>
                 </TableCell>
                 <TableCell>
-                  <Link href={`/submission/${item.id}/edit`}>{timeAgo(item.published)}</Link>
+                  <Link href={`/submission/${item.id}/edit`}>
+                    {timeAgo(item.published)}
+                  </Link>
                 </TableCell>
               </TableRow>
             );
@@ -405,7 +441,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
           Last
         </button>
       </div>
-  
+
       {popupVisible && (
         <div
           className="absolute bg-white border shadow-lg w-48 p-4 z-10"
@@ -439,49 +475,67 @@ export const SubmissionTable = ({ data, className }: Props) => {
               <div>
                 <input
                   type="text"
-                  onChange={(e) => handleFilterTextChange(popupVisible, e.target.value)} 
+                  onChange={(e) =>
+                    handleFilterTextChange(popupVisible, e.target.value)
+                  }
                   placeholder="検索"
                   className="mt-2 mb-2 border w-full"
-                  value={filterText[popupVisible] || ''} 
+                  value={filterText[popupVisible] || ''}
                 />
               </div>
             )}
           </div>
-  
+
           {/* フィルタリング用チェックボックス */}
           {popupVisible === 'status' && (
-          <>
-            {getUniqueValues('status').map((status) => (
-              <div key={status} className="flex items-center mt-1 mb-1 min-h-[1rem]">
-                <input
-                  type="checkbox"
-                  checked={filterValues.status.includes(status.toString())}
-                  onChange={(e) =>
-                    handleCheckboxChange('status', status.toString(), e.target.checked)
-                  }
-                  className="mr-2"
-                />
-                {typeof status === 'string' ? status.charAt(0).toUpperCase() + status.slice(1) : status} 
-              </div>
-            ))}
-            <button
-              className="bg-red-900 text-white mt-2 px-4 py-2 rounded"
-              onClick={() => handleClearFilter('status')} 
-            >
-              すべて解除
-            </button>
-          </>
-        )}
-  
+            <>
+              {getUniqueValues('status').map((status) => (
+                <div
+                  key={status}
+                  className="flex items-center mt-1 mb-1 min-h-[1rem]"
+                >
+                  <input
+                    type="checkbox"
+                    checked={filterValues.status.includes(status.toString())}
+                    onChange={(e) =>
+                      handleCheckboxChange(
+                        'status',
+                        status.toString(),
+                        e.target.checked
+                      )
+                    }
+                    className="mr-2"
+                  />
+                  {typeof status === 'string'
+                    ? status.charAt(0).toUpperCase() + status.slice(1)
+                    : status}
+                </div>
+              ))}
+              <button
+                className="bg-red-900 text-white mt-2 px-4 py-2 rounded"
+                onClick={() => handleClearFilter('status')}
+              >
+                すべて解除
+              </button>
+            </>
+          )}
+
           {popupVisible === 'title' && (
             <>
               {getUniqueValues('title').map((title) => (
-                <label key={title} className="block flex items-center mt-1 mb-1 min-h-[1rem]">
+                <label
+                  key={title}
+                  className="block flex items-center mt-1 mb-1 min-h-[1rem]"
+                >
                   <input
                     type="checkbox"
                     checked={filterValues.title.includes(title.toString())}
                     onChange={(e) =>
-                      handleCheckboxChange('title', title.toString(), e.target.checked)
+                      handleCheckboxChange(
+                        'title',
+                        title.toString(),
+                        e.target.checked
+                      )
                     }
                     className="mr-2"
                   />
@@ -490,24 +544,35 @@ export const SubmissionTable = ({ data, className }: Props) => {
               ))}
               <button
                 className="bg-red-900 text-white mt-2 px-4 py-2 rounded"
-                onClick={() => handleClearFilter('title')} 
+                onClick={() => handleClearFilter('title')}
               >
                 すべて解除
               </button>
             </>
           )}
-  
+
           {popupVisible === 'difficulty' && (
             <>
               {getUniqueValues('difficulty').map((difficulty) => {
-                const { text: difficultyText } = getDifficultyInfo(Number(difficulty));
+                const { text: difficultyText } = getDifficultyInfo(
+                  Number(difficulty)
+                );
                 return (
-                  <label key={difficulty} className="block flex items-center mt-1 mb-1 min-h-[1rem]">
+                  <label
+                    key={difficulty}
+                    className="block flex items-center mt-1 mb-1 min-h-[1rem]"
+                  >
                     <input
                       type="checkbox"
-                      checked={filterValues.difficulty.includes(difficulty.toString())}
+                      checked={filterValues.difficulty.includes(
+                        difficulty.toString()
+                      )}
                       onChange={(e) =>
-                        handleCheckboxChange('difficulty', difficulty.toString(), e.target.checked)
+                        handleCheckboxChange(
+                          'difficulty',
+                          difficulty.toString(),
+                          e.target.checked
+                        )
                       }
                       className="mr-2"
                     />
@@ -517,22 +582,31 @@ export const SubmissionTable = ({ data, className }: Props) => {
               })}
               <button
                 className="bg-red-900 text-white mt-2 px-4 py-2 rounded"
-                onClick={() => handleClearFilter('difficulty')} 
+                onClick={() => handleClearFilter('difficulty')}
               >
                 すべて解除
               </button>
             </>
           )}
-  
+
           {popupVisible === 'authorName' && (
             <>
               {getUniqueValues('authorName').map((authorName) => (
-                <label key={authorName} className="block flex items-center mt-1 mb-1 min-h-[1rem]">
+                <label
+                  key={authorName}
+                  className="block flex items-center mt-1 mb-1 min-h-[1rem]"
+                >
                   <input
                     type="checkbox"
-                    checked={filterValues.authorName.includes(authorName.toString())}
+                    checked={filterValues.authorName.includes(
+                      authorName.toString()
+                    )}
                     onChange={(e) =>
-                      handleCheckboxChange('authorName', authorName.toString(), e.target.checked)
+                      handleCheckboxChange(
+                        'authorName',
+                        authorName.toString(),
+                        e.target.checked
+                      )
                     }
                     className="mr-2"
                   />
@@ -541,7 +615,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
               ))}
               <button
                 className="bg-red-900 text-white mt-2 px-4 py-2 rounded"
-                onClick={() => handleClearFilter('authorName')} 
+                onClick={() => handleClearFilter('authorName')}
               >
                 すべて解除
               </button>
@@ -550,5 +624,5 @@ export const SubmissionTable = ({ data, className }: Props) => {
         </div>
       )}
     </Card>
-  );  
+  );
 };
