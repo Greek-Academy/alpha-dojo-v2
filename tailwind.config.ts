@@ -89,9 +89,29 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontSize: {
+        'headline-large': [
+          '32px',
+          { fontWeight: '400', letterSpacing: '0px', lineHeight: '40px' },
+        ],
         'headline-medium': [
           '28px',
           { fontWeight: '400', letterSpacing: '0px', lineHeight: '36px' },
+        ],
+        'headline-small': [
+          '24px',
+          { fontWeight: '400', letterSpacing: '0px', lineHeight: '32px' },
+        ],
+        'title-large': [
+          '22px',
+          { fontWeight: '400', letterSpacing: '0px', lineHeight: '28px' },
+        ],
+        'title-medium': [
+          '16px',
+          { fontWeight: '500', letterSpacing: '0.15px', lineHeight: '24px' },
+        ],
+        'title-small': [
+          '14px',
+          { fontWeight: '500', letterSpacing: '0.1px', lineHeight: '20px' },
         ],
         'body-medium': [
           '14px',
