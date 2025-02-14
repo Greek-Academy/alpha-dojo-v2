@@ -2,7 +2,7 @@
 
 import { Problem } from '@/domain/entities/problem';
 import { cookies } from 'next/headers';
-import { responseErrorHandler } from './response-error-handler';
+import { responseHandler } from './response-handler';
 
 const HOST_URL = process.env.HOST_URL || 'http://localhost:3000';
 
@@ -15,9 +15,9 @@ export async function fetchProblem(id: number): Promise<Problem> {
     },
   });
 
-  const data = await res.json();
+  const responseResult = await responseHandler<Problem>(res);
 
-  responseErrorHandler(res, data);
+  if (!responseResult.success) throw responseResult.error;
 
-  return data;
+  return responseResult.json;
 }
