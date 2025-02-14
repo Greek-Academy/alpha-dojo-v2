@@ -379,7 +379,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
                     ? 'bg-white border-none cursor-pointer'
                     : 'bg-gray-100 border-none cursor-pointer'
                 }
-                onClick={handleRowClick} 
+                onClick={handleRowClick}
               >
                 <TableCell>
                   {statusIcon(item.status) || <span>&nbsp;</span>}
