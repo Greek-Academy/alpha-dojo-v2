@@ -379,25 +379,25 @@ export const SubmissionTable = ({ data, className }: Props) => {
                 }
               >
                 <TableCell>
-                  <Link href={`/submission/${item.id}/edit`}>
+                  <Link href={`/submissions/${item.id}/edit`}>
                     {statusIcon(item.status)}
                   </Link>
                 </TableCell>
                 <TableCell>
-                  <Link href={`/submission/${item.id}/edit`}>{item.title}</Link>
+                  <Link href={`/submissions/${item.id}/edit`}>{item.title}</Link>
                 </TableCell>
                 <TableCell className={difficultyColor}>
-                  <Link href={`/submission/${item.id}/edit`}>
+                  <Link href={`/submissions/${item.id}/edit`}>
                     {difficultyText}
                   </Link>
                 </TableCell>
                 <TableCell>
-                  <Link href={`/submission/${item.id}/edit`}>
+                  <Link href={`/submissions/${item.id}/edit`}>
                     {item.authorName}
                   </Link>
                 </TableCell>
                 <TableCell>
-                  <Link href={`/submission/${item.id}/edit`}>
+                  <Link href={`/submissions/${item.id}/edit`}>
                     {timeAgo(item.published)}
                   </Link>
                 </TableCell>
