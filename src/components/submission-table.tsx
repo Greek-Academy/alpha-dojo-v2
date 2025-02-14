@@ -211,7 +211,7 @@ const TableHeaderWithFilters = ({
 
 export const SubmissionTable = ({ data, className }: Props) => {
   const [sortedData, setSortedData] = useState(data);
-  const [setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const [, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [filterText, setFilterText] = useState<{ [key: string]: string }>({
     status: '',
     title: '',
