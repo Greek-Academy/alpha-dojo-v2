@@ -1,30 +1,30 @@
 /** 言語情報 */
 export interface LanguageInfo {
   id: {
-    monaco: string
-  }
-  name: string
+    monaco: string;
+  };
+  name: string;
 }
 
 export const Language = {
   typescript: {
     id: {
-      monaco: "typescript"
+      monaco: 'typescript',
     },
-    name: "TypeScript"
+    name: 'TypeScript',
   },
   python: {
     id: {
-      monaco: "python"
+      monaco: 'python',
     },
-    name: "Python"
+    name: 'Python',
   },
   c: {
     id: {
-      monaco: "c"
+      monaco: 'c',
     },
-    name: "C"
-  }
-} as const satisfies {[key: string]: LanguageInfo};
+    name: 'C',
+  },
+} as const satisfies { [key: string]: LanguageInfo };
 
 export type SupportedLanguage = keyof typeof Language;

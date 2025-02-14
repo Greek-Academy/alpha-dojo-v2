@@ -1,12 +1,12 @@
-name: Lint
+name: Test
 
 on:
   workflow_dispatch:
   workflow_call:
 
 jobs:
-  lint:
-    name: Lint
+  test:
+    name: Run Test
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
@@ -53,5 +53,22 @@ jobs:
         if: ${{ steps.cache-node.outputs.cache-hit != 'true' }}
         run: pnpm i
 
-      - name: Lint
-        run: pnpm run lint
+      - name: test
+        run: pnpm test
+
+  discord_notify:
+    needs: test
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send failure message to Discord
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{
+              "content": "**Test Failed!** ❌\n- **Repository:** `${{ github.repository }}`\n- **Branch:** `${{ github.ref }}`
+              \n- **Commit:** `${{ github.sha }}`
+              \n- **Error Logs:** [Download Here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+              \n- **Triggered by:** `${{ github.actor }}`
+              \n- **Check Details:** [View Workflow](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+            }' \
+            https://discord.com/api/webhooks/${{ secrets.DISCORD_WEBHOOK_ID }}/${{ secrets.DISCORD_WEBHOOK_TOKEN }}

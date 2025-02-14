@@ -131,3 +131,6 @@ dist
 build
 .strapi-updater.json
 .strapi-cloud.json
+
+# Docker 内で `npm i` で生成するため不要
+package-lock.json

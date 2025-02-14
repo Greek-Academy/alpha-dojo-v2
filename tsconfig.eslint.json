@@ -4,12 +4,8 @@
         "allowJs": true
     },
     "include": [
-        "app/**/*.ts",
-        "app/**/*.tsx",
-        "components/**/*.ts",
-        "components/**/*.tsx",
-        "hooks/**/*.ts",
-        "hooks/**/*.tsx",
+        "src/**/*.ts",
+        "src/**/*.tsx",
         "lib/**/*.ts",
         "lib/**/*.tsx",
     ]
