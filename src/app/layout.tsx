@@ -25,6 +25,8 @@ export default function RootLayout({
         '[&_h4]:text-title-large',
         '[&_h5]:text-title-medium',
         '[&_h6]:text-title-small',
+        '[&_ul]:list-inside',
+        '[&_ol]:list-inside'
       )}
     >
       <body className="w-full h-full flex flex-col items-center sm:items-start text-foreground text-body-medium">

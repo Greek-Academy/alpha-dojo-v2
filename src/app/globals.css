@@ -102,3 +102,34 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+ul {
+  list-style-type: disc;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+/* FIXME: コードが長い */
+:is(ul, ol) > li > ul {
+  list-style-type: circle;
+  padding-left: 20px;
+}
+
+:is(ul, ol) > li > ol {
+  list-style-type: lower-roman;
+  padding-left: 20px;
+}
+
+:is(ul, ol) > li > :is(ul, ol) > li > ul {
+  list-style-type: square;
+}
+
+:is(ul, ol) > li > :is(ul, ol) > li > ol {
+  list-style-type: lower-alpha;
+}
+
+:is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > ol {
+  list-style-type: lower-greek;
+}
