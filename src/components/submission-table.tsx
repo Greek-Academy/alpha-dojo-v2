@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { CheckIcon, TaskAltIcon } from '@/components/ui/icons';
 import { Submission } from '../../lib/submissions';
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { KeyboardArrowDownIcon } from '@/components/ui/icons';
 import { ArrowUpwardIcon, ArrowDownwardIcon } from '@/components/ui/icons';
