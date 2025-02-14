@@ -26,7 +26,8 @@ export default function RootLayout({
         '[&_h5]:text-title-medium',
         '[&_h6]:text-title-small',
         '[&_ul]:list-inside',
-        '[&_ol]:list-inside'
+        '[&_ol]:list-inside',
+        '[&_a]:text-blue-600 visited:[&_a]:text-purple-600 [&_a]:underline [&_a]:underline-offset-2'
       )}
     >
       <body className="w-full h-full flex flex-col items-center sm:items-start text-foreground text-body-medium">
