@@ -73,20 +73,20 @@ describe('ProblemUseCase', () => {
   });
 
   it('should return a problem', async () => {
-    const problem = await problemUseCase.getProblem(1, mockAuthToken);
+    const problem = await problemUseCase.getProblemById(1, mockAuthToken);
     expect(problem).toBe(mockProblems[0]);
     expect(mockProblemRepository.getProblem).toHaveBeenCalledTimes(1);
   });
 
   it('should throw TypeError (invalid authToken)', async () => {
-    await expect(problemUseCase.getProblem(1, '')).rejects.toThrow(
+    await expect(problemUseCase.getProblemById(1, '')).rejects.toThrow(
       new TypeError()
     );
   });
 
   it('should throw TypeError (not found)', async () => {
-    await expect(problemUseCase.getProblem(3, mockAuthToken)).rejects.toThrow(
-      new TypeError()
-    );
+    await expect(
+      problemUseCase.getProblemById(3, mockAuthToken)
+    ).rejects.toThrow(new TypeError());
   });
 });

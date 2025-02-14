@@ -15,7 +15,7 @@ export async function GET(
     if (!authToken)
       return NextResponse.json({ error: 'Failed to get jwt' }, { status: 401 });
 
-    const problem = await problemUseCase.getProblem(
+    const problem = await problemUseCase.getProblemById(
       (await params).id,
       authToken
     );

@@ -8,7 +8,7 @@ export class ProblemUseCase {
     return await this.problemRepository.getProblems(authToken);
   }
 
-  async getProblem(id: number, authToken: string): Promise<Problem> {
+  async getProblemById(id: number, authToken: string): Promise<Problem> {
     return await this.problemRepository.getProblem(id, authToken);
   }
 }
