@@ -370,7 +370,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
             const handleRowClick = () => {
               window.location.href = `/submissions/${item.id}/edit`;
             };
-  
+
             return (
               <TableRow
                 key={item.id}
@@ -379,20 +379,16 @@ export const SubmissionTable = ({ data, className }: Props) => {
                     ? 'bg-white border-none cursor-pointer'
                     : 'bg-gray-100 border-none cursor-pointer'
                 }
-                onClick={handleRowClick}
+                onClick={handleRowClick} 
               >
                 <TableCell>
                   {statusIcon(item.status) || <span>&nbsp;</span>}
                 </TableCell>
-                <TableCell>
-                  {item.title || <span>&nbsp;</span>}
-                </TableCell>
+                <TableCell>{item.title || <span>&nbsp;</span>}</TableCell>
                 <TableCell className={difficultyColor}>
                   {difficultyText || <span>&nbsp;</span>}
                 </TableCell>
-                <TableCell>
-                  {item.authorName || <span>&nbsp;</span>}
-                </TableCell>
+                <TableCell>{item.authorName || <span>&nbsp;</span>}</TableCell>
                 <TableCell>
                   {timeAgo(item.published) || <span>&nbsp;</span>}
                 </TableCell>
