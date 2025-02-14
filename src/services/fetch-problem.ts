@@ -2,7 +2,7 @@
 
 import { Problem } from '@/domain/entities/problem';
 import { cookies } from 'next/headers';
-import { notFound } from 'next/navigation';
+import { responseErrorHandler } from './response-error-handler';
 
 const HOST_URL = process.env.HOST_URL || 'http://localhost:3000';
 
@@ -17,14 +17,7 @@ export async function fetchProblem(id: number): Promise<Problem> {
 
   const data = await res.json();
 
-  switch (res.status) {
-    case 401:
-      throw new Error(data.error);
-    case 404:
-      throw notFound();
-    case 500:
-      throw new Error(data.error);
-  }
+  responseErrorHandler(res, data);
 
   return data;
 }
