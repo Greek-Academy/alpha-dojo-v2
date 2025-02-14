@@ -35,7 +35,7 @@ describe('ProblemUseCase', () => {
     jest.clearAllMocks();
 
     mockProblemRepository = {
-      getProblems: jest.fn().mockImplementation((authToken: string) => {
+      getProblems: jest.fn().mockImplementation(async (authToken: string) => {
         if (authToken !== mockAuthToken)
           // Invalid AuthToken
           throw new TypeError();
@@ -44,7 +44,7 @@ describe('ProblemUseCase', () => {
       }),
       getProblem: jest
         .fn()
-        .mockImplementation((id: number, authToken: string) => {
+        .mockImplementation(async (id: number, authToken: string) => {
           if (authToken !== mockAuthToken)
             // invalid authToken
             throw new TypeError();
@@ -67,7 +67,7 @@ describe('ProblemUseCase', () => {
   });
 
   it('should throw TypeError (invalid authToken)', async () => {
-    expect(() => mockProblemRepository.getProblems('')).toThrow(
+    await expect(problemUseCase.getAllProblems('')).rejects.toThrow(
       new TypeError()
     );
   });
@@ -79,13 +79,13 @@ describe('ProblemUseCase', () => {
   });
 
   it('should throw TypeError (invalid authToken)', async () => {
-    expect(() => mockProblemRepository.getProblem(1, '')).toThrow(
+    await expect(problemUseCase.getProblem(1, '')).rejects.toThrow(
       new TypeError()
     );
   });
 
   it('should throw TypeError (not found)', async () => {
-    expect(() => mockProblemRepository.getProblem(3, mockAuthToken)).toThrow(
+    await expect(problemUseCase.getProblem(3, mockAuthToken)).rejects.toThrow(
       new TypeError()
     );
   });
