@@ -1,7 +1,7 @@
 import { ProblemRepository } from '@/domain/repositories/problem-repository';
 import { Problem } from '@/domain/entities/problem';
 import { ProblemDTO } from '@/infrastructure/dto/problem-dto';
-import { responseErrorHandler } from '../response-error-handler';
+import { responseHandler } from '../response-handler';
 
 const STRAPI_API_URL =
   (process.env.STRAPI_PUBLIC_URL || 'http://localhost:1337') + '/api';
@@ -17,12 +17,14 @@ export class ApiProblemRepository implements ProblemRepository {
       },
     });
 
-    const json = await response.json();
+    const responseResult = await responseHandler<{ data: ProblemDTO[] }>(
+      response
+    );
 
-    responseErrorHandler(response, json);
+    if (!responseResult.success) throw responseResult.error;
 
-    const problems = json.data.map(
-      (problem: ProblemDTO) =>
+    const problems = responseResult.json.data.map(
+      (problem) =>
         new Problem(
           problem.id,
           problem.attributes.title,
