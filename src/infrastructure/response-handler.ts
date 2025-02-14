@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ResponseError } from '@/domain/entities/error';
 
 export type ResponseResult<T> =
@@ -28,8 +27,8 @@ export async function responseHandler<T>(
     responseError = new ResponseError(
       res.status,
       res.statusText,
-      (data as any).error,
-      (data as any).error.message
+      data.error,
+      data.error.message
     );
   } catch (_e) {
     responseError = new ResponseError(
@@ -39,5 +38,5 @@ export async function responseHandler<T>(
     );
   }
 
-  throw { success: false, error: responseError };
+  return { success: false, error: responseError };
 }
