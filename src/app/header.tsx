@@ -1,9 +1,6 @@
-'use client';
-
-import { Button } from '@/components/ui/button';
-import { CircleUserRound, Play, Upload } from 'lucide-react';
-import { PrimaryButton } from '../components/primary-button';
+import { HeaderButtons } from './header-buttons';
 import Link from 'next/link';
+import { MyAccount } from '@/components/my-account';
 
 export const Header = () => {
   return (
@@ -12,18 +9,9 @@ export const Header = () => {
         <Link className="items-center" href="/">
           Alpha Dojo
         </Link>
-        <div className="flex gap-2">
-          <Button variant="outline">
-            <Play />
-            Run
-          </Button>
-          <PrimaryButton onClick={() => alert('success')}>
-            <Upload />
-            Submit
-          </PrimaryButton>
-        </div>
+        <HeaderButtons />
         <div className="items-center">
-          <CircleUserRound size="24" />
+          <MyAccount />
         </div>
       </div>
     </div>

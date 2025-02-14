@@ -13,6 +13,7 @@
   "dependencies": {
     "@strapi/plugin-cloud": "^5.9.0",
     "@strapi/strapi": "^5.9.0",
+    "@strapi/plugin-users-permissions": "^5.9.0",
     "strapi-code-editor-custom-field": "^1.0.1",
     "better-sqlite3": "11.3.0",
     "monaco-editor": "^0.52.2",

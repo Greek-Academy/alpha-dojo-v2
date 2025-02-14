@@ -3,7 +3,7 @@ import { Problem } from '@/domain/entities/problem';
 import { ProblemDTO } from '@/infrastructure/dto/problem-dto';
 
 const STRAPI_API_URL =
-  process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337/api';
+  (process.env.STRAPI_PUBLIC_URL || 'http://localhost:1337') + '/api';
 
 export class ApiProblemRepository implements ProblemRepository {
   //TODO: Authorizationはログイン時のトークンを使用する

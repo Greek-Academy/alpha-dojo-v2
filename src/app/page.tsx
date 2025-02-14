@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { AddIcon } from '@/components/ui/icons';
+import { AddIcon } from '@icons';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Sample, SubmissionTable } from '@/components/submission-table';
 
