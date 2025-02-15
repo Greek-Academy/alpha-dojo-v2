@@ -1,8 +1,8 @@
 import { err, ok, ResultAsync } from 'neverthrow';
 import { WithJson, withJson } from '@/infrastructure/infra-utils';
 import { normalizeError } from '@/lib/err-utils';
-import { JudgeError } from '@/infrastructure/repositories/judge/judge-error';
-import {JudgeSubmission, judgeSubmission} from '@/infrastructure/repositories/judge/judge-response';
+import { JudgeError } from '@/infrastructure/judge/judge-error';
+import {JudgeSubmission, judgeSubmission} from '@/infrastructure/judge/judge-response';
 
 // like https://example.com
 const JUDGE_API_ENDPOINT = process.env.JUDGE_API_ENDPOINT;
