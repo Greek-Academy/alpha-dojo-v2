@@ -6,7 +6,7 @@ import { responseHandler } from './response-handler';
 
 const HOST_URL = process.env.HOST_URL || 'http://localhost:3000';
 
-export async function fetchProblem(id: number): Promise<Problem> {
+export async function fetchProblemById(id: number): Promise<Problem> {
   const res = await fetch(`${HOST_URL}/api/problem/${id}`, {
     method: 'GET',
     headers: {

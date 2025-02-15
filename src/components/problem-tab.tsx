@@ -21,7 +21,7 @@ import { Difficulty } from '@/domain/entities/problem';
 import { ComponentProps } from 'react';
 import Markdown from 'react-markdown';
 import { cva } from 'class-variance-authority';
-import { fetchProblem } from '@/services/fetch-problem';
+import { fetchProblemById } from '@/services/fetch-problem';
 
 export const sampleSubmissions: Submission[] = [
   {
@@ -59,7 +59,7 @@ export const ProbremTab = async ({
   className?: string;
 }) => {
   /** 課題一覧の取得 */
-  const problem = await fetchProblem(problemId);
+  const problem = await fetchProblemById(problemId);
 
   const DifficultyChip = (props: { difficulty: Difficulty }) => {
     const difficultyChipVariants = cva('', {
