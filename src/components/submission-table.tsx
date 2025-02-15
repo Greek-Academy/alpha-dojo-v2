@@ -12,7 +12,7 @@ import {
 import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { CheckIcon, TaskAltIcon } from '@/components/ui/icons';
-import { Submission } from '../../lib/submissions';
+import { Submission } from '@/lib/submissions';
 import { useState, useEffect } from 'react';
 import { KeyboardArrowDownIcon } from '@/components/ui/icons';
 import { ArrowUpwardIcon, ArrowDownwardIcon } from '@/components/ui/icons';
@@ -376,8 +376,8 @@ export const SubmissionTable = ({ data, className }: Props) => {
                 key={item.id}
                 className={
                   index % 2 === 0
-                    ? 'bg-white border-none cursor-pointer'
-                    : 'bg-gray-100 border-none cursor-pointer'
+                    ? 'bg-background border-none cursor-pointer'
+                    : 'bg-accent border-none cursor-pointer'
                 }
                 onClick={handleRowClick}
               >
