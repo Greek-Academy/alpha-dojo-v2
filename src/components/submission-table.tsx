@@ -516,7 +516,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
               {getUniqueValues('title').map((title) => (
                 <label
                   key={title}
-                  className="block flex items-center mt-1 mb-1 min-h-[1rem]"
+                  className="flex items-center mt-1 mb-1 min-h-[1rem]"
                 >
                   <input
                     type="checkbox"
@@ -551,7 +551,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
                 return (
                   <label
                     key={difficulty}
-                    className="block flex items-center mt-1 mb-1 min-h-[1rem]"
+                    className="flex items-center mt-1 mb-1 min-h-[1rem]"
                   >
                     <input
                       type="checkbox"
@@ -585,7 +585,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
               {getUniqueValues('authorName').map((authorName) => (
                 <label
                   key={authorName}
-                  className="block flex items-center mt-1 mb-1 min-h-[1rem]"
+                  className="flex items-center mt-1 mb-1 min-h-[1rem]"
                 >
                   <input
                     type="checkbox"

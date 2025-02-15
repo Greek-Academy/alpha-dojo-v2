@@ -1,14 +1,17 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { AddIcon } from '@icons';
+import { AddIcon } from '@/components/ui/icons';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { SubmissionTable } from '@/components/submission-table';
-import { submissions } from '../../lib/submissions';
+import { SubmissionTable } from '../components/submission-table';
+import { Notifications } from '../components/notifications';  
+import { Achievements } from '../components/achievements';
+import { users } from '../../lib/users';  
+import { submissions } from '../../lib/submissions';  
 
 export default function Page() {
   return (
     <div className="px-4 py-2.5 flex gap-2.5 w-full">
-      <div className="flex-grow flex flex-col items-start gap-4 w-full">
+      <div className="flex-grow flex flex-col items-start gap-4">
         <Button>
           <AddIcon /> Add New Problem
         </Button>
@@ -33,14 +36,14 @@ export default function Page() {
           </Link>
         </div>
       </div>
-      <div className="w-100 flex flex-col gap-3">
-        <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-accent text-accent-foreground">
-          <h1 className="text-xl font-semibold">Notifications</h1>
-          通知がここに表示されます
+      <div className="flex flex-col gap-3">
+        <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-destructive-foreground text-accent-foreground">
+          <h1 className="font-semibold text-xl">Notifications</h1>
+          <Notifications submissions={submissions} users={users} />
         </div>
         <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-accent text-accent-foreground">
-          <h1 className="text-xl font-semibold">Achievements</h1>
-          実績がここに表示されます
+          <h1 className="font-semibold text-xl">Achievements</h1>
+          <Achievements data={submissions} />
         </div>
       </div>
     </div>
