@@ -1,7 +1,9 @@
 import { err, ok, ResultAsync } from 'neverthrow';
 import { WithJson, withJson } from '@/infrastructure/infra-utils';
 import { normalizeError } from '@/lib/err-utils';
-import { JudgeError } from '@/infrastructure/judge/judge-error';
+import {
+  JudgeError, JudgeErrorCode
+} from '@/infrastructure/judge/judge-error';
 import {JudgeSubmission, judgeSubmission} from '@/infrastructure/judge/judge-response';
 
 // like https://example.com
@@ -22,14 +24,14 @@ export type JudgeRepository = {
     languageId: number, // TODO: add number type id field to SupportedLanguage
     sourceCode: string,
     stdin: string
-  ) => ResultAsync<string, JudgeError>;
+  ) => ResultAsync<string, JudgeError<JudgeErrorCode.CreateSubmission>>;
   /**
    * Get submission (GET /submissions/:token)
    * @param token The submission token that was returned from createSubmission
    * @throws JudgeError (code: unknown, invalid-api-key, invalid-page)
    * @returns The submission object
    */
-  getSubmission: (token: string) => ResultAsync<JudgeSubmission, JudgeError>;
+  getSubmission: (token: string) => ResultAsync<JudgeSubmission, JudgeError<JudgeErrorCode.GetSubmission>>;
 };
 
 export const judgeRepository: JudgeRepository = {
@@ -107,7 +109,7 @@ const getHeaders = () => ({
  * @see https://ce.judge0.com/#submissions-submission-post submission error docs
  * @see https://ce.judge0.com/#authentication authentication error docs
  */
-const getJudgeErrorFromCreate = (res: WithJson<Response>): JudgeError => {
+const getJudgeErrorFromCreate = (res: WithJson<Response>): JudgeError<JudgeErrorCode.CreateSubmission> => {
   const status = res.status;
   const body = res.js;
 
@@ -156,7 +158,7 @@ const getJudgeErrorFromCreate = (res: WithJson<Response>): JudgeError => {
   return new JudgeError(String(body), 'unknown', { cause: body });
 };
 
-const getJudgeErrorFromGet = (res: WithJson<Response>): JudgeError => {
+const getJudgeErrorFromGet = (res: WithJson<Response>): JudgeError<JudgeErrorCode.GetSubmission> => {
   const status = res.status;
   const body = res.js;
 

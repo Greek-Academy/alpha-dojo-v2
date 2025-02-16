@@ -1,17 +1,24 @@
-type JudgeErrorCode =
-    | 'unknown'
-    | 'empty-language'
-    | 'unsupported-language'
-    | 'wall-time-limit'
-    | 'wait-not-allowed'
-    | 'full-queue'
-    | 'invalid-api-key'
-    | 'invalid-page';
+export namespace JudgeErrorCode {
+    export type CreateSubmission =
+        | 'unknown'
+        | 'empty-language'
+        | 'unsupported-language'
+        | 'wall-time-limit'
+        | 'wait-not-allowed'
+        | 'full-queue'
+        | 'invalid-api-key';
+    export type GetSubmission =
+        | 'unknown'
+        | 'invalid-api-key'
+        | 'invalid-page';
+}
 
-export class JudgeError extends Error {
+type JudgeErrorCode = JudgeErrorCode.CreateSubmission | JudgeErrorCode.GetSubmission;
+
+export class JudgeError<TCode extends JudgeErrorCode> extends Error {
     constructor(
         message: string,
-        public readonly code: JudgeErrorCode,
+        public readonly code: TCode,
         options?: ErrorOptions
     ) {
         super(message, options);
@@ -25,7 +32,7 @@ export class JudgeError extends Error {
      * Create a JudgeError from an unknown type
      * @param err
      */
-    static fromUnknown(err: unknown): JudgeError {
+    static fromUnknown(err: unknown): JudgeError<'unknown'> {
         if (err instanceof Error) {
             return new JudgeError(err.message, 'unknown', { cause: err });
         } else {
