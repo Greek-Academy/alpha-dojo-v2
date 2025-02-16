@@ -1,15 +1,18 @@
+
 export namespace JudgeErrorCode {
-    export type CreateSubmission =
+    type Common =
         | 'unknown'
+        | 'invalid-api-key';
+
+    export type CreateSubmission =
+        | Common
         | 'empty-language'
         | 'unsupported-language'
         | 'wall-time-limit'
         | 'wait-not-allowed'
-        | 'full-queue'
-        | 'invalid-api-key';
+        | 'full-queue';
     export type GetSubmission =
-        | 'unknown'
-        | 'invalid-api-key'
+        | Common
         | 'invalid-page';
 }
 

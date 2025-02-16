@@ -8,7 +8,7 @@ import {JudgeSubmission, judgeSubmission} from '@/infrastructure/judge/judge-res
 
 // like https://example.com
 const JUDGE_API_ENDPOINT = process.env.JUDGE_API_ENDPOINT;
-const API_KEY = process.env.JUDGE_API_KEY ?? '';
+const JUDGE_API_KEY = process.env.JUDGE_API_KEY ?? '';
 const POLLING_INTERVAL = 3000;
 
 export type JudgeRepository = {
@@ -98,9 +98,9 @@ export const judgeRepository: JudgeRepository = {
 };
 
 const getHeaders = () => ({
-  Accept: 'application/json',
+  'Accept': 'application/json',
   'Content-Type': 'application/json',
-  'X-Auth-Token': API_KEY,
+  'X-Auth-Token': JUDGE_API_KEY,
 });
 
 /**
