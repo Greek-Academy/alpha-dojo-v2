@@ -11,7 +11,7 @@ export const judgeSubmission = z.object({
   status: z.object({
     id: z.number(),
     description: z.string(),
-  })
+  }),
 });
 
 export type JudgeSubmission = z.infer<typeof judgeSubmission>;
@@ -24,7 +24,7 @@ export const judgeResponse = z.object({
     prev_page: z.number().nullable(),
     total_pages: z.number(),
     total_count: z.number(),
-  })
+  }),
 });
 
 export type JudgeResponse = z.infer<typeof judgeResponse>;

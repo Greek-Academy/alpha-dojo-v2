@@ -1,11 +1,12 @@
 import { err, ok, ResultAsync } from 'neverthrow';
 import { WithJson, withJson } from '@/infrastructure/infra-utils';
 import { normalizeError } from '@/lib/err-utils';
+import { JudgeError, JudgeErrorCode } from '@/infrastructure/judge/judge-error';
 import {
-  JudgeError, JudgeErrorCode
-} from '@/infrastructure/judge/judge-error';
-import {JudgeSubmission, judgeSubmission} from '@/infrastructure/judge/judge-response';
-import {SupportedLanguageJudgeId} from "@/lib/languages";
+  JudgeSubmission,
+  judgeSubmission,
+} from '@/infrastructure/judge/judge-response';
+import { SupportedLanguageJudgeId } from '@/lib/languages';
 
 // like https://example.com
 const JUDGE_API_ENDPOINT = process.env.JUDGE_API_ENDPOINT;
@@ -32,7 +33,9 @@ export type JudgeRepository = {
    * @throws JudgeError (code: unknown, invalid-api-key, invalid-page)
    * @returns The submission object
    */
-  getSubmission: (token: string) => ResultAsync<JudgeSubmission, JudgeError<JudgeErrorCode.GetSubmission>>;
+  getSubmission: (
+    token: string
+  ) => ResultAsync<JudgeSubmission, JudgeError<JudgeErrorCode.GetSubmission>>;
 };
 
 export const judgeRepository: JudgeRepository = {
@@ -89,8 +92,8 @@ export const judgeRepository: JudgeRepository = {
       .andThen((subm) =>
         // 1: In Queue, 2: Processing
         [1, 2].includes(subm.status.id)
-            // wait for POLLING_INTERVAL ms and then get the submission again
-          ? ResultAsync.fromPromise(
+          ? // wait for POLLING_INTERVAL ms and then get the submission again
+            ResultAsync.fromPromise(
               new Promise((resolve) => setTimeout(resolve, POLLING_INTERVAL)),
               (err) => JudgeError.fromUnknown(err)
             ).andThen(() => judgeRepository.getSubmission(token))
@@ -99,7 +102,7 @@ export const judgeRepository: JudgeRepository = {
 };
 
 const getHeaders = () => ({
-  'Accept': 'application/json',
+  Accept: 'application/json',
   'Content-Type': 'application/json',
   'X-Auth-Token': JUDGE_API_KEY,
 });
@@ -110,7 +113,9 @@ const getHeaders = () => ({
  * @see https://ce.judge0.com/#submissions-submission-post submission error docs
  * @see https://ce.judge0.com/#authentication authentication error docs
  */
-const getJudgeErrorFromCreate = (res: WithJson<Response>): JudgeError<JudgeErrorCode.CreateSubmission> => {
+const getJudgeErrorFromCreate = (
+  res: WithJson<Response>
+): JudgeError<JudgeErrorCode.CreateSubmission> => {
   const status = res.status;
   const body = res.js;
 
@@ -159,7 +164,9 @@ const getJudgeErrorFromCreate = (res: WithJson<Response>): JudgeError<JudgeError
   return new JudgeError(String(body), 'unknown', { cause: body });
 };
 
-const getJudgeErrorFromGet = (res: WithJson<Response>): JudgeError<JudgeErrorCode.GetSubmission> => {
+const getJudgeErrorFromGet = (
+  res: WithJson<Response>
+): JudgeError<JudgeErrorCode.GetSubmission> => {
   const status = res.status;
   const body = res.js;
 

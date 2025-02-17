@@ -33,4 +33,5 @@ export const Language = {
 
 export type SupportedLanguage = keyof typeof Language;
 
-export type SupportedLanguageJudgeId = typeof Language[SupportedLanguage]['id']['judge'];
+export type SupportedLanguageJudgeId =
+  (typeof Language)[SupportedLanguage]['id']['judge'];
