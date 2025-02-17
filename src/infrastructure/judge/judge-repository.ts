@@ -5,6 +5,7 @@ import {
   JudgeError, JudgeErrorCode
 } from '@/infrastructure/judge/judge-error';
 import {JudgeSubmission, judgeSubmission} from '@/infrastructure/judge/judge-response';
+import {SupportedLanguageJudgeId} from "@/lib/languages";
 
 // like https://example.com
 const JUDGE_API_ENDPOINT = process.env.JUDGE_API_ENDPOINT;
@@ -21,7 +22,7 @@ export type JudgeRepository = {
    * @returns The submission token
    */
   createSubmission: (
-    languageId: number, // TODO: add number type id field to SupportedLanguage
+    languageId: SupportedLanguageJudgeId,
     sourceCode: string,
     stdin: string
   ) => ResultAsync<string, JudgeError<JudgeErrorCode.CreateSubmission>>;
