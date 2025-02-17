@@ -7,11 +7,12 @@ export type ResponseErrorCode =
 export class ResponseError extends Error {
   constructor(
     /** エラーの内容を表すメッセージ */
-    public message: string,
-    /** レスポンスの HTTP ステータスコード */
-    public errorCode: ResponseErrorCode
+    message: string,
+    /** 発生したエラーの種別 */
+    public errorCode: ResponseErrorCode,
+    options?: ErrorOptions
   ) {
-    super(message);
+    super(message, options);
     this.name = 'ResponseError';
     this.message = `${errorCode} Error: ${message}`;
   }
