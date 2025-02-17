@@ -1,4 +1,12 @@
-export type Difficulty = 'Easy' | 'Medium' | 'Hard';
+import { z } from "zod";
+
+export const difficulty = z.union([
+  z.literal('Easy'),
+  z.literal('Medium'),
+  z.literal('Hard'),
+])
+
+export type Difficulty = z.infer<typeof difficulty>;
 
 export class Problem {
   constructor(
