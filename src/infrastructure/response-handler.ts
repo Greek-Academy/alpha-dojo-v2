@@ -24,17 +24,11 @@ export async function responseHandler<T>(
 
   let responseError: ResponseError;
   try {
-    responseError = new ResponseError(
-      res.status,
-      res.statusText,
-      data.error,
-      data.error.message
-    );
+    responseError = new ResponseError(data.error.message, res.status);
   } catch (_e) {
     responseError = new ResponseError(
-      res.status,
-      res.statusText,
-      data || 'No error data provided'
+      data || 'No error message provided',
+      res.status
     );
   }
 
