@@ -9,8 +9,8 @@ export const errorResponse = z.object({
     status: z.string(),
     name: z.string(),
     message: z.string(),
-    details: z.record(z.string(), z.unknown())
-  })
+    details: z.record(z.string(), z.unknown()),
+  }),
 });
 
-export type ErrorResponse = z.infer<typeof errorResponse>
+export type ErrorResponse = z.infer<typeof errorResponse>;

@@ -1,10 +1,10 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const difficulty = z.union([
   z.literal('Easy'),
   z.literal('Medium'),
   z.literal('Hard'),
-])
+]);
 
 export type Difficulty = z.infer<typeof difficulty>;
 

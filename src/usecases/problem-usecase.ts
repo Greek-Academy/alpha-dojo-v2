@@ -6,5 +6,6 @@ import { ResultAsync } from 'neverthrow';
 export class ProblemUseCase {
   constructor(private readonly problemRepository: ProblemRepository) {}
 
-  getAllProblems: () => ResultAsync<Problem[], ResponseError> = this.problemRepository.getProblems;
+  getAllProblems: () => ResultAsync<Problem[], ResponseError> =
+    this.problemRepository.getProblems;
 }
