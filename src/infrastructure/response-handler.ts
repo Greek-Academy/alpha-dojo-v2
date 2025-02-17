@@ -1,4 +1,4 @@
-import { ResponseError } from '@/domain/entities/error';
+import { ResponseError, ResponseErrorCode } from '@/domain/entities/error';
 
 export type ResponseResult<T> =
   | {
@@ -20,17 +20,31 @@ export async function responseHandler<T>(
 ): Promise<ResponseResult<T>> {
   const data = await res.json();
 
-  if (res.status < 400) return { success: true, json: data as T };
+  const statusCode = res.status;
 
-  let responseError: ResponseError;
+  if (statusCode < 400) return { success: true, json: data as T };
+
+  let message: string;
   try {
-    responseError = new ResponseError(data.error.message, res.status);
+    message = data.error.message;
   } catch (_e) {
-    responseError = new ResponseError(
-      data || 'No error message provided',
-      res.status
-    );
+    message = data || 'No error message provided';
   }
 
-  return { success: false, error: responseError };
+  let errorCode: ResponseErrorCode;
+  switch (statusCode) {
+    case 401:
+      errorCode = 'Unauthorized';
+      break;
+    case 403:
+      errorCode = 'Forbidden';
+      break;
+    case 404:
+      errorCode = 'Unauthorized';
+      break;
+    default:
+      errorCode = 'Unknown';
+  }
+
+  return { success: false, error: new ResponseError(message, errorCode) };
 }
