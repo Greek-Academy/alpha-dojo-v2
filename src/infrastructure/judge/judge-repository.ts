@@ -6,7 +6,7 @@ import {
   JudgeSubmission,
   judgeSubmission,
 } from '@/infrastructure/judge/judge-response';
-import { SupportedLanguageJudgeId } from '@/lib/languages';
+import { SupportedLanguage } from '@/lib/languages';
 
 // like https://example.com
 const JUDGE_API_ENDPOINT = process.env.JUDGE_API_ENDPOINT;
@@ -23,7 +23,7 @@ export type JudgeRepository = {
    * @returns The submission token
    */
   createSubmission: (
-    languageId: SupportedLanguageJudgeId,
+    language: SupportedLanguage,
     sourceCode: string,
     stdin: string
   ) => ResultAsync<string, JudgeError<JudgeErrorCode.CreateSubmission>>;
@@ -38,15 +38,21 @@ export type JudgeRepository = {
   ) => ResultAsync<JudgeSubmission, JudgeError<JudgeErrorCode.GetSubmission>>;
 };
 
+const languageIds = new Map<SupportedLanguage, number>([
+  ['typescript', 1],
+  ['python', 2],
+  ['c', 3],
+]);
+
 export const judgeRepository: JudgeRepository = {
-  createSubmission: (languageId, sourceCode, stdin) =>
+  createSubmission: (language, sourceCode, stdin) =>
     ResultAsync.fromPromise(
       fetch(
         `${JUDGE_API_ENDPOINT}/submissions/?base64_encoded=false&wait=false`,
         {
           headers: getHeaders(),
           body: JSON.stringify({
-            language_id: languageId,
+            language_id: languageIds.get(language),
             source_code: sourceCode,
             stdin,
           }),
