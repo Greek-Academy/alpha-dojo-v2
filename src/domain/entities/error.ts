@@ -4,8 +4,6 @@ export class ResponseError extends Error {
     public status: number,
     /** `status`に対応するステータスメッセージ */
     public statusText: string,
-    /** エラーの内容を表すオブジェクト */
-    public object?: object,
     /** エラーの内容を表すメッセージ */
     e?: string
   ) {
