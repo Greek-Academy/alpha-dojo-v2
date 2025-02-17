@@ -5,7 +5,7 @@ export class ResponseError extends Error {
     /** レスポンスの HTTP ステータスコード */
     public status: number,
     /** `status`に対応するステータスメッセージ */
-    public statusText: string,
+    public statusText: string
   ) {
     super(message);
     this.name = 'ResponseError';
