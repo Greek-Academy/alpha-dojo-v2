@@ -1,4 +1,4 @@
-name: CI
+name: CI Workflow
 
 on:
   workflow_dispatch:
@@ -7,5 +7,8 @@ on:
       - main
 
 jobs:
-  lint:
+  run_lint:
     uses: ./.github/workflows/lint.yaml
+
+  run_test:
+    uses: ./.github/workflows/test.yaml
