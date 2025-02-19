@@ -23,8 +23,9 @@
       "target": "api::language.language",
       "inversedBy": "validators"
     },
-    "code_file": {
-      "type": "string"
+    "code": {
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text"
     }
   }
 }

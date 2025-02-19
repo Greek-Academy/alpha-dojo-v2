@@ -19,7 +19,12 @@
       "type": "richtext"
     },
     "difficulty": {
-      "type": "string"
+      "type": "enumeration",
+      "enum": [
+        "Easy",
+        "Medium",
+        "Hard"
+      ]
     },
     "constraints": {
       "type": "richtext"
