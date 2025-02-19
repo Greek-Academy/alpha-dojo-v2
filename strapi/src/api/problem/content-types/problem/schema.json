@@ -21,7 +21,7 @@
     "difficulty": {
       "type": "string"
     },
-    "constrains": {
+    "constraints": {
       "type": "richtext"
     },
     "validators": {
