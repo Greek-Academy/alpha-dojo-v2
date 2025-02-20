@@ -3,8 +3,8 @@ import { Problem } from '@/domain/entities/problem';
 import { ResultAsync, err, ok } from 'neverthrow';
 import { normalizeError } from '@/lib/err-utils';
 import { WithJson, withJson } from '../infra-utils';
-import { StrapiError } from './api-problem-error';
-import { strapiProblems } from './api-problem-response';
+import { StrapiError } from './error';
+import { strapiProblems } from './problem-response';
 import { errorResponse } from '../dto/error';
 
 const STRAPI_API_URL =
