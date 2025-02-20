@@ -13,7 +13,9 @@ export class ResponseError extends Error {
     options?: ErrorOptions
   ) {
     super(message, options);
-    this.name = 'ResponseError';
     this.message = `${errorCode} Error: ${message}`;
+  }
+  static {
+    this.prototype.name = 'ResponseError';
   }
 }
