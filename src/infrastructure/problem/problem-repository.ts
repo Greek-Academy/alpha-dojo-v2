@@ -3,7 +3,7 @@ import { Problem } from '@/domain/entities/problem';
 import { ResultAsync, err, ok } from 'neverthrow';
 import { normalizeError } from '@/lib/err-utils';
 import { WithJson, withJson } from '../infra-utils';
-import { StrapiError } from './error';
+import { StrapiError } from '../strapi-error';
 import { strapiProblems } from './problem-response';
 import { errorResponse } from '../dto/error';
 
