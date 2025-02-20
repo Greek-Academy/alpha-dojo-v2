@@ -28,13 +28,13 @@ export class StrapiError extends Error {
     const responseErrorCode: () => ResponseErrorCode = () => {
       switch (this.status) {
         case 401:
-          return 'Unauthorized';
+          return 'unauthorized';
         case 403:
-          return 'Forbidden';
+          return 'forbidden';
         case 404:
-          return 'Not Found';
+          return 'not-found';
         default:
-          return 'Unknown';
+          return 'unknown';
       }
     };
 

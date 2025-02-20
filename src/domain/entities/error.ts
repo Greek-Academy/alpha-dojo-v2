@@ -1,8 +1,8 @@
 export type ResponseErrorCode =
-  | 'Unknown'
-  | 'Unauthorized'
-  | 'Forbidden'
-  | 'Not Found';
+  | 'unknown'
+  | 'unauthorized'
+  | 'forbidden'
+  | 'not-found';
 
 export class ResponseError extends Error {
   constructor(
