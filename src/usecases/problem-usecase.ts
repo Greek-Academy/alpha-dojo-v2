@@ -6,7 +6,7 @@ import { ProblemRepository } from '@/domain/repositories/problem-repository';
  * @example Problem を全取得
  * ```
  * import { getAuthToken } from '@/lib/get-auth-token';
- * 
+ *
  * const authToken = getAuthToken();
  * const problemRepository = new ApiProblemRepository(authToken);
  * const problemUseCase = new ProblemUseCase(problemRepository);
