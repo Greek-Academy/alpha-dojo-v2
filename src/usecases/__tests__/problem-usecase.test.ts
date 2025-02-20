@@ -40,7 +40,7 @@ describe('ProblemUseCase', () => {
           new Promise((resolve) => {
             resolve(mockProblems);
           }),
-          () => new ResponseError('mock error', 'Unknown')
+          () => new ResponseError('mock error', 'unknown')
         )
       ),
     };
