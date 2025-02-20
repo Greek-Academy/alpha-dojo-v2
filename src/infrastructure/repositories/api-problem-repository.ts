@@ -6,13 +6,14 @@ const STRAPI_API_URL =
   (process.env.STRAPI_PUBLIC_URL || 'http://localhost:1337') + '/api';
 
 export class ApiProblemRepository implements ProblemRepository {
-  //TODO: Authorizationはログイン時のトークンを使用する
+  constructor(private readonly authToken?: string) {};
+
   async getProblems(): Promise<Problem[]> {
     const response = await fetch(`${STRAPI_API_URL}/problems`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_JWT}`,
+        Authorization: `Bearer ${this.authToken}`,
       },
     });
 

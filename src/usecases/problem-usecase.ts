@@ -5,7 +5,7 @@ import { ProblemRepository } from '@/domain/repositories/problem-repository';
  *
  * @example Problem を全取得
  * ```
- * const problemRepository = new ApiProblemRepository();
+ * const problemRepository = new ApiProblemRepository(authToken);
  * const problemUseCase = new ProblemUseCase(problemRepository);
  * const problems = await problemUseCase.getAllProblems();
  * ```
