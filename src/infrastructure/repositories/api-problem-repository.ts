@@ -1,9 +1,7 @@
 import { ProblemRepository } from '@/domain/repositories/problem-repository';
 import { Problem } from '@/domain/entities/problem';
 import { ProblemDTO } from '@/infrastructure/dto/problem-dto';
-
-const STRAPI_API_URL =
-  (process.env.STRAPI_PUBLIC_URL || 'http://localhost:1337') + '/api';
+import { STRAPI_API_URL } from '@/constants/paths';
 
 export class ApiProblemRepository implements ProblemRepository {
   //TODO: Authorizationはログイン時のトークンを使用する
