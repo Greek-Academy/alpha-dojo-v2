@@ -6,6 +6,7 @@ import { WithJson, withJson } from '../infra-utils';
 import { StrapiError } from '../strapi-error';
 import { strapiProblems } from './problem-response';
 import { errorResponse } from '../dto/error';
+import { ProblemDTO } from '../dto/problem-dto';
 
 const STRAPI_API_URL =
   (process.env.STRAPI_PUBLIC_URL || 'http://localhost:1337') + '/api';
@@ -56,6 +57,32 @@ export class ApiProblemRepository implements ProblemRepository {
         )
       )
       .mapErr((err) => err.toResponseError());
+
+  async getProblem(id: number): Promise<Problem> {
+    //TODO: Authorizationはログイン時のトークンを使用する
+    const response = await fetch(`${STRAPI_API_URL}/problems/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_JWT}`,
+      },
+    });
+
+    const json = await response.json();
+    const problemDTO: ProblemDTO = json.data;
+
+    const problem = new Problem(
+      problemDTO.id,
+      problemDTO.attributes.title,
+      problemDTO.attributes.description,
+      problemDTO.attributes.difficulty,
+      problemDTO.attributes.constraints,
+      new Date(problemDTO.attributes.createdAt),
+      new Date(problemDTO.attributes.updatedAt)
+    );
+
+    return problem;
+  }
 }
 
 const getStrapiErrorFromGet = (res: WithJson<Response>): StrapiError => {

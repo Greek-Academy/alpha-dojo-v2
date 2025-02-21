@@ -50,3 +50,7 @@ export const TaskAltIcon = (props: MaterialSymbolProps) => {
 export const AccountCircleIcon = (props: MaterialSymbolProps) => {
   return <MaterialSymbol {...props}>account_circle</MaterialSymbol>;
 };
+
+export const ManufacturingIcon = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>manufacturing</MaterialSymbol>;
+};
