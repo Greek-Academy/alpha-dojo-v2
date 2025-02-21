@@ -23,7 +23,6 @@ import Markdown from 'react-markdown';
 import { cva } from 'class-variance-authority';
 import { ApiProblemRepository } from '@/infrastructure/repositories/api-problem-repository';
 import { ProblemUseCase } from '@/usecases/problem-usecase';
-import { getAuthToken } from '@/lib/get-auth-token';
 
 export const sampleSubmissions: Submission[] = [
   {
@@ -63,10 +62,7 @@ export const ProbremTab = async ({
   /** 課題一覧の取得 */
   const problemRepository = new ApiProblemRepository();
   const problemUseCase = new ProblemUseCase(problemRepository);
-  const problem = await problemUseCase.getProblemById(
-    problemId,
-    (await getAuthToken()) || ''
-  );
+  const problem = await problemUseCase.getProblemById(problemId);
 
   const DifficultyChip = (props: { difficulty: Difficulty }) => {
     const difficultyChipVariants = cva('', {

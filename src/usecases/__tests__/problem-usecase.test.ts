@@ -29,64 +29,38 @@ describe('ProblemUseCase', () => {
     ),
   ];
 
-  const mockAuthToken: string = 'authToken';
-
   beforeEach(() => {
     jest.clearAllMocks();
 
     mockProblemRepository = {
-      getProblems: jest.fn().mockImplementation(async (authToken: string) => {
-        if (authToken !== mockAuthToken)
-          // Invalid AuthToken
+      getProblems: jest.fn().mockResolvedValue(mockProblems),
+      getProblem: jest.fn().mockImplementation(async (id: number) => {
+        const problem = mockProblems[id - 1];
+        if (!problem)
+          // not found
           throw new TypeError();
 
-        return mockProblems;
+        return problem;
       }),
-      getProblem: jest
-        .fn()
-        .mockImplementation(async (id: number, authToken: string) => {
-          if (authToken !== mockAuthToken)
-            // invalid authToken
-            throw new TypeError();
-
-          const problem = mockProblems[id - 1];
-          if (!problem)
-            // not found
-            throw new TypeError();
-
-          return problem;
-        }),
     };
     problemUseCase = new ProblemUseCase(mockProblemRepository);
   });
 
   it('should return all problems', async () => {
-    const problems = await problemUseCase.getAllProblems(mockAuthToken);
+    const problems = await problemUseCase.getAllProblems();
     expect(problems.length).toBe(2);
     expect(mockProblemRepository.getProblems).toHaveBeenCalledTimes(1);
   });
 
-  it('should throw TypeError (invalid authToken)', async () => {
-    await expect(problemUseCase.getAllProblems('')).rejects.toThrow(
-      new TypeError()
-    );
-  });
-
   it('should return a problem', async () => {
-    const problem = await problemUseCase.getProblemById(1, mockAuthToken);
+    const problem = await problemUseCase.getProblemById(1);
     expect(problem).toBe(mockProblems[0]);
     expect(mockProblemRepository.getProblem).toHaveBeenCalledTimes(1);
   });
 
-  it('should throw TypeError (invalid authToken)', async () => {
-    await expect(problemUseCase.getProblemById(1, '')).rejects.toThrow(
+  it('should throw TypeError (not found)', async () => {
+    await expect(problemUseCase.getProblemById(3)).rejects.toThrow(
       new TypeError()
     );
-  });
-
-  it('should throw TypeError (not found)', async () => {
-    await expect(
-      problemUseCase.getProblemById(3, mockAuthToken)
-    ).rejects.toThrow(new TypeError());
   });
 });
