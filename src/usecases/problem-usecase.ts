@@ -1,5 +1,7 @@
+import { ResponseError } from '@/domain/entities/error';
 import { Problem } from '@/domain/entities/problem';
 import { ProblemRepository } from '@/domain/repositories/problem-repository';
+import { ResultAsync } from 'neverthrow';
 
 /** Problem を取得
  *
@@ -16,7 +18,6 @@ import { ProblemRepository } from '@/domain/repositories/problem-repository';
 export class ProblemUseCase {
   constructor(private readonly problemRepository: ProblemRepository) {}
 
-  async getAllProblems(): Promise<Problem[]> {
-    return await this.problemRepository.getProblems();
-  }
+  getAllProblems: () => ResultAsync<Problem[], ResponseError> =
+    this.problemRepository.getProblems;
 }
