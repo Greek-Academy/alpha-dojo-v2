@@ -1,6 +1,8 @@
 import { Problem } from '@/domain/entities/problem';
+import { ResultAsync } from 'neverthrow';
+import { ResponseError } from '../entities/error';
 
 export interface ProblemRepository {
-  getProblems(): Promise<Problem[]>;
+  getProblems: () => ResultAsync<Problem[], ResponseError>;
   getProblem(id: number): Promise<Problem>;
 }

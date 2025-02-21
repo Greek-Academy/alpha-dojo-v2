@@ -21,7 +21,7 @@ import { Difficulty } from '@/domain/entities/problem';
 import { ComponentProps } from 'react';
 import Markdown from 'react-markdown';
 import { cva } from 'class-variance-authority';
-import { ApiProblemRepository } from '@/infrastructure/repositories/api-problem-repository';
+import { ApiProblemRepository } from '@/infrastructure/problem/problem-repository';
 import { ProblemUseCase } from '@/usecases/problem-usecase';
 
 export const sampleSubmissions: Submission[] = [
