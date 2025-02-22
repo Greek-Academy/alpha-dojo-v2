@@ -6,7 +6,7 @@ import {
   JudgeSubmission,
   judgeSubmission,
 } from '@/infrastructure/judge/judge-response';
-import { SupportedLanguage } from '@/lib/languages';
+import { SupportedLanguage } from '@/domain/entities/supported-language';
 
 // like https://example.com
 const JUDGE_API_ENDPOINT = process.env.JUDGE_API_ENDPOINT;
@@ -39,9 +39,8 @@ export type JudgeRepository = {
 };
 
 const languageIds = new Map<SupportedLanguage, number>([
-  ['typescript', 1],
-  ['python', 2],
-  ['c', 3],
+  ['TypeScript', 1],
+  ['Python', 2],
 ]);
 
 export const judgeRepository: JudgeRepository = {

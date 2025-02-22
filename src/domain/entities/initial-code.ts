@@ -1,4 +1,4 @@
-import { SupportedLanguage } from '@/lib/languages';
+import { SupportedLanguage } from './supported-language';
 
 export class InitialCode {
   constructor(
