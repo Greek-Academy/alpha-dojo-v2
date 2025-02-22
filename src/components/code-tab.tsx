@@ -4,7 +4,7 @@ import { Code } from 'lucide-react';
 import { CodeEditor } from './code-editor';
 import {
   SupportedLanguage,
-  supportedLanguages,
+  supportedLanguageEnum,
 } from '@/domain/entities/supported-language';
 import {
   Select,
@@ -129,7 +129,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {supportedLanguages.map((language) => {
+                {supportedLanguageEnum.map((language) => {
                   return (
                     <SelectItem value={language} key={language}>
                       {language}
