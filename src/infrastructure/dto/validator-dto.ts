@@ -1,5 +1,8 @@
 import { z } from 'zod';
-import { strapiCommonAttributesDTO, strapiCommonDTO } from './strapi-common-dto';
+import {
+  strapiCommonAttributesDTO,
+  strapiCommonDTO,
+} from './strapi-common-dto';
 import { ProblemDTO, problemDTO } from './problem-dto';
 import { languageDTO } from './lanuage-dto';
 
@@ -10,7 +13,7 @@ const baseValidatorAttributesDTO = strapiCommonAttributesDTO.extend({
     })
     .optional(),
   code: z.string(),
-})
+});
 
 const baseValidatorDTO = strapiCommonDTO.extend({
   attributes: baseValidatorAttributesDTO,

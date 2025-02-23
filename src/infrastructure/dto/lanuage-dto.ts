@@ -1,5 +1,8 @@
 import { z } from 'zod';
-import { strapiCommonAttributesDTO, strapiCommonDTO } from './strapi-common-dto';
+import {
+  strapiCommonAttributesDTO,
+  strapiCommonDTO,
+} from './strapi-common-dto';
 import { ValidatorDTO, validatorDTO } from './validator-dto';
 import { InitialCodeDTO, initialCodeDTO } from './initial-code-dto';
 

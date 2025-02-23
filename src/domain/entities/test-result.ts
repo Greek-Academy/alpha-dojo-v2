@@ -1,6 +1,11 @@
 import { z } from 'zod';
 
-export const statusEnum = ['accepted', 'wrong-answer', 'compilation-error', 'unknown'] as const;
+export const statusEnum = [
+  'accepted',
+  'wrong-answer',
+  'compilation-error',
+  'unknown',
+] as const;
 
 /** Zod */
 export const status = z.enum(statusEnum);

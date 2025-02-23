@@ -7,5 +7,5 @@ export const strapiCommonAttributesDTO = z.object({
 
 export const strapiCommonDTO = z.object({
   id: z.number(),
-  attributes: strapiCommonAttributesDTO
+  attributes: strapiCommonAttributesDTO,
 });
