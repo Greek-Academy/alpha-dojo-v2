@@ -52,6 +52,12 @@
       "relation": "oneToMany",
       "target": "api::validator.validator",
       "mappedBy": "problem"
+    },
+    "submissions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::submission.submission",
+      "mappedBy": "problem"
     }
   }
 }
