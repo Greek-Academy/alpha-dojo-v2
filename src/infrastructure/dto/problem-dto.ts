@@ -15,18 +15,26 @@ export const problemDTO = strapiCommonDTO.extend({
     description: z.string(),
     difficulty: difficulty,
     constraints: z.string(),
-    validators: z.object({
-      data: z.array(validatorDTO),
-    }).optional(),
-    hints: z.object({
-      data: z.array(hintDTO),
-    }).optional(),
-    initial_codes: z.object({
-      data: z.array(initialCodeDTO),
-    }).optional(),
-    test_cases: z.object({
-      data: z.array(testCaseDTO),
-    }).optional(),
+    validators: z
+      .object({
+        data: z.array(validatorDTO),
+      })
+      .optional(),
+    hints: z
+      .object({
+        data: z.array(hintDTO),
+      })
+      .optional(),
+    initial_codes: z
+      .object({
+        data: z.array(initialCodeDTO),
+      })
+      .optional(),
+    test_cases: z
+      .object({
+        data: z.array(testCaseDTO),
+      })
+      .optional(),
   }),
 });
 
