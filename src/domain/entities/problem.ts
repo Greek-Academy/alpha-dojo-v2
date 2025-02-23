@@ -20,13 +20,11 @@ export class Problem {
     public readonly constraintsDescription: string,
     public readonly hints: Hint[],
     public readonly initialCodes: {
-      [key in SupportedLanguage]: InitialCode;
+      [key in SupportedLanguage]?: InitialCode;
     },
-    public readonly testCases: {
-      [key in SupportedLanguage]: TestCase;
-    },
+    public readonly testCases: TestCase[],
     public readonly validators: {
-      [key in SupportedLanguage]: Validator;
+      [key in SupportedLanguage]?: Validator;
     },
     public readonly createdAt: Date,
     public readonly updatedAt: Date
