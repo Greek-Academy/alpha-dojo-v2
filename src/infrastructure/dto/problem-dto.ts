@@ -17,16 +17,16 @@ export const problemDTO = strapiCommonDTO.extend({
     constraints: z.string(),
     validators: z.object({
       data: z.array(validatorDTO),
-    }),
+    }).optional(),
     hints: z.object({
       data: z.array(hintDTO),
-    }),
+    }).optional(),
     initial_codes: z.object({
       data: z.array(initialCodeDTO),
-    }),
+    }).optional(),
     test_cases: z.object({
       data: z.array(testCaseDTO),
-    }),
+    }).optional(),
   }),
 });
 
