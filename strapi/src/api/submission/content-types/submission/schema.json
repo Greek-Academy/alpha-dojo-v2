@@ -29,9 +29,6 @@
     },
     "code": {
       "type": "customField",
-      "options": {
-        "language": "typescript"
-      },
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text"
     },
     "test_result_id": {
