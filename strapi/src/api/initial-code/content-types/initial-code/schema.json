@@ -19,9 +19,8 @@
     },
     "language": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::language.language",
-      "inversedBy": "initial_codes"
+      "relation": "oneToOne",
+      "target": "api::language.language"
     },
     "code": {
       "type": "customField",
