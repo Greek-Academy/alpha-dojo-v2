@@ -19,11 +19,11 @@ export class Problem {
     public readonly difficulty: Difficulty,
     public readonly constraintsDescription: string,
     public readonly hints: Hint[],
-    public readonly initialCodes: {
+    public readonly initialCode: {
       [key in SupportedLanguage]?: InitialCode;
     },
     public readonly testCases: TestCase[],
-    public readonly validators: {
+    public readonly validator: {
       [key in SupportedLanguage]?: Validator;
     },
     public readonly createdAt: Date,
