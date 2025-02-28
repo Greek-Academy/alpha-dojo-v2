@@ -2,7 +2,7 @@ import { SupportedLanguage } from './supported-language';
 
 export class Submission {
   constructor(
-    public readonly id?: string,
+    public readonly id: string | undefined,
     public readonly authorId: string,
     public readonly problemId: string,
     public readonly language: SupportedLanguage,
