@@ -24,12 +24,12 @@ export const newProblemFromDTO = (problem: ProblemDTO) => {
     problem.attributes.description,
     problem.attributes.difficulty,
     problem.attributes.constraints,
-    problem.attributes.hints.data.map((hint) =>
+    problem.attributes.hints?.data.map((hint) =>
       newHintFromDTO(hint, problem.id.toString())
-    ),
+    ) ?? [],
     Object.fromEntries(
       supportedLanguageEnum.map((language) => {
-        const initialCode = problem.attributes.initial_codes.data.find(
+        const initialCode = problem.attributes.initial_codes?.data.find(
           (initialCode) =>
             initialCode.attributes.language_id?.data.attributes.name ===
             language
@@ -41,13 +41,13 @@ export const newProblemFromDTO = (problem: ProblemDTO) => {
         ];
       })
     ),
-    problem.attributes.test_cases.data.map((testCase) =>
+    problem.attributes.test_cases?.data.map((testCase) =>
       newTestCaseFromDTO(testCase, problem.id.toString())
-    ),
+    ) ?? [],
     // Initial Code と Validator のコードが全く同じなので改善の余地あり
     Object.fromEntries(
       supportedLanguageEnum.map((language) => {
-        const validator = problem.attributes.validators.data.find(
+        const validator = problem.attributes.validators?.data.find(
           (validator) =>
             validator.attributes.language_id?.data.attributes.name === language
         );
