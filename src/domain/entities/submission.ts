@@ -2,12 +2,12 @@ import { z } from 'zod';
 import { SupportedLanguage } from './supported-language';
 
 export const statusEnum = [
-  'pending',
-  'failed',
-  'in-review',
-  'reviewed',
-  `finished`,
-] as const;
+  'PENDING',
+  'FAILED',
+  'IN_REVIEW',
+  'REVIEWED',
+  'FINISHED',
+] as const satisfies string[];
 
 /** Zod */
 export const status = z.enum(statusEnum);
