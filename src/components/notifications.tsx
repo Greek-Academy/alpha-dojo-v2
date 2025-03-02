@@ -66,13 +66,13 @@ export const Notifications = ({
                 <span className="text-blue-800 underline mr-1">
                   {reviewer.name}
                 </span>
-                さんが{' '}
+                さんが
                 <Link
                   href={`/submissions/${notification.submissionId}/edit`}
                   className="text-blue-800 underline mr-1"
                 >
                   {submission.title}
-                </Link>{' '}
+                </Link>
                 をレビューしました
               </p>
             </div>
