@@ -5,6 +5,7 @@ import * as React from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
+  PaginationState,
   SortingState,
   VisibilityState,
   flexRender,
@@ -28,9 +29,30 @@ import { Button } from '@/components/ui/button';
 interface DataTableProps<TData> {
   columns: ColumnDef<TData, any>[];
   data: TData[];
+  /** 1 ページあたりの行数。動的に (ユーザーの選択に応じて) 変更したい場合は `setPagination` も設定する */
+  pagination?: PaginationState;
+  /** 動的に (ユーザーの選択に応じて) `pageSize` を変更
+   * @example
+   * ```
+   * const [pagination, setPagination] = React.useState<PaginationState>({
+   *   pageIndex: 0,
+   *   pageSize: 10,
+   * });
+   * ```
+   */
+  setPagination?: React.Dispatch<React.SetStateAction<PaginationState>>;
 }
 
-export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
+export function DataTable<TData>(props: DataTableProps<TData>) {
+  const [pagination, setPagination] =
+    props.pagination && props.setPagination
+      ? [props.pagination, props.setPagination]
+      : React.useState<PaginationState>(
+          props.pagination ?? {
+            pageIndex: 0,
+            pageSize: 10,
+          }
+        );
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -40,16 +62,18 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
-    data,
-    columns,
+    data: props.data,
+    columns: props.columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     state: {
+      pagination,
       sorting,
       columnFilters,
       columnVisibility,
@@ -99,10 +123,10 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={props.columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  課題が見つかりませんでした
                 </TableCell>
               </TableRow>
             )}
@@ -116,7 +140,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          前へ
         </Button>
         <Button
           variant="outline"
@@ -124,7 +148,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          次へ
         </Button>
       </div>
     </>
