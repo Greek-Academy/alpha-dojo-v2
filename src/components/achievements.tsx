@@ -102,28 +102,45 @@ export const Achievements: React.FC<{ data: AchievementData[] }> = ({
 
       {/* 右側に進捗を示す文字を配置 */}
       <div className="flex flex-col items-start gap-2 w-3/5">
-        <div className="flex justify-between w-full">
-          <p className="text-lg text-difficulty-easy">Easy</p>
-          <p className="text-right">
-            <span className="text-xl">{finishedProblemCount[1]}</span>
-            <span className="text-lg text-gray-500"> /{problemCount[1]}</span>
-          </p>
-        </div>
-        <div className="flex justify-between w-full">
-          <p className="text-lg text-difficulty-medium">Normal</p>
-          <p className="text-right">
-            <span className="text-xl">{finishedProblemCount[2]}</span>
-            <span className="text-lg text-gray-500"> /{problemCount[2]}</span>
-          </p>
-        </div>
-        <div className="flex justify-between w-full">
-          <p className="text-lg text-difficulty-hard">Hard</p>
-          <p className="text-right">
-            <span className="text-xl">{finishedProblemCount[3]}</span>
-            <span className="text-lg text-gray-500"> /{problemCount[3]}</span>
-          </p>
-        </div>
+      <DifficultyStat
+          label="Easy"
+          colorClass="text-difficulty-easy"
+          total={problemCount[1]}
+          completed={finishedProblemCount[1]}
+        />
+        <DifficultyStat
+          label="Normal"
+          colorClass="text-difficulty-medium"
+          total={problemCount[2]}
+          completed={finishedProblemCount[2]}
+        />
+        <DifficultyStat
+          label="Hard"
+          colorClass="text-difficulty-hard"
+          total={problemCount[3]}
+          completed={finishedProblemCount[3]}
+        />
       </div>
+    </div>
+  );
+};
+
+
+interface DifficultyStatProps {
+  label: string;
+  colorClass: string;
+  total: number;
+  completed: number;
+}
+
+const DifficultyStat: React.FC<DifficultyStatProps> = ({ label, colorClass, total, completed }) => {
+  return (
+    <div className="flex justify-between w-full">
+      <p className={`text-lg ${colorClass}`}>{label}</p>
+      <p className="text-right">
+        <span className="text-xl">{completed}</span>
+        <span className="text-lg text-gray-500"> /{total}</span>
+      </p>
     </div>
   );
 };
