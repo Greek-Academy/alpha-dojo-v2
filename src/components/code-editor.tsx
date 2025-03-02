@@ -14,8 +14,8 @@ export const CodeEditor = ({
   language: SupportedLanguage;
 }) => {
   const monacoLanguage: { [key in SupportedLanguage]: string } = {
-    TypeScript: 'typesript',
-    Python: 'python',
+    TYPESCRIPT: 'typesript',
+    PYTHON: 'python',
   };
 
   const Options: EditorProps['options'] = {

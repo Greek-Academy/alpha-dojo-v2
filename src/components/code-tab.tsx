@@ -4,7 +4,7 @@ import { Code } from 'lucide-react';
 import { CodeEditor } from './code-editor';
 import {
   SupportedLanguage,
-  SUPPORTED_LANGUAGE_ENUM,
+  supportedLanguageEnum,
 } from '@/domain/entities/supported-language';
 import {
   Select,
@@ -21,7 +21,7 @@ import { Button } from '@/components/ui/button';
 import { RestartAltIcon } from '@icons';
 
 const defaultCodes: { [key in SupportedLanguage]: string } = {
-  TypeScript: String.raw`class Cat {
+  TYPESCRIPT: String.raw`class Cat {
   name: string;
   age: number;
 
@@ -39,7 +39,7 @@ let myCat = new Cat("Tama", 5);
 console.log(myCat.name); // 出力: Tama
 myCat.meow(); // 出力: Meow!`,
 
-  Python: String.raw`class Cat:
+  PYTHON: String.raw`class Cat:
   def __init__(self, name, age):
     self.name = name
     self.age = age
@@ -57,7 +57,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
   const editorRef = React.useRef<Parameters<OnMount>[0] | null>(null);
 
   /** 既定の言語 */
-  const defaultLanguage: SupportedLanguage = 'TypeScript';
+  const defaultLanguage: SupportedLanguage = 'TYPESCRIPT';
 
   /** Monaco Editor のコーディング言語 */
   const [language, setLanguage] =
@@ -129,7 +129,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {SUPPORTED_LANGUAGE_ENUM.map((language) => {
+                {supportedLanguageEnum.map((language) => {
                   return (
                     <SelectItem value={language} key={language}>
                       {language}

@@ -39,8 +39,8 @@ export type JudgeRepository = {
 };
 
 const languageIds = new Map<SupportedLanguage, number>([
-  ['TypeScript', 1],
-  ['Python', 2],
+  ['TYPESCRIPT', 1],
+  ['PYTHON', 2],
 ]);
 
 export const judgeRepository: JudgeRepository = {

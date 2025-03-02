@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
-export const SUPPORTED_LANGUAGE_ENUM = [
-  'TypeScript',
-  'Python',
+export const supportedLanguageEnum = [
+  'TYPESCRIPT',
+  'PYTHON',
 ] as const satisfies string[];
 
 /** Zod */
-export const supportedLanguage = z.enum(SUPPORTED_LANGUAGE_ENUM);
+export const supportedLanguage = z.enum(supportedLanguageEnum);
 export type SupportedLanguage = z.infer<typeof supportedLanguage>;
