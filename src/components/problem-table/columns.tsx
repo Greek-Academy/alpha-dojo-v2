@@ -4,6 +4,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { formatDistanceToNow } from 'date-fns';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { CheckIcon, TaskAltIcon } from '@icons';
+import Link from 'next/link';
 
 /** `submissionTable` のデータ構造
  *
@@ -29,6 +30,21 @@ const columnHelper = createColumnHelper<ProblemTableColumn>();
  * @see {@link https://tanstack.com/table/latest/docs/api/core/column-def | ColumnDef APIs}
  */
 export const columns = [
+  columnHelper.accessor(`id`, {
+    header: () => '',
+    cell: (props) => {
+      const id = props.getValue();
+      return (
+        <Link
+          href={`submissions/${id}/edit`}
+          // HACK: data-table で <tr> に relative を設定しているので、行全体にリンクが貼られる
+          className="absolute top-0 left-0 w-full h-full"
+        />
+      );
+    },
+    size: 0,
+  }),
+
   columnHelper.accessor('status', {
     header: (props) =>
       // 並び替え可能なヘッダー
