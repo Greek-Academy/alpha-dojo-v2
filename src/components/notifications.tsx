@@ -69,7 +69,7 @@ export const Notifications = ({
                 さんが
                 <Link
                   href={`/submissions/${notification.submissionId}/edit`}
-                  className="text-blue-800 underline mr-1"
+                  className="text-blue-800 underline m-1"
                 >
                   {submission.title}
                 </Link>
