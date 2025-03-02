@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "hints",
+  "info": {
+    "singularName": "hint",
+    "pluralName": "hints",
+    "displayName": "Hint",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "problem_id": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::problem.problem",
+      "inversedBy": "hints"
+    },
+    "order": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}
