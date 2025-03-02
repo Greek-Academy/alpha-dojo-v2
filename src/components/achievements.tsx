@@ -15,9 +15,10 @@ import { Submission } from '@/lib/submissions';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title, Filler);
 
+// TODO: domain 確定時に修正する
 interface AchievementData {
-  difficulty: number; // 難易度 (1: Easy, 2: Normal, 3: Hard)
-  status: 'submitted' | 'reviewed' | '';
+  difficulty: Submission['difficulty'];
+  status: Submission['status'];
 }
 
 export const Achievements: React.FC<{ data: AchievementData[] }> = ({
