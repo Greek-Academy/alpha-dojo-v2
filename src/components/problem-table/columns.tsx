@@ -10,7 +10,7 @@ import { CheckIcon, TaskAltIcon } from '@icons';
  * Sort されることを想定。
  * 例えば、`authorName` を `authorId` にしてしまうと、名前順ではなく ID 順に sort される
  */
-export interface SubmissionTableColumn {
+export interface ProblemTableColumn {
   id: number; // 提出物のID
   title: string; // 提出物のタイトル
   status: '' | 'submitted' | 'reviewed'; // 提出物の状態
@@ -22,7 +22,7 @@ export interface SubmissionTableColumn {
 /** TanStack における最高の型安全を提供
  * @see {@link https://tanstack.com/table/v8/docs/guide/column-defs#column-helpers | Column Helpers}
  */
-const columnHelper = createColumnHelper<SubmissionTableColumn>();
+const columnHelper = createColumnHelper<ProblemTableColumn>();
 
 /** 表におけるデータの表示方法を定義
  * @see {@link https://ui.shadcn.com/docs/components/data-table#filtering:~:text=a%20basic%20table.-,Column%20Definitions,-First%2C%20we%27ll%20define | shadcn Data Table}
@@ -55,7 +55,7 @@ export const columns = [
       }
     },
     sortingFn: (a, b) => {
-      const statusToOrder = (status: SubmissionTableColumn['status']) => {
+      const statusToOrder = (status: ProblemTableColumn['status']) => {
         switch (status) {
           case 'submitted':
             return 1;

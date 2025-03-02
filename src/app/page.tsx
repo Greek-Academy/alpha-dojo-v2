@@ -2,12 +2,12 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { AddIcon } from '@icons';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { SubmissionTable } from '@/components/submission-table/data-table';
+import { ProblemTable } from '@/components/problem-table/data-table';
 import { submissions } from '../../lib/submissions';
-import { SubmissionTableColumn } from '@/components/submission-table/columns';
+import { ProblemTableColumn } from '@/components/problem-table/columns';
 
 export default function Page() {
-  const submissionList: SubmissionTableColumn[] = submissions.map(
+  const submissionList: ProblemTableColumn[] = submissions.map(
     (submission) => ({
       id: submission.id,
       title: submission.title,
@@ -37,7 +37,7 @@ export default function Page() {
           </ToggleGroupItem>
         </ToggleGroup>
         <div className="w-full">
-          <SubmissionTable data={submissionList} className="w-full" />
+          <ProblemTable data={submissionList} className="w-full" />
           <Link
             href="/submissions/1/edit"
             className="font-bold underline text-blue-600 visited:text-purple-600"
