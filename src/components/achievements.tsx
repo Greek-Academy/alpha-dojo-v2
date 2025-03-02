@@ -93,8 +93,9 @@ export const Achievements: React.FC<{ data: AchievementData[] }> = ({
           }}
         />
         {/* 円の中心に進捗数と最大数を表示 */}
-        <div className="absolute flex flex-col w-full h-full items-center justify-center">
+        <div className="absolute flex w-full h-full items-center justify-center">
           <p className="text-3xl">{totalCount}</p>
+          /
           <p className="text-lg text-gray-500">{maxAll}</p>
         </div>
       </div>
