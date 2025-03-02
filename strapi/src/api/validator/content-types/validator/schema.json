@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "validators",
+  "info": {
+    "singularName": "validator",
+    "pluralName": "validators",
+    "displayName": "Validator",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "problem_id": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::problem.problem",
+      "inversedBy": "validators"
+    },
+    "language_id": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::language.language",
+      "inversedBy": "validators"
+    },
+    "code": {
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text"
+    }
+  }
+}
