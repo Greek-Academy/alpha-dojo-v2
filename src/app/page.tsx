@@ -7,15 +7,17 @@ import { submissions } from '../../lib/submissions';
 import { SubmissionTableColumn } from '@/components/submission-table/columns';
 
 export default function Page() {
-  const submissionList: SubmissionTableColumn[] = submissions.map((submission) => ({
-    id: submission.id,
-    title: submission.title,
-    status: submission.status,
-    difficulty: submission.difficulty,
-    // 実際は Strapi に `fetchUserById` で userName を問い合わせる
-    authorName: submission.authorName,
-    published: new Date(submission.published),
-  }));
+  const submissionList: SubmissionTableColumn[] = submissions.map(
+    (submission) => ({
+      id: submission.id,
+      title: submission.title,
+      status: submission.status,
+      difficulty: submission.difficulty,
+      // 実際は Strapi に `fetchUserById` で userName を問い合わせる
+      authorName: submission.authorName,
+      published: new Date(submission.published),
+    })
+  );
 
   return (
     <div className="px-4 py-2.5 flex gap-2.5 w-full">

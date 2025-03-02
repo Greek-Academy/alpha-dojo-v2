@@ -6,7 +6,7 @@ import { DataTableColumnHeader } from '@/components/ui/data-table-column-header'
 import { CheckIcon, TaskAltIcon } from '@icons';
 
 /** `submissionTable` のデータ構造
- * 
+ *
  * Sort されることを想定。
  * 例えば、`authorName` を `authorId` にしてしまうと、名前順ではなく ID 順に sort される
  */
@@ -30,10 +30,11 @@ const columnHelper = createColumnHelper<SubmissionTableColumn>();
  */
 export const columns = [
   columnHelper.accessor('status', {
-    header: (props) => (
+    header: (props) =>
       // 並び替え可能なヘッダー
-      props.table && <DataTableColumnHeader column={props.column} title="Status" />
-    ),
+      props.table && (
+        <DataTableColumnHeader column={props.column} title="Status" />
+      ),
     cell: (props) => {
       const status = props.getValue();
       switch (status) {
@@ -69,7 +70,7 @@ export const columns = [
       const aOrder = statusToOrder(a.getValue('status'));
       const bOrder = statusToOrder(b.getValue('status'));
       return aOrder > bOrder ? 1 : aOrder < bOrder ? -1 : 0;
-    }
+    },
   }),
 
   columnHelper.accessor('title', {
