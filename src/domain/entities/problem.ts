@@ -1,9 +1,4 @@
 import { z } from 'zod';
-import { Hint } from './hint';
-import { SupportedLanguage } from './supported-language';
-import { InitialCode } from './initial-code';
-import { TestCase } from './test-case';
-import { Validator } from './validator';
 
 export const difficultyEnum = ['Easy', 'Medium', 'Hard'] as const;
 
@@ -18,14 +13,6 @@ export class Problem {
     public readonly description: string,
     public readonly difficulty: Difficulty,
     public readonly constraintsDescription: string,
-    public readonly hints: Hint[],
-    public readonly initialCode: {
-      [key in SupportedLanguage]?: InitialCode;
-    },
-    public readonly testCases: TestCase[],
-    public readonly validator: {
-      [key in SupportedLanguage]?: Validator;
-    },
     public readonly createdAt: Date,
     public readonly updatedAt: Date
   ) {}
