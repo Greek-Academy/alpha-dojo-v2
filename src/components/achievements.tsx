@@ -11,6 +11,7 @@ import {
   Legend,
   Title,
 } from 'chart.js/auto';
+import { Submission } from '@/lib/submissions';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title, Filler);
 
@@ -22,37 +23,36 @@ interface AchievementData {
 export const Achievements: React.FC<{ data: AchievementData[] }> = ({
   data,
 }) => {
+  type DifficultyNumber = Record<Submission['difficulty'], number>;
   // 進捗度
-  const easyCount = data.filter(
-    (item) =>
-      item.difficulty === 1 &&
-      (item.status === 'submitted' || item.status === 'reviewed')
-  ).length;
-  const normalCount = data.filter(
-    (item) =>
-      item.difficulty === 2 &&
-      (item.status === 'submitted' || item.status === 'reviewed')
-  ).length;
-  const hardCount = data.filter(
-    (item) =>
-      item.difficulty === 3 &&
-      (item.status === 'submitted' || item.status === 'reviewed')
-  ).length;
+  const problemCount: DifficultyNumber = {
+    1: 0,
+    2: 0,
+    3: 0,
+  };
+  const finishedProblemCount: DifficultyNumber = {
+    1: 0,
+    2: 0,
+    3: 0,
+  };
+  data.forEach((problem) => {
+    const difficulty = problem.difficulty as 1 | 2 | 3;
+    problemCount[difficulty] += 1;
+    if (problem.status === 'submitted' || problem.status === 'reviewed') {
+      finishedProblemCount[difficulty] += 1;
+    }
+  });
 
-  const max_easy = data.filter((item) => item.difficulty === 1).length;
-  const max_normal = data.filter((item) => item.difficulty === 2).length;
-  const max_hard = data.filter((item) => item.difficulty === 3).length;
-
-  const max_all = data.length;
-  const totalCount = easyCount + normalCount + hardCount;
-  const rest = max_all - totalCount;
+  const maxAll = data.length;
+  const totalCount = finishedProblemCount[1] + finishedProblemCount[2] + finishedProblemCount[3];
+  const rest = maxAll - totalCount;
 
   // 円グラフのデータ
   const dataForChart: ChartData<'doughnut', number[], string> = {
     labels: ['Easy', 'Normal', 'Hard'],
     datasets: [
       {
-        data: [easyCount, normalCount, hardCount, rest],
+        data: [finishedProblemCount[1], finishedProblemCount[2], finishedProblemCount[3], rest],
         backgroundColor: ['#14baa7', '#f3b516', '#dd2a4e', '#b3b3b3'], // 緑、黄、赤、灰色
       },
     ],
@@ -93,8 +93,8 @@ export const Achievements: React.FC<{ data: AchievementData[] }> = ({
         />
         {/* 円の中心に進捗数と最大数を表示 */}
         <div className="absolute flex flex-col w-full h-full items-center justify-center">
-          <p className="text-3xl">{easyCount + normalCount + hardCount}</p>
-          <p className="text-lg text-gray-500">{max_all}</p>
+          <p className="text-3xl">{totalCount}</p>
+          <p className="text-lg text-gray-500">{maxAll}</p>
         </div>
       </div>
 
@@ -103,22 +103,22 @@ export const Achievements: React.FC<{ data: AchievementData[] }> = ({
         <div className="flex justify-between w-full">
           <p className="text-lg text-difficulty-easy">Easy</p>
           <p className="text-right">
-            <span className="text-xl">{easyCount}</span>
-            <span className="text-lg text-gray-500"> /{max_easy}</span>
+            <span className="text-xl">{finishedProblemCount[1]}</span>
+            <span className="text-lg text-gray-500"> /{problemCount[1]}</span>
           </p>
         </div>
         <div className="flex justify-between w-full">
           <p className="text-lg text-difficulty-medium">Normal</p>
           <p className="text-right">
-            <span className="text-xl">{normalCount}</span>
-            <span className="text-lg text-gray-500"> /{max_normal}</span>
+            <span className="text-xl">{finishedProblemCount[2]}</span>
+            <span className="text-lg text-gray-500"> /{problemCount[2]}</span>
           </p>
         </div>
         <div className="flex justify-between w-full">
           <p className="text-lg text-difficulty-hard">Hard</p>
           <p className="text-right">
-            <span className="text-xl">{hardCount}</span>
-            <span className="text-lg text-gray-500"> /{max_hard}</span>
+            <span className="text-xl">{finishedProblemCount[3]}</span>
+            <span className="text-lg text-gray-500"> /{problemCount[3]}</span>
           </p>
         </div>
       </div>
