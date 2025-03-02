@@ -45,7 +45,8 @@ export const Achievements: React.FC<{ data: AchievementData[] }> = ({
   });
 
   const maxAll = data.length;
-  const totalCount = finishedProblemCount[1] + finishedProblemCount[2] + finishedProblemCount[3];
+  const totalCount =
+    finishedProblemCount[1] + finishedProblemCount[2] + finishedProblemCount[3];
   const rest = maxAll - totalCount;
 
   // 円グラフのデータ
@@ -53,7 +54,12 @@ export const Achievements: React.FC<{ data: AchievementData[] }> = ({
     labels: ['Easy', 'Normal', 'Hard'],
     datasets: [
       {
-        data: [finishedProblemCount[1], finishedProblemCount[2], finishedProblemCount[3], rest],
+        data: [
+          finishedProblemCount[1],
+          finishedProblemCount[2],
+          finishedProblemCount[3],
+          rest,
+        ],
         backgroundColor: ['#14baa7', '#f3b516', '#dd2a4e', '#b3b3b3'], // 緑、黄、赤、灰色
       },
     ],
@@ -94,15 +100,14 @@ export const Achievements: React.FC<{ data: AchievementData[] }> = ({
         />
         {/* 円の中心に進捗数と最大数を表示 */}
         <div className="absolute flex w-full h-full items-center justify-center">
-          <p className="text-3xl">{totalCount}</p>
-          /
+          <p className="text-3xl">{totalCount}</p>/
           <p className="text-lg text-gray-500">{maxAll}</p>
         </div>
       </div>
 
       {/* 右側に進捗を示す文字を配置 */}
       <div className="flex flex-col items-start gap-2 w-3/5">
-      <DifficultyStat
+        <DifficultyStat
           label="Easy"
           colorClass="text-difficulty-easy"
           total={problemCount[1]}
@@ -125,7 +130,6 @@ export const Achievements: React.FC<{ data: AchievementData[] }> = ({
   );
 };
 
-
 interface DifficultyStatProps {
   label: string;
   colorClass: string;
@@ -133,7 +137,12 @@ interface DifficultyStatProps {
   completed: number;
 }
 
-const DifficultyStat: React.FC<DifficultyStatProps> = ({ label, colorClass, total, completed }) => {
+const DifficultyStat: React.FC<DifficultyStatProps> = ({
+  label,
+  colorClass,
+  total,
+  completed,
+}) => {
   return (
     <div className="flex justify-between w-full">
       <p className={`text-lg ${colorClass}`}>{label}</p>
