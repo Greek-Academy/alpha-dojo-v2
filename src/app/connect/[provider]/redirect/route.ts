@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { HOST, STRAPI_API_URL } from '@/constants/paths';
-import { NODE_ENV } from '@/constants/env';
+import { STRAPI_API_URL } from '@/constants/paths';
+import { envValues } from '@/constants/env';
 
 const config = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
   path: '/',
-  domain: HOST,
+  domain: envValues.host,
   httpOnly: true,
-  secure: NODE_ENV === 'production',
+  secure: envValues.secure,
 };
 
 export const dynamic = 'force-dynamic'; // defaults to auto

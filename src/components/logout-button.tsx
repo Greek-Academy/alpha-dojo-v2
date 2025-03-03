@@ -1,14 +1,13 @@
-import { HOST } from '@/constants/paths';
-import { NODE_ENV } from '@/constants/env';
+import { envValues } from '@/constants/env';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 const config = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
   path: '/',
-  domain: HOST,
+  domain: envValues.host,
   httpOnly: true,
-  secure: NODE_ENV === 'production',
+  secure: envValues.secure,
 };
 
 async function logoutAction() {
