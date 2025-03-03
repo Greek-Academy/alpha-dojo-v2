@@ -7,7 +7,10 @@ import { ResultAsync } from 'neverthrow';
  *
  * @example Problem を全取得
  * ```
- * const problemRepository = new ApiProblemRepository();
+ * import { getAuthToken } from '@/lib/get-auth-token';
+ *
+ * const authToken = getAuthToken();
+ * const problemRepository = new ApiProblemRepository(authToken);
  * const problemUseCase = new ProblemUseCase(problemRepository);
  * const problems = await problemUseCase.getAllProblems();
  * ```
