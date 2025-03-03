@@ -6,7 +6,20 @@ import { WithJson, withJson } from '../infra-utils';
 import { StrapiError } from '../strapi-error';
 import { strapiProblems } from './problem-response';
 import { errorResponse } from '../dto/error';
+import { ProblemDTO } from '../dto/problem-dto';
 import { STRAPI_API_URL } from '@/constants/paths';
+
+export const newProblemFromDTO = (problem: ProblemDTO) => {
+  return new Problem(
+    problem.id.toString(),
+    problem.attributes.title,
+    problem.attributes.description,
+    problem.attributes.difficulty,
+    problem.attributes.constraints,
+    new Date(problem.attributes.createdAt),
+    new Date(problem.attributes.updatedAt)
+  );
+};
 
 export class ApiProblemRepository implements ProblemRepository {
   //TODO: Authorizationはログイン時のトークンを使用する
@@ -38,20 +51,7 @@ export class ApiProblemRepository implements ProblemRepository {
             )
       )
       .andThen((problems) =>
-        ok(
-          problems.map(
-            (problem) =>
-              new Problem(
-                problem.id,
-                problem.attributes.title,
-                problem.attributes.description,
-                problem.attributes.difficulty,
-                problem.attributes.constraints,
-                new Date(problem.attributes.createdAt),
-                new Date(problem.attributes.updatedAt)
-              )
-          )
-        )
+        ok(problems.map((problem) => newProblemFromDTO(problem)))
       )
       .mapErr((err) => err.toResponseError());
 }
