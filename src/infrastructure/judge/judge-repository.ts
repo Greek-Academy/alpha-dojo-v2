@@ -7,10 +7,9 @@ import {
   judgeSubmission,
 } from '@/infrastructure/judge/judge-response';
 import { SupportedLanguage } from '@/domain/entities/supported-language';
+import { JUDGE_API_ENDPOINT } from '@/constants/paths';
+import { JUDGE_API_KEY } from '@/constants/env';
 
-// like https://example.com
-const JUDGE_API_ENDPOINT = process.env.JUDGE_API_ENDPOINT;
-const JUDGE_API_KEY = process.env.JUDGE_API_KEY ?? '';
 const POLLING_INTERVAL = 3000;
 
 export type JudgeRepository = {

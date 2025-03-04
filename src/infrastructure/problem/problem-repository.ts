@@ -7,9 +7,7 @@ import { StrapiError } from '../strapi-error';
 import { strapiProblems } from './problem-response';
 import { errorResponse } from '../dto/error';
 import { ProblemDTO } from '../dto/problem-dto';
-
-const STRAPI_API_URL =
-  (process.env.STRAPI_PUBLIC_URL || 'http://localhost:1337') + '/api';
+import { STRAPI_API_URL } from '@/constants/paths';
 
 export const newProblemFromDTO = (problem: ProblemDTO) => {
   return new Problem(

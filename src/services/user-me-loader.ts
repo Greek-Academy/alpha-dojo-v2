@@ -1,3 +1,4 @@
+import { STRAPI_API_URL } from '@/constants/paths';
 import { cookies } from 'next/headers';
 
 export async function getAuthToken() {
@@ -6,8 +7,8 @@ export async function getAuthToken() {
 }
 
 export async function getUserMeLoader() {
-  const baseUrl = process.env.STRAPI_PUBLIC_URL ?? 'http://localhost:1337';
-  const path = '/api/users/me';
+  const baseUrl = STRAPI_API_URL;
+  const path = '/users/me';
 
   const url = new URL(path, baseUrl);
 
