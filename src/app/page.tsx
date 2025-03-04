@@ -46,20 +46,11 @@ export default function Page() {
         <div className="flex flex-col gap-3 w-[25rem]">
           <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-sidebar-primary-foreground text-accent-foreground">
             <h1 className="text-xl font-semibold">Notifications</h1>
-            通知がここに表示されます
-          </div>
-          <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-sidebar-primary-foreground text-accent-foreground">
-            <h1 className="text-xl font-semibold">Achievements</h1>
-            <Achievements data={submissions} />
-
-        <div className="flex flex-col gap-3 w-[25rem]">
-          <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-sidebar-primary-foreground text-accent-foreground">
-            <h1 className="text-xl font-semibold">Notifications</h1>
             <Notifications users={users} submissions={submissions} />
           </div>
           <div className="border rounded-xl p-5 flex flex-col gap-2.5 bg-sidebar-primary-foreground text-accent-foreground">
             <h1 className="text-xl font-semibold">Achievements</h1>
-            実績がここに表示されます
+            <Achievements data={submissions} />
           </div>
         </div>
       </div>
