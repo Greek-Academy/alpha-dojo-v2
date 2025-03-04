@@ -376,8 +376,8 @@ export const SubmissionTable = ({ data, className }: Props) => {
                 key={item.id}
                 className={
                   index % 2 === 0
-                    ? 'bg-background border-none cursor-pointer'
-                    : 'bg-accent border-none cursor-pointer'
+                    ? 'bg-white border-none cursor-pointer'
+                    : 'bg-gray-100 border-none cursor-pointer'
                 }
                 onClick={handleRowClick}
               >
@@ -516,7 +516,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
               {getUniqueValues('title').map((title) => (
                 <label
                   key={title}
-                  className="flex items-center mt-1 mb-1 min-h-[1rem]"
+                  className="block flex items-center mt-1 mb-1 min-h-[1rem]"
                 >
                   <input
                     type="checkbox"
@@ -551,7 +551,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
                 return (
                   <label
                     key={difficulty}
-                    className="flex items-center mt-1 mb-1 min-h-[1rem]"
+                    className="block flex items-center mt-1 mb-1 min-h-[1rem]"
                   >
                     <input
                       type="checkbox"
@@ -585,7 +585,7 @@ export const SubmissionTable = ({ data, className }: Props) => {
               {getUniqueValues('authorName').map((authorName) => (
                 <label
                   key={authorName}
-                  className="flex items-center mt-1 mb-1 min-h-[1rem]"
+                  className="block flex items-center mt-1 mb-1 min-h-[1rem]"
                 >
                   <input
                     type="checkbox"

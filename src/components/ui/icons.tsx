@@ -58,3 +58,11 @@ export const ArrowDownwardIcon = (props: MaterialSymbolProps) => {
 export const AccountCircleIcon = (props: MaterialSymbolProps) => {
   return <MaterialSymbol {...props}>account_circle</MaterialSymbol>;
 };
+
+export const ArrowUpwardIcon = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>arrow_upward_alt</MaterialSymbol>;
+};
+
+export const ArrowDownwardIcon = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>arrow_downward_alt</MaterialSymbol>;
+};
