@@ -2,10 +2,9 @@ import { ProblemRepository } from '@/domain/repositories/problem-repository';
 import { Problem } from '@/domain/entities/problem';
 import { ResultAsync, err, ok } from 'neverthrow';
 import { normalizeError } from '@/lib/err-utils';
-import { WithJson, withJson } from '../infra-utils';
-import { StrapiError } from '../strapi-error';
+import { withJson } from '../infra-utils';
+import { getStrapiErrorFromGet, StrapiError } from '../strapi-error';
 import { strapiProblems } from './problem-response';
-import { errorResponse } from '../dto/error';
 import { ProblemDTO } from '../dto/problem-dto';
 import { STRAPI_API_URL } from '@/constants/paths';
 
@@ -55,16 +54,3 @@ export class ApiProblemRepository implements ProblemRepository {
       )
       .mapErr((err) => err.toResponseError());
 }
-
-const getStrapiErrorFromGet = (res: WithJson<Response>): StrapiError => {
-  const status = res.status;
-  const body = res.js;
-
-  const parsed = errorResponse.safeParse(body);
-
-  const message = parsed.success ? parsed.data.error.message : 'Unknown error';
-
-  return new StrapiError(message, status, {
-    cause: body,
-  });
-};
