@@ -1,13 +1,13 @@
 import { users } from './users';
 
-// 提出物情報  
-// 要確認: published(どういう状態をpublishedと定義する?),status(ブランクはどういう状態を表す？時系列は submitted→reviewed→published？) 
+// 提出物情報
+// 要確認: published(どういう状態をpublishedと定義する?),status(ブランクはどういう状態を表す？時系列は submitted→reviewed→published？)
 export type Submission = {
-  id: number; // 提出物のID 
+  id: number; // 提出物のID
   title: string; // 提出物のタイトル
   difficulty: 1 | 2 | 3; // 提出物の難易度（1: Easy, 2: Normal, 3: Hard）
   authorId: string; // 作成者のID
-  authorName: string; // 作成者の名前   
+  authorName: string; // 作成者の名前
   reviewerId: string; // レビュアーのID
   reviewerName: string; // レビュアーの名前
   submitted: string; // 提出日
