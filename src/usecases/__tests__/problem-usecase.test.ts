@@ -12,7 +12,7 @@ describe('ProblemUseCase', () => {
 
   const mockProblems: Problem[] = [
     new Problem(
-      1,
+      '1',
       'title',
       'description',
       'Easy',
@@ -21,7 +21,7 @@ describe('ProblemUseCase', () => {
       new Date()
     ),
     new Problem(
-      2,
+      '2',
       'title2',
       'description',
       'Medium',
