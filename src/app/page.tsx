@@ -2,13 +2,26 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { AddIcon } from '@/components/ui/icons';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { SubmissionTable } from '@/components/submission-table';
+import { ProblemTable } from '@/components/problem-table/data-table';
 import { Achievements } from '@/components/achievements';
 import { Notifications } from '@/components/notifications';
 import { users } from '@/lib/users';
 import { submissions } from '@/lib/submissions';
+import { ProblemTableColumn } from '@/components/problem-table/columns';
 
 export default function Page() {
+  const submissionList: ProblemTableColumn[] = submissions.map(
+    (submission) => ({
+      id: submission.id,
+      title: submission.title,
+      status: submission.status,
+      difficulty: submission.difficulty,
+      // 実際は Strapi に `fetchUserById` で userName を問い合わせる
+      authorName: submission.authorName,
+      published: new Date(submission.published),
+    })
+  );
+
   return (
     <div className="px-4 py-2.5 flex gap-2.5 w-full justify-center">
       <div className="w-full flex flex-wrap gap-5">
@@ -32,7 +45,7 @@ export default function Page() {
             </ToggleGroupItem>
           </ToggleGroup>
           <div className="w-full">
-            <SubmissionTable data={submissions} />
+            <ProblemTable data={submissionList} />
             <Link
               href="/submissions/1/edit"
               className="font-bold underline text-blue-600 visited:text-purple-600"
