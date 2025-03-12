@@ -1,8 +1,7 @@
 import { ProblemUseCase } from '@/usecases/problem-usecase';
 import { ProblemRepository } from '@/domain/repositories/problem-repository';
 import { Problem } from '@/domain/entities/problem';
-import { ResultAsync } from 'neverthrow';
-import { ResponseError } from '@/domain/entities/error';
+import { okAsync } from 'neverthrow';
 
 jest.mock('@/domain/repositories/problem-repository');
 
@@ -35,14 +34,7 @@ describe('ProblemUseCase', () => {
     jest.clearAllMocks();
 
     mockProblemRepository = {
-      getProblems: jest.fn().mockImplementation(() =>
-        ResultAsync.fromPromise(
-          new Promise((resolve) => {
-            resolve(mockProblems);
-          }),
-          () => new ResponseError('mock error', 'unknown')
-        )
-      ),
+      getProblems: jest.fn().mockReturnValue(okAsync(mockProblems)),
     };
     problemUseCase = new ProblemUseCase(mockProblemRepository);
   });

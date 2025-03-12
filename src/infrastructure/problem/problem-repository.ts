@@ -17,13 +17,14 @@ export const newProblemFromDTO = (problem: ProblemDTO) => {
 };
 
 export class ApiProblemRepository implements ProblemRepository {
-  //TODO: Authorizationはログイン時のトークンを使用する
+  constructor(private readonly authToken?: string) {}
+
   getProblems = () =>
     fetchStrapiData<ProblemDTO[]>(
       '/problems',
       problemDTO.array(),
       {},
-      process.env.NEXT_PUBLIC_STRAPI_JWT ?? ''
+      this.authToken ?? ''
     )
       .andThen((problems) =>
         ok(problems.map((problem) => newProblemFromDTO(problem)))
