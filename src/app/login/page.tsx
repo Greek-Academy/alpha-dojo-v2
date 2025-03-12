@@ -1,9 +1,10 @@
 // ./src/app/page.tsx
 
+import { STRAPI_URL } from '@/constants/paths';
 import Link from 'next/link';
 
 export default function Home() {
-  const backendUrl = process.env.STRAPI_PUBLIC_URL ?? 'http://localhost:1337';
+  const backendUrl = STRAPI_URL;
   const path = '/api/connect/github';
   const url = new URL(backendUrl + path);
 

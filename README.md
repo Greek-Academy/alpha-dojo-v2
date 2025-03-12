@@ -84,7 +84,8 @@ pnpm run dev
 * メモリ: 約 4GB
 
 ### 1. 環境変数の設定
-* `.env.sample` を `.env` に変更してください。
+* `.env.sample` をコピーして `.env` ファイルを作成してください。
+* `localhost` 以外でサーバーを立てる場合は `.env` の値を変更してください。
 
 ### 2. Docker コンテナの作成・起動
 * Docker Compose で、Strapi やそれに必要なアプリ (MySQL など) を起動します。
