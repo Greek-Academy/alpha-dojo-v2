@@ -2,10 +2,10 @@ import { z } from 'zod';
 import {
   strapiCommonAttributesDTO,
   strapiCommonDTO,
-} from '../strapi/strapi-common-dto';
+} from '../dto/strapi-common-dto';
 import { relationalUserDTO } from '../user/user-response';
-import { ProblemDTO, problemDTO } from '../problem/problem-response';
-import { languageDTO } from '../language/lanuage-response';
+import { ProblemDTO, problemDTO } from '../dto/problem-dto';
+import { languageDTO } from '../dto/lanuage-dto';
 
 export const baseSubmissionAttributesDTO = strapiCommonAttributesDTO.extend({
   author: z
