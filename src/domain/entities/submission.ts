@@ -15,7 +15,7 @@ export type Status = z.infer<typeof status>;
 
 export class Submission {
   constructor(
-    public readonly id: string | undefined,
+    public readonly id: string,
     public readonly authorId: string,
     public readonly problemId: string,
     public readonly language: SupportedLanguage,
