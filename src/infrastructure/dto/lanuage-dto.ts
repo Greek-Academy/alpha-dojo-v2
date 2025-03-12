@@ -5,9 +5,10 @@ import {
 } from './strapi-common-dto';
 import { ValidatorDTO, validatorDTO } from './validator-dto';
 import { InitialCodeDTO, initialCodeDTO } from './initial-code-dto';
+import { supportedLanguage } from '@/domain/entities/supported-language';
 
 const baseLanguageAttributesDTO = strapiCommonAttributesDTO.extend({
-  name: z.string(),
+  name: supportedLanguage,
 });
 
 const baseLanguageDTO = strapiCommonDTO.extend({
