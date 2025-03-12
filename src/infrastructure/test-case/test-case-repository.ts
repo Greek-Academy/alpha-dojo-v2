@@ -1,5 +1,5 @@
 import { TestCase } from '@/domain/entities/test-case';
-import { TestCaseDTO } from '../dto/test-case-dto';
+import { TestCaseDTO } from './test-case-response';
 
 export const newTestCaseFromDTO = (
   testCase: TestCaseDTO,
