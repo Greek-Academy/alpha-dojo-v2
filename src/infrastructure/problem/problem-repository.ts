@@ -22,14 +22,15 @@ export const newProblemFromDTO = (problem: ProblemDTO) => {
 };
 
 export class ApiProblemRepository implements ProblemRepository {
-  //TODO: Authorizationはログイン時のトークンを使用する
+  constructor(private readonly authToken?: string) {}
+
   getProblems = () =>
     ResultAsync.fromPromise(
       fetch(`${STRAPI_API_URL}/problems`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_JWT}`,
+          Authorization: `Bearer ${this.authToken}`,
         },
       }),
       normalizeError

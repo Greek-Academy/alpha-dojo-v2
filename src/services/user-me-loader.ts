@@ -1,10 +1,5 @@
 import { STRAPI_API_URL } from '@/constants/paths';
-import { cookies } from 'next/headers';
-
-export async function getAuthToken() {
-  const authToken = (await cookies()).get('jwt')?.value;
-  return authToken;
-}
+import { getAuthToken } from '@/lib/get-auth-token';
 
 export async function getUserMeLoader() {
   const baseUrl = STRAPI_API_URL;
