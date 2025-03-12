@@ -20,4 +20,8 @@ export class ProblemUseCase {
 
   getAllProblems: () => ResultAsync<Problem[], ResponseError> =
     this.problemRepository.getProblems;
+
+  async getProblemById(id: number): Promise<Problem> {
+    return await this.problemRepository.getProblem(id);
+  }
 }

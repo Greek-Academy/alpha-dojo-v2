@@ -35,6 +35,14 @@ describe('ProblemUseCase', () => {
 
     mockProblemRepository = {
       getProblems: jest.fn().mockReturnValue(okAsync(mockProblems)),
+      getProblem: jest.fn().mockImplementation(async (id: number) => {
+        const problem = mockProblems[id - 1];
+        if (!problem)
+          // not found
+          throw new TypeError();
+
+        return problem;
+      }),
     };
     problemUseCase = new ProblemUseCase(mockProblemRepository);
   });
@@ -44,5 +52,17 @@ describe('ProblemUseCase', () => {
     expect(problems.isOk()).toBe(true);
     expect(problems.isOk() && problems.value.length).toBe(2);
     expect(mockProblemRepository.getProblems).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return a problem', async () => {
+    const problem = await problemUseCase.getProblemById(1);
+    expect(problem).toBe(mockProblems[0]);
+    expect(mockProblemRepository.getProblem).toHaveBeenCalledTimes(1);
+  });
+
+  it('should throw TypeError (not found)', async () => {
+    await expect(problemUseCase.getProblemById(3)).rejects.toThrow(
+      new TypeError()
+    );
   });
 });
