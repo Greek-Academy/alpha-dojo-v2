@@ -1,4 +1,6 @@
 import { ResponseError, ResponseErrorCode } from '@/domain/entities/error';
+import { WithJson } from './infra-utils';
+import { errorResponse } from './dto/error';
 
 export class StrapiError extends Error {
   constructor(
@@ -41,3 +43,16 @@ export class StrapiError extends Error {
     return new ResponseError(this.message, responseErrorCode());
   }
 }
+
+export const getStrapiErrorFromGet = (res: WithJson<Response>): StrapiError => {
+  const status = res.status;
+  const body = res.js;
+
+  const parsed = errorResponse.safeParse(body);
+
+  const message = parsed.success ? parsed.data.error.message : 'Unknown error';
+
+  return new StrapiError(message, status, {
+    cause: body,
+  });
+};
