@@ -12,6 +12,8 @@ export const judgeSubmission = z.object({
     id: z.number(),
     description: z.string(),
   }),
+  created_at: z.string().datetime(),
+  finished_at: z.string().datetime(),
 });
 
 export type JudgeSubmission = z.infer<typeof judgeSubmission>;

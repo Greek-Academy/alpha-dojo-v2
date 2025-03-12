@@ -2,48 +2,39 @@ import { err, ok, ResultAsync } from 'neverthrow';
 import { WithJson, withJson } from '@/infrastructure/infra-utils';
 import { normalizeError } from '@/lib/err-utils';
 import { JudgeError, JudgeErrorCode } from '@/infrastructure/judge/judge-error';
-import {
-  JudgeSubmission,
-  judgeSubmission,
-} from '@/infrastructure/judge/judge-response';
+import { judgeSubmission } from '@/infrastructure/judge/judge-response';
 import { SupportedLanguage } from '@/domain/entities/supported-language';
 import { JUDGE_API_ENDPOINT } from '@/constants/paths';
 import { JUDGE_API_KEY } from '@/constants/env';
+import { JudgeRepository } from '@/domain/repositories/judge-repository';
+import { Status, TestResult } from '@/domain/entities/test-result';
 
 const POLLING_INTERVAL = 3000;
-
-export type JudgeRepository = {
-  /**
-   * Creates new submission (POST /submissions)
-   * @param languageId The language ID (int)
-   * @param sourceCode The source code
-   * @param stdin The standard input
-   * @throws JudgeError (code: unknown, empty-language, unsupported-language, wall-time-limit, wait-not-allowed, full-queue, invalid-api-key)
-   * @returns The submission token
-   */
-  createSubmission: (
-    language: SupportedLanguage,
-    sourceCode: string,
-    stdin: string
-  ) => ResultAsync<string, JudgeError<JudgeErrorCode.CreateSubmission>>;
-  /**
-   * Get submission (GET /submissions/:token)
-   * @param token The submission token that was returned from createSubmission
-   * @throws JudgeError (code: unknown, invalid-api-key, invalid-page)
-   * @returns The submission object
-   */
-  getSubmission: (
-    token: string
-  ) => ResultAsync<JudgeSubmission, JudgeError<JudgeErrorCode.GetSubmission>>;
-};
 
 const languageIds = new Map<SupportedLanguage, number>([
   ['TYPESCRIPT', 1],
   ['PYTHON', 2],
 ]);
 
-export const judgeRepository: JudgeRepository = {
-  createSubmission: (language, sourceCode, stdin) =>
+const statusFromId = (statusId: number): Status => {
+  switch (statusId) {
+    case 3:
+      return 'accepted';
+    case 4:
+      return 'wrong-answer';
+    case 6:
+      return 'compilation-error';
+    default:
+      return 'unknown';
+  }
+};
+
+export class ApiJudgeRepository implements JudgeRepository {
+  createSubmission = (
+    language: SupportedLanguage,
+    sourceCode: string,
+    stdin: string
+  ) =>
     ResultAsync.fromPromise(
       fetch(
         `${JUDGE_API_ENDPOINT}/submissions/?base64_encoded=false&wait=false`,
@@ -68,13 +59,20 @@ export const judgeRepository: JudgeRepository = {
         typeof res.js.token === 'string'
           ? ok(res.js.token)
           : err(getJudgeErrorFromCreate(res))
-      ),
-  getSubmission: (token) =>
+      );
+  getSubmission = (
+    token: string
+  ): ResultAsync<TestResult, JudgeError<JudgeErrorCode.GetSubmission>> =>
     ResultAsync.fromPromise(
-      fetch(`${JUDGE_API_ENDPOINT}/submissions/${token}?base64_encoded=true`, {
-        headers: getHeaders(),
-        method: 'GET',
-      }),
+      fetch(
+        `${JUDGE_API_ENDPOINT}/submissions/${token}` +
+          `?base64_encoded=true` +
+          `&fields=stdout,time,memory,stderr,token,compile_output,message,status,created_at,finished_at`,
+        {
+          headers: getHeaders(),
+          method: 'GET',
+        }
+      ),
       normalizeError
     )
       .andThen(withJson)
@@ -100,10 +98,22 @@ export const judgeRepository: JudgeRepository = {
             ResultAsync.fromPromise(
               new Promise((resolve) => setTimeout(resolve, POLLING_INTERVAL)),
               (err) => JudgeError.fromUnknown(err)
-            ).andThen(() => judgeRepository.getSubmission(token))
-          : ok(subm)
-      ),
-};
+            ).andThen(() => this.getSubmission(token))
+          : ok(
+              new TestResult(
+                token,
+                subm.stdout,
+                Math.round(subm.time * 1000),
+                subm.memory,
+                subm.stderr,
+                subm.compile_output,
+                statusFromId(subm.status.id),
+                new Date(subm.created_at),
+                new Date(subm.finished_at)
+              )
+            )
+      );
+}
 
 const getHeaders = () => ({
   Accept: 'application/json',
