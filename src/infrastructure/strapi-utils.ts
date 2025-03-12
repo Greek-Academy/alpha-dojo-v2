@@ -1,6 +1,6 @@
 import { STRAPI_API_URL } from '@/constants/paths';
 import { err, ok, ResultAsync } from 'neverthrow';
-import { withJson } from '../infra-utils';
+import { withJson } from './infra-utils';
 import { getStrapiErrorFromGet, StrapiError } from './strapi-error';
 import { z } from 'zod';
 import qs from 'qs';

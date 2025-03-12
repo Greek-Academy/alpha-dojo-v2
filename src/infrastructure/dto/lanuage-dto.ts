@@ -2,12 +2,9 @@ import { z } from 'zod';
 import {
   strapiCommonAttributesDTO,
   strapiCommonDTO,
-} from '../strapi/strapi-common-dto';
-import { ValidatorDTO, validatorDTO } from '../validator/validator-response';
-import {
-  InitialCodeDTO,
-  initialCodeDTO,
-} from '../initial-code/initial-code-response';
+} from './strapi-common-dto';
+import { ValidatorDTO, validatorDTO } from './validator-dto';
+import { InitialCodeDTO, initialCodeDTO } from './initial-code-dto';
 import { supportedLanguage } from '@/domain/entities/supported-language';
 
 const baseLanguageAttributesDTO = strapiCommonAttributesDTO.extend({

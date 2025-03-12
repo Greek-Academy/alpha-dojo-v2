@@ -2,8 +2,8 @@ import { z } from 'zod';
 import {
   strapiCommonAttributesDTO,
   strapiCommonDTO,
-} from '../strapi/strapi-common-dto';
-import { ProblemDTO, problemDTO } from '../problem/problem-response';
+} from './strapi-common-dto';
+import { ProblemDTO, problemDTO } from './problem-dto';
 
 const baseTestCaseAttributesDTO = strapiCommonAttributesDTO.extend({
   arguments: z.string(),

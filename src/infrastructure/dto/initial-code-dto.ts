@@ -2,9 +2,9 @@ import { z } from 'zod';
 import {
   strapiCommonAttributesDTO,
   strapiCommonDTO,
-} from '../strapi/strapi-common-dto';
-import { ProblemDTO, problemDTO } from '../problem/problem-response';
-import { languageDTO } from '../language/lanuage-response';
+} from './strapi-common-dto';
+import { ProblemDTO, problemDTO } from './problem-dto';
+import { languageDTO } from './lanuage-dto';
 
 const baseInitialAttributesCodeDTO = strapiCommonAttributesDTO.extend({
   language_id: z

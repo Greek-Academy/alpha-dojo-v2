@@ -1,5 +1,5 @@
 import { InitialCode } from '@/domain/entities/initial-code';
-import { InitialCodeDTO } from './initial-code-response';
+import { InitialCodeDTO } from '../dto/initial-code-dto';
 import { SupportedLanguage } from '@/domain/entities/supported-language';
 
 export const newInitialCodeFromDTO = (

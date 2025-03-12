@@ -1,5 +1,5 @@
 import { Validator } from '@/domain/entities/validator';
-import { ValidatorDTO } from './validator-response';
+import { ValidatorDTO } from '../dto/validator-dto';
 import { SupportedLanguage } from '@/domain/entities/supported-language';
 
 export const newValidatorFromDTO = (
