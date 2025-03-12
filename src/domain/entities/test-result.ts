@@ -17,10 +17,10 @@ export class TestResult {
     public readonly stdout: string,
     public readonly time_ms: number,
     public readonly memory: number,
-    public readonly stderr: string,
-    public readonly compileOutput: string,
+    public readonly stderr: string | null,
+    public readonly compileOutput: string | null,
     public readonly status: Status,
     public readonly createdAt: Date,
-    public readonly updatedAt: Date
+    public readonly finishedAt: Date
   ) {}
 }
