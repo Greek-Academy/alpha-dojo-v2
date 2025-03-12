@@ -26,3 +26,12 @@ export class Submission {
     public readonly updatedAt: Date
   ) {}
 }
+
+export class SubmissionToCreate {
+  constructor(
+    public readonly authorId: string,
+    public readonly problemId: string,
+    public readonly language: SupportedLanguage,
+    public readonly codeText: string
+  ) {}
+}
