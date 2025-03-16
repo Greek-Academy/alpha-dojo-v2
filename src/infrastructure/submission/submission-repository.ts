@@ -1,5 +1,10 @@
-import { Status, Submission } from '@/domain/entities/submission';
 import {
+  Status,
+  Submission,
+  SubmissionToCreate,
+} from '@/domain/entities/submission';
+import {
+  submissionDTO,
   SubmissionDTO,
   submissionRequiredDTO,
   SubmissionRequiredDTO,
@@ -14,7 +19,8 @@ import {
 import { ResultAsync } from 'neverthrow';
 import { normalizeError } from '@/lib/err-utils';
 import { StrapiError } from '../strapi/strapi-error';
-import { fetchStrapiData } from '../strapi/strapi-utils';
+import { fetchStrapiData, postStrapiData } from '../strapi/strapi-utils';
+import { supportedLanguageToId } from '../language/language-repository';
 
 export const newSubmissionFromRequiredDTO = async (
   submission: SubmissionRequiredDTO
@@ -59,11 +65,13 @@ export const newSubmissionFromDTO = async (
   );
 };
 
+const submissionEndpoint = '/submissions';
+
 export class ApiSubmissionRepository implements SubmissionRepository {
   // TODO: Authorization はログイン時のトークンを使用する
   getSubmissionById = (id: string) =>
     fetchStrapiData<SubmissionRequiredDTO>(
-      `/submissions/${id}`,
+      `${submissionEndpoint}/${id}`,
       submissionRequiredDTO,
       {
         populate: '*',
@@ -80,7 +88,7 @@ export class ApiSubmissionRepository implements SubmissionRepository {
 
   getSubmissions = (filters?: SubmissionFilter) =>
     fetchStrapiData<SubmissionRequiredDTO[]>(
-      '/submissions',
+      submissionEndpoint,
       submissionRequiredDTO.array(),
       {
         populate: '*',
@@ -122,4 +130,33 @@ export class ApiSubmissionRepository implements SubmissionRepository {
         ).mapErr(StrapiError.fromUnknown)
       )
       .mapErr((err) => err.toResponseError());
+
+  postSubmission = (subm: SubmissionToCreate) =>
+    supportedLanguageToId(subm.language)
+      .andThen((langId) =>
+        postStrapiData<SubmissionDTO>(
+          submissionEndpoint,
+          {
+            author: Number(subm.authorId),
+            problem: Number(subm.problemId),
+            language: Number(langId),
+            code: subm.codeText,
+          },
+          submissionDTO,
+          process.env.NEXT_PUBLIC_STRAPI_JWT ?? ''
+        ).mapErr((err) => err.toResponseError())
+      )
+      .andThen((res) =>
+        ResultAsync.fromPromise(
+          newSubmissionFromDTO(
+            res,
+            subm.authorId,
+            subm.problemId,
+            subm.language
+          ),
+          normalizeError
+        )
+          .mapErr(StrapiError.fromUnknown)
+          .mapErr((err) => err.toResponseError())
+      );
 }
