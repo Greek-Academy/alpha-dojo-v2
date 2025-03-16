@@ -40,7 +40,7 @@ describe('ProblemUseCase', () => {
   });
 
   it('should return all problems', async () => {
-    const problems = await problemUseCase.getAllProblems();
+    const problems = await problemUseCase.fetchAllProblems();
     expect(problems.isOk()).toBe(true);
     expect(problems.isOk() && problems.value.length).toBe(2);
     expect(mockProblemRepository.getProblems).toHaveBeenCalledTimes(1);
