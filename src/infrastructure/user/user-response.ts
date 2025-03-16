@@ -2,7 +2,7 @@ import { z } from 'zod';
 import {
   strapiCommonAttributesDTO,
   strapiCommonDTO,
-} from '../dto/strapi-common-dto';
+} from '../strapi/strapi-response';
 
 const userBaseDTO = z.object({
   username: z.string(),

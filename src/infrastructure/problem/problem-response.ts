@@ -39,11 +39,3 @@ export const problemDTO = strapiCommonDTO.extend({
 });
 
 export type ProblemDTO = z.infer<typeof problemDTO>;
-
-/** @deprecated DOJO-81 によって、今後不要 */
-export const strapiProblems = z.object({
-  data: z.array(problemDTO),
-});
-
-/** @deprecated DOJO-81 によって、今後不要 */
-export type StrapiProblems = z.infer<typeof strapiProblems>;
