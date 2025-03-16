@@ -5,7 +5,7 @@ import {
 } from '../strapi/strapi-response';
 import { relationalUserDTO } from '../user/user-response';
 import { ProblemDTO, problemDTO } from '../problem/problem-response';
-import { languageDTO } from '../language/lanuage-response';
+import { languageDTO } from '../language/language-response';
 
 export const baseSubmissionAttributesDTO = strapiCommonAttributesDTO.extend({
   author: z
