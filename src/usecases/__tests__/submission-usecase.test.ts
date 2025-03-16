@@ -3,7 +3,7 @@ import {
   SubmissionRepository,
 } from '@/domain/repositories/submission-repository';
 import { SubmissionUseCase } from '../submission-usecase';
-import { Submission } from '@/domain/entities/submission';
+import { Submission, SubmissionToCreate } from '@/domain/entities/submission';
 import { errAsync, okAsync } from 'neverthrow';
 import { ResponseError } from '@/domain/entities/error';
 
@@ -41,13 +41,20 @@ describe('SubmissionUseCase', () => {
       'user-2',
       'problem-1',
       'TYPESCRIPT',
-      'exampleCode-2',
+      'exampleCode-3',
       'FINISHED',
       'test-result-3',
       new Date(),
       new Date()
     ),
   ];
+
+  const mockSubmToCreate: SubmissionToCreate = new SubmissionToCreate(
+    'user-3',
+    'problem-3',
+    'TYPESCRIPT',
+    'exampleCode-4'
+  );
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -59,6 +66,7 @@ describe('SubmissionUseCase', () => {
           ? okAsync(mockSubms.filter((subm) => subm.id === id)[0])
           : errAsync(new ResponseError('Not Found', 'not-found'));
       }),
+
       getSubmissions: jest
         .fn()
         .mockImplementation((filters?: SubmissionFilter) =>
@@ -74,6 +82,24 @@ describe('SubmissionUseCase', () => {
                     subm.problemId === filters.problemId) &&
                   (filters.testResultId === undefined ||
                     subm.problemId === filters.problemId))
+            )
+          )
+        ),
+
+      postSubmission: jest
+        .fn()
+        .mockImplementation((subm: SubmissionToCreate) =>
+          okAsync(
+            new Submission(
+              'submission-4',
+              subm.authorId,
+              subm.problemId,
+              subm.language,
+              subm.codeText,
+              'FINISHED',
+              'test-result-4',
+              new Date(),
+              new Date()
             )
           )
         ),
@@ -123,5 +149,11 @@ describe('SubmissionUseCase', () => {
     });
     expect(subms.isOk() && subms.value.length).toBe(0);
     expect(mockSubmRepository.getSubmissions).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return a new submission', async () => {
+    const subm = await submUseCase.postSubmission(mockSubmToCreate);
+    expect(subm.isOk() && subm.value.authorId).toBe('user-3');
+    expect(mockSubmRepository.postSubmission).toHaveBeenCalledTimes(1);
   });
 });

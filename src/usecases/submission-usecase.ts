@@ -3,7 +3,7 @@ import {
   SubmissionFilter,
   SubmissionRepository,
 } from '@/domain/repositories/submission-repository';
-import { Submission } from '@/domain/entities/submission';
+import { Submission, SubmissionToCreate } from '@/domain/entities/submission';
 import { ResultAsync } from 'neverthrow';
 
 /** Submission を取得
@@ -53,4 +53,9 @@ export class SubmissionUseCase {
     filters?: SubmissionFilter
   ) => ResultAsync<Submission[], ResponseError> =
     this.submissionRepository.getSubmissions;
+
+  postSubmission: (
+    subm: SubmissionToCreate
+  ) => ResultAsync<Submission, ResponseError> =
+    this.submissionRepository.postSubmission;
 }
