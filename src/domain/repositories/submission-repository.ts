@@ -1,5 +1,5 @@
 import { ResultAsync } from 'neverthrow';
-import { Submission } from '../entities/submission';
+import { Submission, SubmissionToCreate } from '../entities/submission';
 import { ResponseError } from '../entities/error';
 import { SupportedLanguage } from '../entities/supported-language';
 
@@ -16,4 +16,8 @@ export interface SubmissionRepository {
   getSubmissions: (
     filters?: SubmissionFilter
   ) => ResultAsync<Submission[], ResponseError>;
+
+  postSubmission: (
+    data: SubmissionToCreate
+  ) => ResultAsync<Submission, ResponseError>;
 }
