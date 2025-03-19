@@ -16,12 +16,14 @@ export const newProblemFromDTO = (problem: ProblemDTO) => {
   );
 };
 
+const problemEndpoint = '/problems';
+
 export class ApiProblemRepository implements ProblemRepository {
   constructor(private readonly authToken?: string) {}
 
   getProblems = () =>
     fetchStrapiData<ProblemDTO[]>(
-      '/problems',
+      problemEndpoint,
       problemDTO.array(),
       {},
       this.authToken ?? ''
@@ -31,29 +33,13 @@ export class ApiProblemRepository implements ProblemRepository {
       )
       .mapErr((err) => err.toResponseError());
 
-  async getProblem(id: number): Promise<Problem> {
-    //TODO: Authorizationはログイン時のトークンを使用する
-    const response = await fetch(`${STRAPI_API_URL}/problems/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_JWT}`,
-      },
-    });
-
-    const json = await response.json();
-    const problemDTO: ProblemDTO = json.data;
-
-    const problem = new Problem(
-      problemDTO.id,
-      problemDTO.attributes.title,
-      problemDTO.attributes.description,
-      problemDTO.attributes.difficulty,
-      problemDTO.attributes.constraints,
-      new Date(problemDTO.attributes.createdAt),
-      new Date(problemDTO.attributes.updatedAt)
-    );
-
-    return problem;
-  }
+  getProblem = (id: number) =>
+    fetchStrapiData<ProblemDTO>(
+      `${problemEndpoint}/${id}`,
+      problemDTO,
+      {},
+      this.authToken ?? ''
+    )
+      .andThen((problem) => ok(newProblemFromDTO(problem)))
+      .mapErr((err) => err.toResponseError());
 }
