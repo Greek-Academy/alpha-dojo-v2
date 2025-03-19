@@ -3,6 +3,6 @@ import { ResultAsync } from 'neverthrow';
 import { ResponseError } from '../entities/error';
 
 export interface ProblemRepository {
-  getProblems: () => ResultAsync<Problem[], ResponseError>;
-  getProblem: (id: number) => ResultAsync<Problem, ResponseError>;
+  getAllProblems: () => ResultAsync<Problem[], ResponseError>;
+  getProblemById: (id: number) => ResultAsync<Problem, ResponseError>;
 }

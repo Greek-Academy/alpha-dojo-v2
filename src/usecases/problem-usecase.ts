@@ -19,9 +19,9 @@ export class ProblemUseCase {
   constructor(private readonly problemRepository: ProblemRepository) {}
 
   getAllProblems: () => ResultAsync<Problem[], ResponseError> =
-    this.problemRepository.getProblems;
+    this.problemRepository.getAllProblems;
 
   async getProblemById(id: number): Promise<Problem> {
-    return await this.problemRepository.getProblem(id);
+    return await this.problemRepository.getProblemById(id);
   }
 }

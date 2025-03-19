@@ -21,7 +21,7 @@ const problemEndpoint = '/problems';
 export class ApiProblemRepository implements ProblemRepository {
   constructor(private readonly authToken?: string) {}
 
-  getProblems = () =>
+  getAllProblems = () =>
     fetchStrapiData<ProblemDTO[]>(
       problemEndpoint,
       problemDTO.array(),
@@ -33,7 +33,7 @@ export class ApiProblemRepository implements ProblemRepository {
       )
       .mapErr((err) => err.toResponseError());
 
-  getProblem = (id: number) =>
+  getProblemById = (id: number) =>
     fetchStrapiData<ProblemDTO>(
       `${problemEndpoint}/${id}`,
       problemDTO,
