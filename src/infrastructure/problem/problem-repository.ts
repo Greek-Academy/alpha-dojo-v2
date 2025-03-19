@@ -1,7 +1,7 @@
 import { ProblemRepository } from '@/domain/repositories/problem-repository';
 import { Problem } from '@/domain/entities/problem';
 import { ok } from 'neverthrow';
-import { problemDTO, ProblemDTO } from '../dto/problem-dto';
+import { problemDTO, ProblemDTO } from './problem-response';
 import { fetchStrapiData } from '../strapi-utils';
 
 export const newProblemFromDTO = (problem: ProblemDTO) => {
@@ -16,12 +16,14 @@ export const newProblemFromDTO = (problem: ProblemDTO) => {
   );
 };
 
+const problemEndpoint = '/problems';
+
 export class ApiProblemRepository implements ProblemRepository {
   constructor(private readonly authToken?: string) {}
 
-  getProblems = () =>
+  getAllProblems = () =>
     fetchStrapiData<ProblemDTO[]>(
-      '/problems',
+      problemEndpoint,
       problemDTO.array(),
       {},
       this.authToken ?? ''
@@ -29,5 +31,15 @@ export class ApiProblemRepository implements ProblemRepository {
       .andThen((problems) =>
         ok(problems.map((problem) => newProblemFromDTO(problem)))
       )
+      .mapErr((err) => err.toResponseError());
+
+  getProblemById = (id: string) =>
+    fetchStrapiData<ProblemDTO>(
+      `${problemEndpoint}/${id}`,
+      problemDTO,
+      {},
+      this.authToken ?? ''
+    )
+      .andThen((problem) => ok(newProblemFromDTO(problem)))
       .mapErr((err) => err.toResponseError());
 }
