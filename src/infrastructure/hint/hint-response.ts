@@ -2,8 +2,8 @@ import { z } from 'zod';
 import {
   strapiCommonAttributesDTO,
   strapiCommonDTO,
-} from './strapi-common-dto';
-import { ProblemDTO, problemDTO } from './problem-dto';
+} from '../strapi/strapi-response';
+import { ProblemDTO, problemDTO } from '../problem/problem-response';
 
 const baseHintAttributesDTO = strapiCommonAttributesDTO.extend({
   order: z.number(),
