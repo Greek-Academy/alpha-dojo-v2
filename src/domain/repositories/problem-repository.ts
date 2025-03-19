@@ -4,5 +4,5 @@ import { ResponseError } from '../entities/error';
 
 export interface ProblemRepository {
   getAllProblems: () => ResultAsync<Problem[], ResponseError>;
-  getProblemById: (id: number) => ResultAsync<Problem, ResponseError>;
+  getProblemById: (id: string) => ResultAsync<Problem, ResponseError>;
 }

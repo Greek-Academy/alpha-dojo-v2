@@ -21,7 +21,7 @@ export class ProblemUseCase {
   getAllProblems: () => ResultAsync<Problem[], ResponseError> =
     this.problemRepository.getAllProblems;
 
-  async getProblemById(id: number): Promise<Problem> {
+  async getProblemById(id: string): Promise<Problem> {
     return await this.problemRepository.getProblemById(id);
   }
 }

@@ -33,7 +33,7 @@ export class ApiProblemRepository implements ProblemRepository {
       )
       .mapErr((err) => err.toResponseError());
 
-  getProblemById = (id: number) =>
+  getProblemById = (id: string) =>
     fetchStrapiData<ProblemDTO>(
       `${problemEndpoint}/${id}`,
       problemDTO,
