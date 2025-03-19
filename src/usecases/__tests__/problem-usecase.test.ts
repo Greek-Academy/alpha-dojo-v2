@@ -1,7 +1,8 @@
 import { ProblemUseCase } from '@/usecases/problem-usecase';
 import { ProblemRepository } from '@/domain/repositories/problem-repository';
 import { Problem } from '@/domain/entities/problem';
-import { okAsync } from 'neverthrow';
+import { errAsync, okAsync } from 'neverthrow';
+import { ResponseError } from '@/domain/entities/error';
 
 jest.mock('@/domain/repositories/problem-repository');
 
@@ -35,13 +36,13 @@ describe('ProblemUseCase', () => {
 
     mockProblemRepository = {
       getAllProblems: jest.fn().mockReturnValue(okAsync(mockProblems)),
-      getProblemById: jest.fn().mockImplementation(async (id: string) => {
+      getProblemById: jest.fn().mockImplementation((id: string) => {
         const problem = mockProblems[Number(id) - 1];
         if (!problem)
           // not found
-          throw new TypeError();
+          return errAsync(new ResponseError('Not Found', 'not-found'));
 
-        return problem;
+        return okAsync(problem);
       }),
     };
     problemUseCase = new ProblemUseCase(mockProblemRepository);
@@ -56,13 +57,13 @@ describe('ProblemUseCase', () => {
 
   it('should return a problem', async () => {
     const problem = await problemUseCase.getProblemById('1');
-    expect(problem).toBe(mockProblems[0]);
+    expect(problem.isOk() && problem.value.id).toBe('1');
     expect(mockProblemRepository.getProblemById).toHaveBeenCalledTimes(1);
   });
 
-  it('should throw TypeError (not found)', async () => {
-    await expect(problemUseCase.getProblemById('3')).rejects.toThrow(
-      new TypeError()
-    );
+  it('should throw an exception (problem not found)', async () => {
+    const problem = await problemUseCase.getProblemById('3');
+    expect(problem.isErr() && problem.error.errorCode).toBe('not-found');
+    expect(mockProblemRepository.getProblemById).toHaveBeenCalledTimes(1);
   });
 });
