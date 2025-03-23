@@ -15,7 +15,7 @@ export const ProblemTable = ({ data, className }: Props) => {
       className={cn(
         'w-full border-none',
         // HACK: 行全体にリンクを貼るために必要
-        '[&_tr]:relative first:[&_th]:px-0 first:[&_td]:px-0',
+        '[&_tr]:relative [&_th]:first:px-0 [&_td]:first:px-0',
         className
       )}
     >
