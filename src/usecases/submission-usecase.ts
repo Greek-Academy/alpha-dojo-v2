@@ -6,7 +6,7 @@ import {
 import { Submission, SubmissionToCreate } from '@/domain/entities/submission';
 import { ResultAsync } from 'neverthrow';
 
-/** Submission を取得
+/** 課題の提出
  * @example
  * ```
  * import { getAuthToken } from '@/lib/get-auth-token';
@@ -54,6 +54,17 @@ export class SubmissionUseCase {
   ) => ResultAsync<Submission[], ResponseError> =
     this.submissionRepository.getSubmissions;
 
+  /** 課題を新規に提出
+   * @example
+   * ```
+   * const newSubmission: SubmissionToCreate = {...};
+   * const submissionResponse = await submissionUseCase.postSubmission(newSubmission);
+   *
+   * if (submissionsResponse.isErr()) {
+   *   // エラー処理
+   * }
+   * ```
+   */
   postSubmission: (
     subm: SubmissionToCreate
   ) => ResultAsync<Submission, ResponseError> =
