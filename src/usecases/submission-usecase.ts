@@ -5,6 +5,8 @@ import {
 } from '@/domain/repositories/submission-repository';
 import { Submission, SubmissionToCreate } from '@/domain/entities/submission';
 import { ResultAsync } from 'neverthrow';
+import { TestResult } from '@/domain/entities/test-result';
+import { z } from 'zod';
 
 /** 課題の提出
  * @example
@@ -70,3 +72,25 @@ export class SubmissionUseCase {
   ) => ResultAsync<Submission, ResponseError> =
     this.submissionRepository.postSubmission;
 }
+
+export const statusEnum = [
+  'PENDING',
+  'FAILED',
+  'IN_REVIEW',
+  'REVIEWED',
+  'FINISHED',
+] as const satisfies string[];
+export const status = z.enum(statusEnum);
+export type Status = z.infer<typeof status>;
+
+export const getSubmissionStatus = (
+  subm: Submission,
+  testResult: TestResult
+): Status =>
+  testResult.status === 'accepted'
+    ? subm.finished
+      ? 'FINISHED'
+      : subm.reviewed
+        ? 'REVIEWED'
+        : 'IN_REVIEW'
+    : 'FAILED';

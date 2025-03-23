@@ -1,8 +1,4 @@
-import {
-  Status,
-  Submission,
-  SubmissionToCreate,
-} from '@/domain/entities/submission';
+import { Submission, SubmissionToCreate } from '@/domain/entities/submission';
 import {
   submissionDTO,
   SubmissionDTO,
@@ -10,8 +6,6 @@ import {
   SubmissionRequiredDTO,
 } from './submission-response';
 import { SupportedLanguage } from '@/domain/entities/supported-language';
-import { ApiJudgeRepository } from '../judge/judge-repository';
-import { JudgeUseCase } from '@/usecases/judge-usecase';
 import {
   SubmissionFilter,
   SubmissionRepository,
@@ -38,32 +32,19 @@ export const newSubmissionFromDTO = async (
   authorId: string,
   problemId: string,
   language: SupportedLanguage
-) => {
-  const judgeRepository = new ApiJudgeRepository();
-  const judgeUseCase = new JudgeUseCase(judgeRepository);
-  const testResult = await judgeUseCase.getSubmission(
-    submission.attributes.test_result_id
-  );
-  const status: Status = testResult.isOk()
-    ? testResult.value.status === 'accepted'
-      ? // TODO: レビュー機能を実装
-        'FINISHED'
-      : 'FAILED'
-    : 'PENDING';
-
-  return new Submission(
+) =>
+  new Submission(
     submission.id.toString(),
     authorId,
     problemId,
     language,
     submission.attributes.code,
-    // TODO: テスト結果取得処理
-    status,
+    /* TODO: レビュー機能の実装 */ true,
+    /* TODO: レビュー機能の実装 */ true,
     submission.attributes.test_result_id,
     new Date(submission.attributes.createdAt),
     new Date(submission.attributes.updatedAt)
   );
-};
 
 const submissionEndpoint = '/submissions';
 
