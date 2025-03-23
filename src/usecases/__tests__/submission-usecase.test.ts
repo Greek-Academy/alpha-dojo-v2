@@ -2,52 +2,71 @@ import {
   SubmissionFilter,
   SubmissionRepository,
 } from '@/domain/repositories/submission-repository';
-import { SubmissionUseCase } from '../submission-usecase';
+import { getSubmissionStatus, SubmissionUseCase } from '../submission-usecase';
 import { Submission, SubmissionToCreate } from '@/domain/entities/submission';
 import { errAsync, okAsync } from 'neverthrow';
 import { ResponseError } from '@/domain/entities/error';
+import { TestResult } from '@/domain/entities/test-result';
 
 jest.mock('@/domain/repositories/submission-repository');
+
+const mockSubms: Submission[] = [
+  new Submission(
+    'submission-1',
+    'user-1',
+    'problem-1',
+    'TYPESCRIPT',
+    'exampleCode-1',
+    true,
+    true,
+    'test-result-1',
+    new Date(),
+    new Date()
+  ),
+  new Submission(
+    'submission-2',
+    'user-2',
+    'problem-2',
+    'PYTHON',
+    'exampleCode-2',
+    true,
+    false,
+    'test-result-2',
+    new Date(),
+    new Date()
+  ),
+  new Submission(
+    'submission-3',
+    'user-2',
+    'problem-1',
+    'TYPESCRIPT',
+    'exampleCode-3',
+    false,
+    false,
+    'test-result-3',
+    new Date(),
+    new Date()
+  ),
+];
+
+const mockTestResults: TestResult[] = [
+  new TestResult('', '', 0, 0, '', '', 'accepted', new Date(), new Date()),
+  new TestResult(
+    '',
+    '',
+    0,
+    0,
+    '',
+    '',
+    'compilation-error',
+    new Date(),
+    new Date()
+  ),
+];
 
 describe('SubmissionUseCase', () => {
   let mockSubmRepository: jest.Mocked<SubmissionRepository>;
   let submUseCase: SubmissionUseCase;
-
-  const mockSubms: Submission[] = [
-    new Submission(
-      'submission-1',
-      'user-1',
-      'problem-1',
-      'TYPESCRIPT',
-      'exampleCode-1',
-      'FAILED',
-      'test-result-1',
-      new Date(),
-      new Date()
-    ),
-    new Submission(
-      'submission-2',
-      'user-2',
-      'problem-2',
-      'PYTHON',
-      'exampleCode-2',
-      'FINISHED',
-      'test-result-2',
-      new Date(),
-      new Date()
-    ),
-    new Submission(
-      'submission-3',
-      'user-2',
-      'problem-1',
-      'TYPESCRIPT',
-      'exampleCode-3',
-      'FINISHED',
-      'test-result-3',
-      new Date(),
-      new Date()
-    ),
-  ];
 
   const mockSubmToCreate: SubmissionToCreate = new SubmissionToCreate(
     'user-3',
@@ -96,7 +115,8 @@ describe('SubmissionUseCase', () => {
               subm.problemId,
               subm.language,
               subm.codeText,
-              'FINISHED',
+              true,
+              true,
               'test-result-4',
               new Date(),
               new Date()
@@ -155,5 +175,27 @@ describe('SubmissionUseCase', () => {
     const subm = await submUseCase.postSubmission(mockSubmToCreate);
     expect(subm.isOk() && subm.value.authorId).toBe('user-3');
     expect(mockSubmRepository.postSubmission).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('getSubmissionStatus', () => {
+  it('should return FAILED', () => {
+    const status = getSubmissionStatus(mockSubms[0], mockTestResults[1]);
+    expect(status).toBe('FAILED');
+  });
+
+  it('should return IN_REVIEW', () => {
+    const status = getSubmissionStatus(mockSubms[2], mockTestResults[0]);
+    expect(status).toBe('IN_REVIEW');
+  });
+
+  it('should return REVIEWED', () => {
+    const status = getSubmissionStatus(mockSubms[1], mockTestResults[0]);
+    expect(status).toBe('REVIEWED');
+  });
+
+  it('should return FINISHED', () => {
+    const status = getSubmissionStatus(mockSubms[0], mockTestResults[0]);
+    expect(status).toBe('FINISHED');
   });
 });
