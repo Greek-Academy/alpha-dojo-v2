@@ -31,8 +31,9 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        default: 'px-6 py-2.5 [&>[class*="material-symbols-"]]:first:-ml-2',
-        sm: 'px-3 py-2.5 has-[[class*="material-symbols-"]]:first:pr-4',
+        default:
+          'px-6 py-2.5 [&>[class*="material-symbols-"]]:first:-ml-2 [&>[class*="material-symbols-"]]:last:-mr-2',
+        sm: 'px-3 py-2.5 has-[[class*="material-symbols-"]:first-child]:pr-4 has-[[class*="material-symbols-"]:last-child]:pl-4',
         lg: 'rounded-md px-6',
         icon: 'size-10',
       },
