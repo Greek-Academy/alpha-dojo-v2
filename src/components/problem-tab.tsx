@@ -63,7 +63,7 @@ export const ProbremTab = ({ className }: { className?: string }) => {
       </TabsList>
       <TabsContent value="description">
         <Card className="border-0 shadow-none">
-          <CardHeader className="items-start">
+          <CardHeader className="flex flex-col items-start">
             <CardTitle>最大の利益を持つ期間を探せ</CardTitle>
             <Chip className="text-green-800">Easy</Chip>
             <Chip className="text-yellow-800">Medium</Chip>
