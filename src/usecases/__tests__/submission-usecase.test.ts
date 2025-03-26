@@ -1,5 +1,5 @@
 import {
-  SubmissionFilter,
+  SubmissionFilters,
   SubmissionRepository,
 } from '@/domain/repositories/submission-repository';
 import { getSubmissionStatus, SubmissionUseCase } from '../submission-usecase';
@@ -88,7 +88,7 @@ describe('SubmissionUseCase', () => {
 
       getSubmissions: jest
         .fn()
-        .mockImplementation((filters?: SubmissionFilter) =>
+        .mockImplementation((filters?: SubmissionFilters) =>
           okAsync(
             mockSubms.filter(
               (subm) =>

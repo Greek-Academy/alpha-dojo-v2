@@ -1,6 +1,6 @@
 import { ResponseError } from '@/domain/entities/error';
 import {
-  SubmissionFilter,
+  SubmissionFilters,
   SubmissionRepository,
 } from '@/domain/repositories/submission-repository';
 import { Submission, SubmissionToCreate } from '@/domain/entities/submission';
@@ -52,7 +52,7 @@ export class SubmissionUseCase {
    * ```
    */
   fetchSubmissions: (
-    filters?: SubmissionFilter
+    filters?: SubmissionFilters
   ) => ResultAsync<Submission[], ResponseError> =
     this.submissionRepository.getSubmissions;
 

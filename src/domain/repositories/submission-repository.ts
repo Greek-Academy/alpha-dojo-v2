@@ -3,18 +3,18 @@ import { Submission, SubmissionToCreate } from '../entities/submission';
 import { ResponseError } from '../entities/error';
 import { SupportedLanguage } from '../entities/supported-language';
 
-export type SubmissionFilter = {
+export interface SubmissionFilters {
   authorId?: string;
   language?: SupportedLanguage;
   problemId?: string;
   testResultId?: string;
-};
+}
 
 export interface SubmissionRepository {
   getSubmissionById: (id: string) => ResultAsync<Submission, ResponseError>;
 
   getSubmissions: (
-    filters?: SubmissionFilter
+    filters?: SubmissionFilters
   ) => ResultAsync<Submission[], ResponseError>;
 
   postSubmission: (

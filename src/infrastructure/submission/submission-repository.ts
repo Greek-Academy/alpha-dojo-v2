@@ -7,7 +7,7 @@ import {
 } from './submission-response';
 import { SupportedLanguage } from '@/domain/entities/supported-language';
 import {
-  SubmissionFilter,
+  SubmissionFilters,
   SubmissionRepository,
 } from '@/domain/repositories/submission-repository';
 import { ResultAsync } from 'neverthrow';
@@ -67,7 +67,7 @@ export class ApiSubmissionRepository implements SubmissionRepository {
       )
       .mapErr((err) => err.toResponseError());
 
-  getSubmissions = (filters?: SubmissionFilter) =>
+  getSubmissions = (filters?: SubmissionFilters) =>
     fetchStrapiData<SubmissionRequiredDTO[]>(
       submissionEndpoint,
       submissionRequiredDTO.array(),
