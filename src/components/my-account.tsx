@@ -2,7 +2,7 @@
 // クリックすると、ログアウトボタンを表示
 
 import { getUserMeLoader } from '@/services/user-me-loader';
-import { Button } from './ui/button';
+import { Button, buttonVariants } from './ui/button';
 import { AccountCircleIcon } from './ui/icons';
 import Link from 'next/link';
 import {
@@ -27,10 +27,8 @@ export const MyAccount = async () => {
 
   return (
     <Popover>
-      <PopoverTrigger area-label="アカウントメニュー">
-        <Button variant='ghost' size='icon'>
-          <AccountCircleIcon className='text-foreground-variant' />
-        </Button>
+      <PopoverTrigger area-label="アカウントメニュー" className={buttonVariants({ variant: 'ghost', size: 'icon' })}>
+        <AccountCircleIcon className='text-foreground-variant' />
       </PopoverTrigger>
       <PopoverContent className="w-auto mx-4">
         <div className="mb-2">
