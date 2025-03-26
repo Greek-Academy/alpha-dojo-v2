@@ -30,7 +30,7 @@ export const MyAccount = async () => {
       <PopoverTrigger area-label="アカウントメニュー">
         <AccountCircleIcon />
       </PopoverTrigger>
-      <PopoverContent className="w-auto">
+      <PopoverContent className="w-auto mx-4">
         <div className="mb-2">
           <p>ようこそ！</p>
           <p className="text-headline-medium">{user.data.username}</p>
