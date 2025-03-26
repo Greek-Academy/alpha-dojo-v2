@@ -13,7 +13,7 @@ const buttonVariants = cva(
     /* Hovered */ 'hover:after:opacity-8',
     /* Focused */ 'focus-visible:after:opacity-10',
     /* Pressed */ 'active:after:opacity-10 active:drop-shadow-none',
-    /* Disabled */ 'disabled:text-foreground/38',
+    /* Disabled */ 'disabled:text-foreground/38'
   ),
   {
     variants: {

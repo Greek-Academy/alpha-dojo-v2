@@ -13,18 +13,22 @@ const fontSizes = [
 const twMerge = extendTailwindMerge({
   extend: {
     classGroups: {
-      "font-size": [{
-        text: [{
-          display: fontSizes,
-          headline: fontSizes,
-          title: fontSizes,
-          body: fontSizes,
-          label: fontSizes,
-        }]
-      }]
-    }
-  }
-})
+      'font-size': [
+        {
+          text: [
+            {
+              display: fontSizes,
+              headline: fontSizes,
+              title: fontSizes,
+              body: fontSizes,
+              label: fontSizes,
+            },
+          ],
+        },
+      ],
+    },
+  },
+});
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

@@ -18,9 +18,5 @@ async function logoutAction() {
 }
 
 export function LogoutButton() {
-  return (
-    <Button onClick={logoutAction}>
-      ログアウト
-    </Button>
-  );
+  return <Button onClick={logoutAction}>ログアウト</Button>;
 }
