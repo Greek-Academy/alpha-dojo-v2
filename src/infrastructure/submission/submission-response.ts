@@ -54,21 +54,24 @@ export type SubmissionRequiredDTO = z.infer<
   };
 };
 
-export const submissionDTO = baseSubmissionDTO.extend({
-  attributes: baseSubmissionAttributesDTO.extend({
-    problem: z
-      .object({
-        data: z.lazy(() => problemDTO),
-      })
-      .optional(),
-  }),
-}) satisfies z.ZodType<SubmissionDTO>;
+export const submissionDTO: z.ZodType<SubmissionDTO> = baseSubmissionDTO.extend(
+  {
+    attributes: baseSubmissionAttributesDTO.extend({
+      problem: z
+        .object({
+          data: z.lazy(() => problemDTO),
+        })
+        .optional(),
+    }),
+  }
+);
 
 /** {@link submissionDTO} の全プロパティが必須 (1次階層まで) */
-export const submissionRequiredDTO = baseSubmissionRequiredDTO.extend({
-  attributes: baseSubmissionAttributesRequiredDTO.extend({
-    problem: z.object({
-      data: z.lazy(() => problemDTO),
+export const submissionRequiredDTO: z.ZodType<SubmissionRequiredDTO> =
+  baseSubmissionRequiredDTO.extend({
+    attributes: baseSubmissionAttributesRequiredDTO.extend({
+      problem: z.object({
+        data: z.lazy(() => problemDTO),
+      }),
     }),
-  }),
-}) satisfies z.ZodType<SubmissionRequiredDTO>;
+  });
