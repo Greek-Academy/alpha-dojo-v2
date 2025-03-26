@@ -14,7 +14,7 @@ const buttonVariants = cva(
     /* Focused */ 'focus-visible:after:opacity-10',
     /* Pressed */ 'active:after:opacity-10 active:drop-shadow-none',
     /* Disabled */ 'disabled:text-foreground/38',
-    /* Icon */ '[&>[class*="material-symbols-"]]:first:text-[18px]!'
+    /* Icon */ '[&>[class*="material-symbols-"]]:text-[18px]!'
   ),
   {
     variants: {
@@ -32,10 +32,10 @@ const buttonVariants = cva(
       },
       size: {
         default:
-          'px-6 py-2.5 [&>[class*="material-symbols-"]]:first:-ml-2 [&>[class*="material-symbols-"]]:last:-mr-2',
+          'px-6 py-2.5 *:[[class*="material-symbols-"]]:first:-ml-2 *:[[class*="material-symbols-"]:last:-mr-2',
         sm: 'px-3 py-2.5 has-[[class*="material-symbols-"]:first-child]:pr-4 has-[[class*="material-symbols-"]:last-child]:pl-4',
         lg: 'rounded-md px-6',
-        icon: 'size-10',
+        icon: 'size-10 [&>[class*="material-symbols-"]]:text-2xl!',
       },
     },
     defaultVariants: {
