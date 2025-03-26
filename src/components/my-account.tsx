@@ -28,7 +28,9 @@ export const MyAccount = async () => {
   return (
     <Popover>
       <PopoverTrigger area-label="アカウントメニュー">
-        <AccountCircleIcon />
+        <Button variant='ghost' size='icon'>
+          <AccountCircleIcon className='text-foreground-variant' />
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto mx-4">
         <div className="mb-2">
