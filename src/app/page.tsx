@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { AddIcon } from '@/components/ui/icons';
+import { AddIcon, CheckIcon } from '@/components/ui/icons';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { ProblemTable } from '@/components/problem-table/data-table';
 import { Achievements } from '@/components/achievements';
@@ -34,13 +34,25 @@ export default function Page() {
             type="single"
             className="justify-start"
           >
-            <ToggleGroupItem value="2期生" checkWithSelect>
+            <ToggleGroupItem value="2期生" className="group">
+              <CheckIcon
+                className="!hidden group-data-[state=on]:!inline-block"
+                size={18}
+              />{' '}
               2期生 (3)
             </ToggleGroupItem>
-            <ToggleGroupItem value="Array" checkWithSelect>
+            <ToggleGroupItem value="Array" className="group">
+              <CheckIcon
+                className="!hidden group-data-[state=on]:!inline-block"
+                size={18}
+              />
               Array (5)
             </ToggleGroupItem>
-            <ToggleGroupItem value="HashMap" checkWithSelect>
+            <ToggleGroupItem value="HashMap" className="group">
+              <CheckIcon
+                className="!hidden group-data-[state=on]:!inline-block"
+                size={18}
+              />
               HashMap (3)
             </ToggleGroupItem>
           </ToggleGroup>

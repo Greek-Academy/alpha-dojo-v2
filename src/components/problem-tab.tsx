@@ -105,7 +105,7 @@ export const ProbremTab = async ({
       </TabsList>
       <TabsContent value="description">
         <Card className="border-0 shadow-none">
-          <CardHeader className="items-start">
+          <CardHeader className="flex flex-col items-start">
             <CardTitle className="mb-2.5">{problem.title}</CardTitle>
             <DifficultyChip difficulty={problem.difficulty} />
           </CardHeader>

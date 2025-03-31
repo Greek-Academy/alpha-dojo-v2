@@ -5,13 +5,13 @@ export async function getUserMeLoader() {
   const baseUrl = STRAPI_API_URL;
   const path = '/users/me';
 
-  const url = new URL(path, baseUrl);
+  const url = baseUrl + path;
 
   const authToken = await getAuthToken();
   if (!authToken) return { ok: false, data: null, error: null };
 
   try {
-    const response = await fetch(url.href, {
+    const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

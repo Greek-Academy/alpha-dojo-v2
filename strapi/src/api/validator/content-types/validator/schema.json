@@ -11,17 +11,16 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "problem_id": {
+    "problem": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::problem.problem",
       "inversedBy": "validators"
     },
-    "language_id": {
+    "language": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::language.language",
-      "inversedBy": "validators"
+      "relation": "oneToOne",
+      "target": "api::language.language"
     },
     "code": {
       "type": "customField",

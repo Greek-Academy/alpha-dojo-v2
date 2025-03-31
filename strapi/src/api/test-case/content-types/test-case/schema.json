@@ -11,7 +11,7 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "problem_id": {
+    "problem": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::problem.problem",
