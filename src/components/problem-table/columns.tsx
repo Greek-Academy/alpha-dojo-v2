@@ -30,21 +30,6 @@ const columnHelper = createColumnHelper<ProblemTableColumn>();
  * @see {@link https://tanstack.com/table/latest/docs/api/core/column-def | ColumnDef APIs}
  */
 export const columns = [
-  columnHelper.accessor(`id`, {
-    header: () => '',
-    cell: (props) => {
-      const id = props.getValue();
-      return (
-        <Link
-          href={`submissions/${id}/edit`}
-          // HACK: data-table で <tr> に relative を設定しているので、行全体にリンクが貼られる
-          className="absolute top-0 left-0 w-full h-full"
-        />
-      );
-    },
-    size: 0,
-  }),
-
   columnHelper.accessor('status', {
     header: (props) =>
       // 並び替え可能なヘッダー
@@ -87,6 +72,24 @@ export const columns = [
       const bOrder = statusToOrder(b.getValue('status'));
       return aOrder > bOrder ? 1 : aOrder < bOrder ? -1 : 0;
     },
+  }),
+
+  // セルの padding が、最初の列は左が大きくなるが、
+  // このセル (行全体のリンク) を最初の列にしてしまうと、
+  // 次の行の左の padding が大きくならない
+  columnHelper.accessor(`id`, {
+    header: () => '',
+    cell: (props) => {
+      const id = props.getValue();
+      return (
+        <Link
+          href={`submissions/${id}/edit`}
+          // HACK: data-table で <tr> に relative を設定しているので、行全体にリンクが貼られる
+          className="absolute top-0 left-0 w-full h-full"
+        />
+      );
+    },
+    size: 0,
   }),
 
   columnHelper.accessor('title', {
