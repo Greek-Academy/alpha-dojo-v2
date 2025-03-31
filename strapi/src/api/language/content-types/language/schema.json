@@ -12,18 +12,6 @@
   "attributes": {
     "name": {
       "type": "string"
-    },
-    "validators": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::validator.validator",
-      "mappedBy": "language_id"
-    },
-    "initial_codes": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::initial-code.initial-code",
-      "mappedBy": "language_id"
     }
   }
 }
