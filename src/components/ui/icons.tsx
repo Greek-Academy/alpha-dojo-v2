@@ -62,3 +62,7 @@ export const AccountCircleIcon = (props: MaterialSymbolProps) => {
 export const SortIcon = (props: MaterialSymbolProps) => {
   return <MaterialSymbol {...props}>sort</MaterialSymbol>;
 };
+
+export const ManufacturingIcon = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>manufacturing</MaterialSymbol>;
+};
