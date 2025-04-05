@@ -2,7 +2,10 @@ import { err, ok, ResultAsync } from 'neverthrow';
 import { WithJson, withJson } from '@/infrastructure/infra-utils';
 import { normalizeError } from '@/lib/err-utils';
 import { JudgeError, JudgeErrorCode } from '@/infrastructure/judge/judge-error';
-import { judgeStatusId, judgeSubmission } from '@/infrastructure/judge/judge-response';
+import {
+  judgeStatusId,
+  judgeSubmission,
+} from '@/infrastructure/judge/judge-response';
 import { SupportedLanguage } from '@/domain/entities/supported-language';
 import { JUDGE_API_ENDPOINT } from '@/constants/paths';
 import { JUDGE_API_KEY } from '@/constants/env';
@@ -93,7 +96,9 @@ export class ApiJudgeRepository implements JudgeRepository {
       )
       .andThen((subm) =>
         // 1: In Queue, 2: Processing
-        ([judgeStatusId.inQueue, judgeStatusId.processing] as number[]).includes(subm.status.id)
+        (
+          [judgeStatusId.inQueue, judgeStatusId.processing] as number[]
+        ).includes(subm.status.id)
           ? // wait for POLLING_INTERVAL ms and then get the submission again
             ResultAsync.fromPromise(
               new Promise((resolve) => setTimeout(resolve, POLLING_INTERVAL)),

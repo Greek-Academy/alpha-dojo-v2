@@ -47,7 +47,7 @@ export const judgeStatusId = {
     SIGFPE: 9,
     SIGABRT: 10,
     NZEC: 11,
-    other: 12
+    other: 12,
   },
   internalError: 13,
   execFormatError: 14,
