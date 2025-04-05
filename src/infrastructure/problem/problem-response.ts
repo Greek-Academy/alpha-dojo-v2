@@ -8,6 +8,7 @@ import { validatorDTO } from '../validator/validator-response';
 import { hintDTO } from '../hint/hint-response';
 import { initialCodeDTO } from '../initial-code/initial-code-response';
 import { testCaseDTO } from '../test-case/test-case-response';
+import { submissionDTO } from '../submission/submission-response';
 
 export const problemDTO = strapiCommonDTO.extend({
   attributes: strapiCommonAttributesDTO.extend({
@@ -35,15 +36,12 @@ export const problemDTO = strapiCommonDTO.extend({
         data: z.array(testCaseDTO),
       })
       .optional(),
+    submissions: z
+      .object({
+        data: z.array(submissionDTO),
+      })
+      .optional(),
   }),
 });
 
 export type ProblemDTO = z.infer<typeof problemDTO>;
-
-/** @deprecated DOJO-81 によって、今後不要 */
-export const strapiProblems = z.object({
-  data: z.array(problemDTO),
-});
-
-/** @deprecated DOJO-81 によって、今後不要 */
-export type StrapiProblems = z.infer<typeof strapiProblems>;

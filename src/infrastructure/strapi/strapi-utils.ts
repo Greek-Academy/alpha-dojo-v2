@@ -1,6 +1,6 @@
 import { STRAPI_API_URL } from '@/constants/paths';
 import { err, ok, ResultAsync } from 'neverthrow';
-import { withJson } from './infra-utils';
+import { withJson } from '../infra-utils';
 import { getStrapiErrorFromGet, StrapiError } from './strapi-error';
 import { z } from 'zod';
 import qs from 'qs';
@@ -202,6 +202,90 @@ export const fetchStrapiData = <T extends object>(
             z
               .object({
                 data: dataSchema,
+              })
+              .safeParse(res.js)
+          )
+        : err(getStrapiErrorFromGet(res))
+    )
+    .andThen((jres) =>
+      jres.success
+        ? ok(jres.data.data)
+        : err(
+            new StrapiError('Invalid response', undefined, {
+              cause: jres.error,
+            })
+          )
+    );
+
+/** 複数の要素を含められる Relations の接続 */
+type PostStrapiRelations<connect extends boolean> =
+  | number[]
+  | ({
+      id: number;
+    } & connect extends true
+      ? {
+          position?:
+            | {
+                before: number;
+              }
+            | {
+                after: number;
+              }
+            | {
+                start: boolean;
+              }
+            | {
+                end: boolean;
+              };
+        }
+      : null)[];
+
+/** Strapi にデータを渡す際の型。
+ * Relations を含める方法は以下を参照。
+ * @see {@link https://docs-v4.strapi.io/dev-docs/api/rest/relations Managing relations through the REST API}
+ */
+export type PostStrapiData<T extends { attributes: object }> = {
+  [K in keyof T['attributes']]?: Required<T['attributes']>[K] extends {
+    data: object;
+  }
+    ? Required<T['attributes']>[K]['data'] extends Array<unknown>
+      ? number[] & {
+          connect?: PostStrapiRelations<true>[];
+          disconnect?: PostStrapiRelations<false>[];
+          set?: PostStrapiRelations<false>[];
+        }
+      : number
+    : T['attributes'][K];
+};
+
+/** Strapi で新規エントリを作成 */
+export const postStrapiData = <ReturnType extends { attributes: object }>(
+  endpoint: string,
+  data: PostStrapiData<ReturnType>,
+  returnDataSchema: z.ZodTypeAny,
+  authToken: string
+): ResultAsync<ReturnType, StrapiError> =>
+  ResultAsync.fromPromise(
+    fetch(`${STRAPI_API_URL}${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: {
+        data,
+      }.toString(),
+    }),
+    normalizeError
+  )
+    .andThen(withJson)
+    .mapErr(StrapiError.fromUnknown)
+    .andThen((res) =>
+      res.ok
+        ? ok(
+            z
+              .object({
+                data: returnDataSchema,
               })
               .safeParse(res.js)
           )

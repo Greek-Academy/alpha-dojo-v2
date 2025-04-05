@@ -4,7 +4,7 @@ import {
   strapiCommonDTO,
 } from '../strapi/strapi-response';
 import { ProblemDTO, problemDTO } from '../problem/problem-response';
-import { languageDTO } from '../language/lanuage-response';
+import { languageDTO } from '../language/language-response';
 
 const baseValidatorAttributesDTO = strapiCommonAttributesDTO.extend({
   language_id: z
