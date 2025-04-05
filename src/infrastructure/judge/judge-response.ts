@@ -30,3 +30,25 @@ export const judgeResponse = z.object({
 });
 
 export type JudgeResponse = z.infer<typeof judgeResponse>;
+
+/** Judge0 の Status ID の一覧
+ * @see {@link https://ce.judge0.com/#statuses-and-languages-status-get Judge0 Status}
+ */
+export const judgeStatusId = {
+  inQueue: 1,
+  processing: 2,
+  accepted: 3,
+  wrongAnswer: 4,
+  timeLimitExceeded: 5,
+  compilationError: 6,
+  runtimeError: {
+    SIGSEGV: 7,
+    SIGXFSZ: 8,
+    SIGFPE: 9,
+    SIGABRT: 10,
+    NZEC: 11,
+    other: 12
+  },
+  internalError: 13,
+  execFormatError: 14,
+} as const;
