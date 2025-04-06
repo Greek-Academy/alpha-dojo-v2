@@ -2,7 +2,7 @@ import { ProblemRepository } from '@/domain/repositories/problem-repository';
 import { Problem } from '@/domain/entities/problem';
 import { ok } from 'neverthrow';
 import { problemDTO, ProblemDTO } from './problem-response';
-import { fetchStrapiData } from '../strapi-utils';
+import { fetchStrapiData } from '../strapi/strapi-utils';
 
 export const newProblemFromDTO = (problem: ProblemDTO) => {
   return new Problem(

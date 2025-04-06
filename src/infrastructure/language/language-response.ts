@@ -8,9 +8,10 @@ import {
   InitialCodeDTO,
   initialCodeDTO,
 } from '../initial-code/initial-code-response';
+import { supportedLanguage } from '@/domain/entities/supported-language';
 
 const baseLanguageAttributesDTO = strapiCommonAttributesDTO.extend({
-  name: z.string(),
+  name: supportedLanguage,
 });
 
 const baseLanguageDTO = strapiCommonDTO.extend({

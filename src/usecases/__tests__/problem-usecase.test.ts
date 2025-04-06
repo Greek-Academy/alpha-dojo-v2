@@ -49,20 +49,20 @@ describe('ProblemUseCase', () => {
   });
 
   it('should return all problems', async () => {
-    const problems = await problemUseCase.getAllProblems();
+    const problems = await problemUseCase.fetchAllProblems();
     expect(problems.isOk()).toBe(true);
     expect(problems.isOk() && problems.value.length).toBe(2);
     expect(mockProblemRepository.getAllProblems).toHaveBeenCalledTimes(1);
   });
 
   it('should return a problem', async () => {
-    const problem = await problemUseCase.getProblemById('1');
+    const problem = await problemUseCase.fetchProblemById('1');
     expect(problem.isOk() && problem.value.id).toBe('1');
     expect(mockProblemRepository.getProblemById).toHaveBeenCalledTimes(1);
   });
 
   it('should throw an exception (problem not found)', async () => {
-    const problem = await problemUseCase.getProblemById('3');
+    const problem = await problemUseCase.fetchProblemById('3');
     expect(problem.isErr() && problem.error.errorCode).toBe('not-found');
     expect(mockProblemRepository.getProblemById).toHaveBeenCalledTimes(1);
   });

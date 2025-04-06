@@ -62,7 +62,7 @@ export const ProbremTab = async ({
   /** 課題一覧の取得 */
   const problemRepository = new ApiProblemRepository();
   const problemUseCase = new ProblemUseCase(problemRepository);
-  const problem = await problemUseCase.getProblemById(problemId);
+  const problem = await problemUseCase.fetchProblemById(problemId);
 
   const DifficultyChip = (props: { difficulty: Difficulty }) => {
     const difficultyChipVariants = cva('', {
