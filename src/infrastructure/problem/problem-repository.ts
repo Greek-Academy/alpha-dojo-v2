@@ -26,7 +26,7 @@ export class ApiProblemRepository implements ProblemRepository {
       problemEndpoint,
       problemDTO.array(),
       {},
-      this.authToken ?? ''
+      this.authToken
     )
       .andThen((problems) =>
         ok(problems.map((problem) => newProblemFromDTO(problem)))
@@ -38,7 +38,7 @@ export class ApiProblemRepository implements ProblemRepository {
       `${problemEndpoint}/${id}`,
       problemDTO,
       {},
-      this.authToken ?? ''
+      this.authToken
     )
       .andThen((problem) => ok(newProblemFromDTO(problem)))
       .mapErr((err) => err.toResponseError());
