@@ -31,6 +31,18 @@ export class ProblemUseCase {
   fetchAllProblems: () => ResultAsync<Problem[], ResponseError> =
     this.problemRepository.getAllProblems;
 
+  /** ID から Problem を取得
+   * @example
+   * ```
+   * const problemResponse = await problemUseCase.fetchProblemById(problemId);
+   *
+   * if (problemResponse.isErr()) {
+   *   // エラー処理
+   * }
+   *
+   * const problem = problemResponse.value;
+   * ```
+   */
   fetchProblemById: (id: string) => ResultAsync<Problem, ResponseError> =
     this.problemRepository.getProblemById;
 }
