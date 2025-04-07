@@ -5,7 +5,8 @@ export type WithJson<T> = T & { js: unknown };
 export const withJson: (
   res: Response
 ) => ResultAsync<WithJson<Response>, Error> = (res) =>
-  ResultAsync.fromPromise(res.json(), normalizeError).map((json) => ({
-    ...res,
-    js: json,
-  }));
+  ResultAsync.fromPromise(res.json(), normalizeError).map((json) =>
+    Object.assign(res, {
+      js: json,
+    })
+  );

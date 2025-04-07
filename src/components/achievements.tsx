@@ -66,8 +66,8 @@ export const Achievements: React.FC<{ data: AchievementData[] }> = ({
   };
 
   return (
-    <div className="flex justify-between items-center w-full h-auto">
-      <div className="flex justify-center items-center relative w-1/3 h-full">
+    <div className='flex justify-between items-center w-full h-auto'>
+      <div className='flex justify-center items-center relative w-1/3 h-full'>
         {/* 円グラフ */}
         <Doughnut
           data={dataForChart}
@@ -99,29 +99,29 @@ export const Achievements: React.FC<{ data: AchievementData[] }> = ({
           }}
         />
         {/* 円の中心に進捗数と最大数を表示 */}
-        <div className="absolute flex w-full h-full items-center justify-center">
-          <p className="text-3xl">{totalCount}</p>/
-          <p className="text-lg text-gray-500">{maxAll}</p>
+        <div className='absolute flex w-full h-full items-center justify-center'>
+          <p className='text-3xl'>{totalCount}</p>/
+          <p className='text-lg text-gray-500'>{maxAll}</p>
         </div>
       </div>
 
       {/* 右側に進捗を示す文字を配置 */}
-      <div className="flex flex-col items-start gap-2 w-3/5">
+      <div className='flex flex-col items-start gap-2 w-3/5'>
         <DifficultyStat
-          label="Easy"
-          colorClass="text-difficulty-easy"
+          label='Easy'
+          colorClass='text-difficulty-easy'
           total={problemCount[1]}
           completed={finishedProblemCount[1]}
         />
         <DifficultyStat
-          label="Normal"
-          colorClass="text-difficulty-medium"
+          label='Normal'
+          colorClass='text-difficulty-medium'
           total={problemCount[2]}
           completed={finishedProblemCount[2]}
         />
         <DifficultyStat
-          label="Hard"
-          colorClass="text-difficulty-hard"
+          label='Hard'
+          colorClass='text-difficulty-hard'
           total={problemCount[3]}
           completed={finishedProblemCount[3]}
         />
@@ -144,11 +144,11 @@ const DifficultyStat: React.FC<DifficultyStatProps> = ({
   completed,
 }) => {
   return (
-    <div className="flex justify-between w-full">
+    <div className='flex justify-between w-full'>
       <p className={`text-lg ${colorClass}`}>{label}</p>
-      <p className="text-right">
-        <span className="text-xl">{completed}</span>
-        <span className="text-lg text-gray-500"> /{total}</span>
+      <p className='text-right'>
+        <span className='text-xl'>{completed}</span>
+        <span className='text-lg text-gray-500'> /{total}</span>
       </p>
     </div>
   );

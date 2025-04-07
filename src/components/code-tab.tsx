@@ -1,3 +1,5 @@
+'use client';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { Code } from 'lucide-react';
@@ -109,23 +111,23 @@ export const CodeTab = ({ className }: { className?: string }) => {
   };
 
   return (
-    <Tabs defaultValue="code" className={cn('h-full', className)}>
+    <Tabs defaultValue='code' className={cn('h-full', className)}>
       <TabsList>
-        <TabsTrigger value="code">
-          <Code size="14" />
+        <TabsTrigger value='code'>
+          <Code size='14' />
           code
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="code" className="relative">
-        <div className="flex flex-col w-full h-full">
-          <div className="px-2 flex h-9">
+      <TabsContent value='code' className='relative'>
+        <div className='flex flex-col w-full h-full'>
+          <div className='px-2 flex h-9'>
             {/* 言語選択 */}
             <Select
               defaultValue={defaultLanguage}
               onValueChange={handleLanguageChange}
               value={language}
             >
-              <SelectTrigger className="w-auto border-0 shadow-none gap-2 p-0 h-auto mr-auto">
+              <SelectTrigger className='w-auto border-0 shadow-none gap-2 p-0 h-auto mr-auto'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -141,9 +143,9 @@ export const CodeTab = ({ className }: { className?: string }) => {
 
             {/* コードのリセット */}
             <Button
-              variant="ghost"
-              className="w-auto h-auto p-2"
-              aria-label="リセット"
+              variant='ghost'
+              className='w-auto h-auto p-2'
+              aria-label='リセット'
               onClick={handleCodeReset}
             >
               <RestartAltIcon size={20} />

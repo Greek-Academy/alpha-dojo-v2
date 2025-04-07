@@ -177,7 +177,7 @@ export const fetchStrapiData = <T extends object>(
   endpoint: string,
   dataSchema: z.ZodTypeAny,
   queryParam: StrapiQueryParam<T>,
-  authToken: string
+  authToken?: string
 ): ResultAsync<T, StrapiError> =>
   ResultAsync.fromPromise(
     fetch(
@@ -188,7 +188,7 @@ export const fetchStrapiData = <T extends object>(
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
+          ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
         },
       }
     ),
@@ -263,14 +263,14 @@ export const postStrapiData = <ReturnType extends { attributes: object }>(
   endpoint: string,
   data: PostStrapiData<ReturnType>,
   returnDataSchema: z.ZodTypeAny,
-  authToken: string
+  authToken?: string
 ): ResultAsync<ReturnType, StrapiError> =>
   ResultAsync.fromPromise(
     fetch(`${STRAPI_API_URL}${endpoint}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
+        ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
       },
       body: {
         data,

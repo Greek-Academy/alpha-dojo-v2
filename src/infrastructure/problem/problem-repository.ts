@@ -16,18 +16,30 @@ export const newProblemFromDTO = (problem: ProblemDTO) => {
   );
 };
 
+const problemEndpoint = '/problems';
+
 export class ApiProblemRepository implements ProblemRepository {
   constructor(private readonly authToken?: string) {}
 
-  getProblems = () =>
+  getAllProblems = () =>
     fetchStrapiData<ProblemDTO[]>(
-      '/problems',
+      problemEndpoint,
       problemDTO.array(),
       {},
-      this.authToken ?? ''
+      this.authToken
     )
       .andThen((problems) =>
         ok(problems.map((problem) => newProblemFromDTO(problem)))
       )
+      .mapErr((err) => err.toResponseError());
+
+  getProblemById = (id: string) =>
+    fetchStrapiData<ProblemDTO>(
+      `${problemEndpoint}/${id}`,
+      problemDTO,
+      {},
+      this.authToken
+    )
+      .andThen((problem) => ok(newProblemFromDTO(problem)))
       .mapErr((err) => err.toResponseError());
 }
