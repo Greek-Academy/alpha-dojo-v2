@@ -4,14 +4,9 @@ import {
   strapiCommonDTO,
 } from '../strapi/strapi-response';
 import { ProblemDTO, problemDTO } from '../problem/problem-response';
-import { languageDTO } from '../language/language-response';
+import { LanguageDTO, languageDTO } from '../language/language-response';
 
 const baseValidatorAttributesDTO = strapiCommonAttributesDTO.extend({
-  language_id: z
-    .object({
-      data: languageDTO,
-    })
-    .optional(),
   code: z.string(),
 });
 
@@ -21,6 +16,9 @@ const baseValidatorDTO = strapiCommonDTO.extend({
 
 export type ValidatorDTO = z.infer<typeof baseValidatorDTO> & {
   attributes: {
+    language_id?: {
+      data: LanguageDTO;
+    };
     problem_id?: {
       data: ProblemDTO;
     };
@@ -29,6 +27,11 @@ export type ValidatorDTO = z.infer<typeof baseValidatorDTO> & {
 
 export const validatorDTO: z.ZodType<ValidatorDTO> = baseValidatorDTO.extend({
   attributes: baseValidatorAttributesDTO.extend({
+    language_id: z
+      .object({
+        data: z.lazy(() => languageDTO),
+      })
+      .optional(),
     problem_id: z
       .object({
         data: z.lazy(() => problemDTO),
