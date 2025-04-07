@@ -34,23 +34,23 @@ export const columns = [
     header: (props) =>
       // 並び替え可能なヘッダー
       props.table && (
-        <DataTableColumnHeader column={props.column} title="Status" />
+        <DataTableColumnHeader column={props.column} title='Status' />
       ),
     cell: (props) => {
       const status = props.getValue();
       switch (status) {
         case 'submitted':
           return (
-            <span className="flex items-center">
-              <CheckIcon className="text-status-submitted" />
-              <span className="ml-2">Submitted</span>
+            <span className='flex items-center'>
+              <CheckIcon className='text-status-submitted' />
+              <span className='ml-2'>Submitted</span>
             </span>
           );
         case 'reviewed':
           return (
-            <span className="flex items-center">
-              <TaskAltIcon className="text-status-reviewed" />
-              <span className="ml-2">Reviewed</span>
+            <span className='flex items-center'>
+              <TaskAltIcon className='text-status-reviewed' />
+              <span className='ml-2'>Reviewed</span>
             </span>
           );
       }
@@ -85,7 +85,7 @@ export const columns = [
         <Link
           href={`submissions/${id}/edit`}
           // HACK: data-table で <tr> に relative を設定しているので、行全体にリンクが貼られる
-          className="absolute top-0 left-0 w-full h-full"
+          className='absolute top-0 left-0 w-full h-full'
         />
       );
     },
@@ -94,37 +94,37 @@ export const columns = [
 
   columnHelper.accessor('title', {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title='Title' />
     ),
   }),
 
   columnHelper.accessor('difficulty', {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Difficulty" />
+      <DataTableColumnHeader column={column} title='Difficulty' />
     ),
     // `difficulty` => 文字列に変換
     cell: (props) => {
       const difficulty = props.getValue();
       switch (difficulty) {
         case 1:
-          return <span className="text-difficulty-easy">Easy</span>;
+          return <span className='text-difficulty-easy'>Easy</span>;
         case 2:
-          return <span className="text-difficulty-medium">Medium</span>;
+          return <span className='text-difficulty-medium'>Medium</span>;
         case 3:
-          return <span className="text-difficulty-hard">Hard</span>;
+          return <span className='text-difficulty-hard'>Hard</span>;
       }
     },
   }),
 
   columnHelper.accessor('authorName', {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Author" />
+      <DataTableColumnHeader column={column} title='Author' />
     ),
   }),
 
   columnHelper.accessor('published', {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Published" />
+      <DataTableColumnHeader column={column} title='Published' />
     ),
     // `Date` => x日前 に変換
     cell: (props) => {

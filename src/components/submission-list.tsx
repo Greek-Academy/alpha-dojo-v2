@@ -83,7 +83,7 @@ export const SubmissionList = ({
   return (
     <Table className={className}>
       <TableHeader>
-        <TableRow className="*:h-auto *:py-2.5">
+        <TableRow className='*:h-auto *:py-2.5'>
           <TableHead>Status</TableHead>
           <TableHead>Language</TableHead>
           <TableHead>Runtime</TableHead>
@@ -93,9 +93,9 @@ export const SubmissionList = ({
       <TableBody>
         {submissions.map((submission, index) => {
           return (
-            <TableRow key={index} className="border-0 *:py-3">
+            <TableRow key={index} className='border-0 *:py-3'>
               <TableCell>{mapStatus(submission.status)}</TableCell>
-              <TableCell className="text-stone-500">
+              <TableCell className='text-stone-500'>
                 {mapLanguage(submission.language)}
               </TableCell>
               <TableCell>{`${submission.runtime_ms} ms`}</TableCell>

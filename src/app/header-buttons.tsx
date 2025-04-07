@@ -23,7 +23,7 @@ export function HeaderButtons(props: HeaderButtonsProps) {
     <div className={cn('flex gap-2', props.className)} {...props}>
       {buttonEnabledPages.test(pathname) && (
         <>
-          <Button onClick={runButtonHandler} variant="outline">
+          <Button onClick={runButtonHandler} variant='outline'>
             <Play /> Run
           </Button>
           <Button onClick={submitButtonHandler}>

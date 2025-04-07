@@ -19,7 +19,7 @@ export const MyAccount = async () => {
   // 未ログイン
   if (!user.ok) {
     return (
-      <Link href="/login">
+      <Link href='/login'>
         <Button>ログイン</Button>
       </Link>
     );
@@ -28,16 +28,16 @@ export const MyAccount = async () => {
   return (
     <Popover>
       <PopoverTrigger
-        area-label="アカウントメニュー"
+        area-label='アカウントメニュー'
         className={buttonVariants({ variant: 'ghost', size: 'icon' })}
       >
-        <AccountCircleIcon className="text-foreground-variant" />
+        <AccountCircleIcon className='text-foreground-variant' />
       </PopoverTrigger>
-      <PopoverContent className="w-auto mx-4">
-        <div className="mb-2">
+      <PopoverContent className='w-auto mx-4'>
+        <div className='mb-2'>
           <p>ようこそ！</p>
-          <p className="text-headline-medium">{user.data.username}</p>
-          <p className="text-foreground-variant">{user.data.email}</p>
+          <p className='text-headline-medium'>{user.data.username}</p>
+          <p className='text-foreground-variant'>{user.data.email}</p>
         </div>
         <LogoutButton />
       </PopoverContent>
