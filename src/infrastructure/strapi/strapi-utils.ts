@@ -10,17 +10,17 @@ import { CreateObjOneKey } from '@/lib/utils';
 /** Strapi の Relations の含めるデータを実際に指定 */
 type StrapiPopulatingAttributes<T extends { [key in string]: unknown }> =
   | {
-      [K in keyof T]?: T[K] extends {
+      [K in keyof T]?: Required<T>[K] extends {
         data: object;
       }
-        ? StrapiQueryParam<T[K]['data']>
+        ? StrapiQueryParam<Required<T>[K]['data']>
         : never;
     }
   | {
-      [K in keyof T['attributes']]?: T['attributes'][K] extends {
+      [K in keyof T['attributes']]?: Required<T['attributes']>[K] extends {
         data: object;
       }
-        ? StrapiQueryParam<T['attributes'][K]['data']>
+        ? StrapiQueryParam<Required<T['attributes']>[K]['data']>
         : never;
     };
 
@@ -100,18 +100,20 @@ type StrapiFilteringJoinOperator =
 type StrapiFilteringAttributes<T extends { [key in string]: unknown }> =
   // ID や UserDTO のフィルター (attributes 以下ではない属性)
   | {
-      [K in keyof T]?: T[K] extends { data: object }
+      [K in keyof T]?: Required<T>[K] extends { data: object }
         ? // Relations によって、更に深いデータをフィルター (再帰的に呼び出す)
-          StrapiFiltering<T[K]['data']>
+          StrapiFiltering<Required<T>[K]['data']>
         :
             | CreateObjOneKey<StrapiFilteringOperator, T[K]>
             | CreateObjOneKey<StrapiFilteringArrayOperator, T[K][]>;
     }
   // attributes の内部の属性をフィルター
   | {
-      [K in keyof T['attributes']]?: T['attributes'][K] extends { data: object }
+      [K in keyof T['attributes']]?: Required<T['attributes']>[K] extends {
+        data: object;
+      }
         ? // Relations によって、更に深いデータをフィルター (再帰的に呼び出す)
-          StrapiFiltering<T['attributes'][K]['data']>
+          StrapiFiltering<Required<T['attributes']>[K]['data']>
         :
             | CreateObjOneKey<StrapiFilteringOperator, T['attributes'][K]>
             | CreateObjOneKey<
