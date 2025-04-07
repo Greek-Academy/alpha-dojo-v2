@@ -23,7 +23,7 @@ export const Notifications = ({
     );
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className='flex flex-col gap-3'>
       {notifications.map((notification) => {
         const reviewer = users[notification.userId]; // reviewerの情報を取得
         const submission = submissions.find(
@@ -34,7 +34,7 @@ export const Notifications = ({
           return (
             <div
               key={notification.submissionId}
-              className="flex gap-2 p-3 bg-accent text-lg"
+              className='flex gap-2 p-3 bg-accent text-lg'
             >
               <div>エラー: 不正な通知データ</div>
             </div>
@@ -44,11 +44,11 @@ export const Notifications = ({
         return (
           <div
             key={notification.submissionId}
-            className="flex gap-2 p-3 bg-accent text-base"
+            className='flex gap-2 p-3 bg-accent text-base'
           >
             {/* user.iconがない場合、AccountCircleIconを表示 */}
             {reviewer.icon ? (
-              <Link href={reviewer.link} className="relative">
+              <Link href={reviewer.link} className='relative'>
                 <img
                   src={reviewer.icon}
                   width={30}
@@ -57,19 +57,19 @@ export const Notifications = ({
                 />
               </Link>
             ) : (
-              <div className="relative">
-                <AccountCircleIcon size={30} className="text-gray-500" />
+              <div className='relative'>
+                <AccountCircleIcon size={30} className='text-gray-500' />
               </div>
             )}
             <div>
               <p>
-                <span className="text-blue-800 underline mr-1">
+                <span className='text-blue-800 underline mr-1'>
                   {reviewer.name}
                 </span>
                 さんが
                 <Link
                   href={`/submissions/${notification.submissionId}/edit`}
-                  className="text-blue-800 underline m-1"
+                  className='text-blue-800 underline m-1'
                 >
                   {submission.title}
                 </Link>

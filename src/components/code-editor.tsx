@@ -27,7 +27,7 @@ export const CodeEditor = ({
   return (
     <Editor
       language={monacoLanguage[language]}
-      loading={<Image src={Spinner} width={40} height={40} alt="loading" />}
+      loading={<Image src={Spinner} width={40} height={40} alt='loading' />}
       options={Object.assign(Options, options)}
       // サイズ変更が少し遅れるため、一瞬スクロールバーが表示されてしまうのを回避
       className={cn('overflow-hidden', className)}

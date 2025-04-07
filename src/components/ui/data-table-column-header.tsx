@@ -34,9 +34,9 @@ export function DataTableColumnHeader<TData, TValue>({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            variant="ghost"
-            size="sm"
-            className="-ml-4 -my-3 data-[state=open]:bg-accent text-neutral-600"
+            variant='ghost'
+            size='sm'
+            className='-ml-4 -my-3 data-[state=open]:bg-accent text-neutral-600'
           >
             <span>{title}</span>
             {column.getIsSorted() === 'desc' ? (
@@ -48,13 +48,13 @@ export function DataTableColumnHeader<TData, TValue>({
             )}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
+        <DropdownMenuContent align='start'>
           <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-            <ArrowUpwardIcon className="text-muted-foreground/70" size={18} />
+            <ArrowUpwardIcon className='text-muted-foreground/70' size={18} />
             昇順で並び替え
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-            <ArrowDownwardIcon className="text-muted-foreground/70" size={18} />
+            <ArrowDownwardIcon className='text-muted-foreground/70' size={18} />
             降順で並び替え
           </DropdownMenuItem>
           {/* <DropdownMenuSeparator />

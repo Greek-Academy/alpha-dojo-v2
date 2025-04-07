@@ -103,35 +103,35 @@ export const ProbremTab = async ({
 
   return (
     <Tabs
-      defaultValue="description"
+      defaultValue='description'
       className={cn('h-full', className)}
       {...props}
     >
       <TabsList>
-        <TabsTrigger value="description">
-          <FileText size="14" />
+        <TabsTrigger value='description'>
+          <FileText size='14' />
           Description
         </TabsTrigger>
-        <TabsTrigger value="submissions">
-          <ClipboardPenLine size="14" />
+        <TabsTrigger value='submissions'>
+          <ClipboardPenLine size='14' />
           Submissions
         </TabsTrigger>
-        <TabsTrigger value="solutions">
-          <FlaskConical size="14" /> Solutions
+        <TabsTrigger value='solutions'>
+          <FlaskConical size='14' /> Solutions
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="description">
-        <Card className="border-0 shadow-none">
-          <CardHeader className="flex flex-col items-start">
-            <CardTitle className="mb-2.5">{problem.title}</CardTitle>
+      <TabsContent value='description'>
+        <Card className='border-0 shadow-none'>
+          <CardHeader className='flex flex-col items-start'>
+            <CardTitle className='mb-2.5'>{problem.title}</CardTitle>
             <DifficultyChip difficulty={problem.difficulty} />
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className='space-y-2'>
             <Markdown>{problem.description}</Markdown>
           </CardContent>
           <CardFooter>
-            <Accordion type="multiple" className="w-full">
-              <AccordionItem value="constraints">
+            <Accordion type='multiple' className='w-full'>
+              <AccordionItem value='constraints'>
                 <AccordionTrigger>
                   <ManufacturingIcon />
                   Constraints
@@ -140,7 +140,7 @@ export const ProbremTab = async ({
                   <Markdown>{problem.constraintsDescription}</Markdown>
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="hint-1">
+              <AccordionItem value='hint-1'>
                 <AccordionTrigger>
                   <Lightbulb2 />
                   Hint 1
@@ -157,7 +157,7 @@ export const ProbremTab = async ({
                   ヒント その1
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="hint-2">
+              <AccordionItem value='hint-2'>
                 <AccordionTrigger>
                   <Lightbulb2 />
                   Hint 2
@@ -178,15 +178,15 @@ export const ProbremTab = async ({
           </CardFooter>
         </Card>
       </TabsContent>
-      <TabsContent value="submissions">
+      <TabsContent value='submissions'>
         <SubmissionList submissions={sampleSubmissions} />
       </TabsContent>
-      <TabsContent value="solutions">
-        <Card className="border-0 shadow-none">
+      <TabsContent value='solutions'>
+        <Card className='border-0 shadow-none'>
           <CardHeader>
             <CardTitle>Solutions</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className='space-y-2'>
             正解者の答えが出てきます。
           </CardContent>
           <CardFooter>Footer...</CardFooter>

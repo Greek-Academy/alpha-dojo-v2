@@ -83,11 +83,11 @@ export function DataTable<TData>(props: DataTableProps<TData>) {
 
   return (
     <>
-      <div className="rounded-md border">
+      <div className='rounded-md border'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="[&_th]:border-b">
+              <TableRow key={headerGroup.id} className='[&_th]:border-b'>
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
@@ -103,7 +103,7 @@ export function DataTable<TData>(props: DataTableProps<TData>) {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="cursor-pointer">
+          <TableBody className='cursor-pointer'>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
@@ -124,7 +124,7 @@ export function DataTable<TData>(props: DataTableProps<TData>) {
               <TableRow>
                 <TableCell
                   colSpan={props.columns.length}
-                  className="h-24 text-center"
+                  className='h-24 text-center'
                 >
                   課題が見つかりませんでした
                 </TableCell>
@@ -133,18 +133,18 @@ export function DataTable<TData>(props: DataTableProps<TData>) {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className='flex items-center justify-end space-x-2 py-4'>
         <Button
-          variant="outline"
-          size="sm"
+          variant='outline'
+          size='sm'
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
           前へ
         </Button>
         <Button
-          variant="outline"
-          size="sm"
+          variant='outline'
+          size='sm'
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >

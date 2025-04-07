@@ -32,21 +32,21 @@ export default async function Home({
 }) {
   return (
     <ResizablePanelGroup
-      autoSaveId="submissions-1"
-      direction="horizontal"
-      className="px-2.5 pb-2.5 min-w-100 min-h-100"
+      autoSaveId='submissions-1'
+      direction='horizontal'
+      className='px-2.5 pb-2.5 min-w-100 min-h-100'
     >
-      <ResizablePanel defaultSize={30} className="min-w-40">
+      <ResizablePanel defaultSize={30} className='min-w-40'>
         <ProbremTab problemId={(await params).id} />
       </ResizablePanel>
       <ResizableHandle />
-      <ResizablePanel defaultSize={70} className="min-w-60">
-        <ResizablePanelGroup autoSaveId="submissions-2" direction="vertical">
-          <ResizablePanel defaultSize={50} className="min-h-60">
+      <ResizablePanel defaultSize={70} className='min-w-60'>
+        <ResizablePanelGroup autoSaveId='submissions-2' direction='vertical'>
+          <ResizablePanel defaultSize={50} className='min-h-60'>
             <CodeTab />
           </ResizablePanel>
           <ResizableHandle />
-          <ResizablePanel defaultSize={50} className="min-h-40">
+          <ResizablePanel defaultSize={50} className='min-h-40'>
             <TestTab />
           </ResizablePanel>
         </ResizablePanelGroup>
