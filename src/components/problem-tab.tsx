@@ -23,6 +23,8 @@ import Markdown from 'react-markdown';
 import { cva } from 'class-variance-authority';
 import { ApiProblemRepository } from '@/infrastructure/problem/problem-repository';
 import { ProblemUseCase } from '@/usecases/problem-usecase';
+import { getAuthToken } from '@/lib/get-auth-token';
+import { notFound } from 'next/navigation';
 
 export const sampleSubmissions: Submission[] = [
   {
@@ -59,10 +61,25 @@ export const ProbremTab = async ({
   problemId: number;
   className?: string;
 }) => {
-  /** 課題一覧の取得 */
-  const problemRepository = new ApiProblemRepository();
+  const authToken = await getAuthToken();
+  const problemRepository = new ApiProblemRepository(authToken);
   const problemUseCase = new ProblemUseCase(problemRepository);
-  const problem = await problemUseCase.fetchProblemById(problemId);
+  const problemResponse = await problemUseCase.fetchProblemById(
+    problemId.toString()
+  );
+
+  if (problemResponse.isErr()) {
+    const error = problemResponse.error;
+    switch (error.errorCode) {
+      case 'not-found':
+        notFound();
+        break; // 到達不可能だが、ESLint のエラーを回避するために必要
+      default:
+        throw error;
+    }
+  }
+
+  const problem = problemResponse.value;
 
   const DifficultyChip = (props: { difficulty: Difficulty }) => {
     const difficultyChipVariants = cva('', {
@@ -120,7 +137,7 @@ export const ProbremTab = async ({
                   Constraints
                 </AccordionTrigger>
                 <AccordionContent>
-                  <Markdown>{problem.constraints}</Markdown>
+                  <Markdown>{problem.constraintsDescription}</Markdown>
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="hint-1">
