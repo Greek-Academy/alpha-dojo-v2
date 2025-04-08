@@ -19,7 +19,7 @@ export const newHintFromDTO = (hint: HintDTO) => {
 
 const hintEndpoint = '/hints';
 
-export class ApiSubmissionRepository implements HintRepository {
+export class ApiHintRepository implements HintRepository {
   constructor(private readonly authToken?: string) {}
 
   getHintById = (id: string) =>
