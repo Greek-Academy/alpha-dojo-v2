@@ -1,12 +1,14 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { STRAPI_API_URL } from '@/constants/paths';
+import { envValues } from '@/constants/env';
 
 const config = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
   path: '/',
-  domain: process.env.HOST ?? 'localhost',
+  domain: envValues.host,
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
+  secure: envValues.secure,
 };
 
 export const dynamic = 'force-dynamic'; // defaults to auto
@@ -20,8 +22,8 @@ export async function GET(
   if (!token) return NextResponse.redirect(new URL('/login', request.url));
 
   const provider = (await params.params).provider;
-  const backendUrl = process.env.STRAPI_PUBLIC_URL ?? 'http://localhost:1337';
-  const path = `/api/auth/${provider}/callback`;
+  const backendUrl = STRAPI_API_URL;
+  const path = `/auth/${provider}/callback`;
 
   const url = new URL(backendUrl + path);
   url.searchParams.append('access_token', token);

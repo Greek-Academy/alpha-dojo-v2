@@ -1,12 +1,14 @@
+import { envValues } from '@/constants/env';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { Button } from './ui/button';
 
 const config = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
   path: '/',
-  domain: process.env.HOST ?? 'localhost',
+  domain: envValues.host,
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
+  secure: envValues.secure,
 };
 
 async function logoutAction() {
@@ -16,14 +18,5 @@ async function logoutAction() {
 }
 
 export function LogoutButton() {
-  return (
-    <form action={logoutAction}>
-      <button
-        type="submit"
-        className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-      >
-        ログアウト
-      </button>
-    </form>
-  );
+  return <Button onClick={logoutAction}>ログアウト</Button>;
 }

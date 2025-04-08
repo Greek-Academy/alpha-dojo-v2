@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="ja"
+      lang='ja'
       className={cn(
         `${notoSansJP.variable} ${roboto.variable} w-screen h-screen`,
         '[&_h1]:text-headline-large',
@@ -30,9 +30,9 @@ export default function RootLayout({
         '[&_a]:text-blue-600 visited:[&_a]:text-purple-600 [&_a]:underline [&_a]:underline-offset-2'
       )}
     >
-      <body className="w-full h-full flex flex-col items-center sm:items-start text-foreground text-body-medium">
+      <body className='w-full h-full flex flex-col items-center sm:items-start text-foreground text-body-medium'>
         <Header />
-        <main className="w-full h-full grow overflow-auto">{children}</main>
+        <main className='w-full h-full grow overflow-auto'>{children}</main>
       </body>
     </html>
   );

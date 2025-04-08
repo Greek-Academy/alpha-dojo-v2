@@ -1,21 +1,17 @@
-import { cookies } from 'next/headers';
-
-export async function getAuthToken() {
-  const authToken = (await cookies()).get('jwt')?.value;
-  return authToken;
-}
+import { STRAPI_API_URL } from '@/constants/paths';
+import { getAuthToken } from '@/lib/get-auth-token';
 
 export async function getUserMeLoader() {
-  const baseUrl = process.env.STRAPI_PUBLIC_URL ?? 'http://localhost:1337';
-  const path = '/api/users/me';
+  const baseUrl = STRAPI_API_URL;
+  const path = '/users/me';
 
-  const url = new URL(path, baseUrl);
+  const url = baseUrl + path;
 
   const authToken = await getAuthToken();
   if (!authToken) return { ok: false, data: null, error: null };
 
   try {
-    const response = await fetch(url.href, {
+    const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

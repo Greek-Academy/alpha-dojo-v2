@@ -4,7 +4,8 @@
   "info": {
     "singularName": "problem",
     "pluralName": "problems",
-    "displayName": "problem"
+    "displayName": "Problem",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -17,8 +18,46 @@
     "description": {
       "type": "richtext"
     },
-    "model_code": {
-      "type": "text"
+    "difficulty": {
+      "type": "enumeration",
+      "enum": [
+        "Easy",
+        "Medium",
+        "Hard"
+      ]
+    },
+    "constraints": {
+      "type": "richtext"
+    },
+    "hints": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::hint.hint",
+      "mappedBy": "problem_id"
+    },
+    "initial_codes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::initial-code.initial-code",
+      "mappedBy": "problem"
+    },
+    "test_cases": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::test-case.test-case",
+      "mappedBy": "problem"
+    },
+    "validators": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::validator.validator",
+      "mappedBy": "problem"
+    },
+    "submissions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::submission.submission",
+      "mappedBy": "problem"
     }
   }
 }
