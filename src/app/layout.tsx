@@ -27,6 +27,8 @@ export default function RootLayout({
         '[&_h6]:text-title-small',
         '[&_ul]:list-outside [&_ul]:ml-6',
         '[&_ol]:list-outside [&_ol]:ml-6',
+        '[&_pre]:overflow-hidden [&_pre]:border [&_pre]:border-border [&_pre]:rounded-xl',
+        '[&_code]:block [&_code]:overflow-x-auto [&_code]:p-2.5',
         '[&_a]:text-blue-600 visited:[&_a]:text-purple-600 [&_a]:underline [&_a]:underline-offset-2'
       )}
     >
