@@ -8,8 +8,14 @@
 * [Strapi の起動方法](#strapi-の起動方法) を参照してください
 
 ### 2. Strapi の設定
-* [Strapi の公式ガイド](https://strapi.io/blog/how-to-implement-github-social-login-in-next-js-with-strapi) の "Setting Up Strapi Github Auth Provider" の内容を参照してください。
-    * 管理画面にログインし、`Settings` -> `Users & Permissions plugin` -> `Providers` -> `github` の内容を設定してください。
+1. Strapi の GitHub OAuth の機能を有効化します。
+    * [Strapi の公式ガイド](https://strapi.io/blog/how-to-implement-github-social-login-in-next-js-with-strapi) の "Setting Up Strapi Github Auth Provider" の内容を参照してください。
+    * 管理画面にログインし、`Settings` -> `Users & Permissions plugin` -> `Providers` -> `github` の内容を設定します。
+2. ログインするユーザーに Strapi からデータを取得する権限を付与します。
+    1. 管理画面にログインし、`Settings` -> `Users & Permissions plugin` -> `Roles` -> `Authenticated` を開きます。
+    2. `Permissions` -> `Problem` を開き、以下にチェックを入れます
+        * [x] find
+        * [x] findOne
 
 ### 3. フロントエンドの起動
 ```bash
@@ -78,7 +84,8 @@ pnpm run dev
 * メモリ: 約 4GB
 
 ### 1. 環境変数の設定
-* `.env.sample` を `.env` に変更してください。
+* `.env.sample` をコピーして `.env` ファイルを作成してください。
+* `localhost` 以外でサーバーを立てる場合は `.env` の値を変更してください。
 
 ### 2. Docker コンテナの作成・起動
 * Docker Compose で、Strapi やそれに必要なアプリ (MySQL など) を起動します。

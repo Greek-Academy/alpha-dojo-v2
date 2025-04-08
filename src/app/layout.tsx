@@ -15,12 +15,12 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="ja"
+      lang='ja'
       className={`${notoSansJP.variable} ${roboto.variable} w-screen h-screen`}
     >
-      <body className="w-full h-full flex flex-col items-center sm:items-start text-foreground text-body-medium">
+      <body className='w-full h-full flex flex-col items-center sm:items-start text-foreground text-body-medium'>
         <Header />
-        <main className="w-full h-full grow overflow-auto">{children}</main>
+        <main className='w-full h-full grow overflow-auto'>{children}</main>
       </body>
     </html>
   );

@@ -47,6 +47,22 @@ export const TaskAltIcon = (props: MaterialSymbolProps) => {
   return <MaterialSymbol {...props}>task_alt</MaterialSymbol>;
 };
 
+export const ArrowUpwardIcon = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>arrow_upward_alt</MaterialSymbol>;
+};
+
+export const ArrowDownwardIcon = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>arrow_downward_alt</MaterialSymbol>;
+};
+
 export const AccountCircleIcon = (props: MaterialSymbolProps) => {
   return <MaterialSymbol {...props}>account_circle</MaterialSymbol>;
+};
+
+export const SortIcon = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>sort</MaterialSymbol>;
+};
+
+export const ManufacturingIcon = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>manufacturing</MaterialSymbol>;
 };

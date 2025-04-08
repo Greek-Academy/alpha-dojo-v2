@@ -1,8 +1,13 @@
+'use client';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { Code } from 'lucide-react';
 import { CodeEditor } from './code-editor';
-import { Language, SupportedLanguage } from '@/lib/languages';
+import {
+  SupportedLanguage,
+  supportedLanguageEnum,
+} from '@/domain/entities/supported-language';
 import {
   Select,
   SelectContent,
@@ -18,7 +23,7 @@ import { Button } from '@/components/ui/button';
 import { RestartAltIcon } from '@icons';
 
 const defaultCodes: { [key in SupportedLanguage]: string } = {
-  typescript: String.raw`class Cat {
+  TYPESCRIPT: String.raw`class Cat {
   name: string;
   age: number;
 
@@ -36,7 +41,7 @@ let myCat = new Cat("Tama", 5);
 console.log(myCat.name); // 出力: Tama
 myCat.meow(); // 出力: Meow!`,
 
-  python: String.raw`class Cat:
+  PYTHON: String.raw`class Cat:
   def __init__(self, name, age):
     self.name = name
     self.age = age
@@ -47,29 +52,6 @@ myCat.meow(); // 出力: Meow!`,
   my_cat = Cat("Tama", 5)
   print(my_cat.name)  # 出力: Tama
   my_cat.meow()  # 出力: Meow!`,
-
-  c: String.raw`#include <stdio.h>
-#include <string.h>
-
-typedef struct {
-  char name[50];
-  int age;
-} Cat;
-
-void meow(Cat *cat) {
-  printf("Meow!\n");
-}
-
-int main() {
-  Cat my_cat;
-  strcpy(my_cat.name, "Tama");
-  my_cat.age = 5;
-
-  printf("%s\n", my_cat.name); // 出力: Tama
-  meow(&my_cat); // 出力: Meow!
-
-  return 0;
-}`,
 };
 
 export const CodeTab = ({ className }: { className?: string }) => {
@@ -77,7 +59,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
   const editorRef = React.useRef<Parameters<OnMount>[0] | null>(null);
 
   /** 既定の言語 */
-  const defaultLanguage: SupportedLanguage = 'typescript';
+  const defaultLanguage: SupportedLanguage = 'TYPESCRIPT';
 
   /** Monaco Editor のコーディング言語 */
   const [language, setLanguage] =
@@ -129,30 +111,30 @@ export const CodeTab = ({ className }: { className?: string }) => {
   };
 
   return (
-    <Tabs defaultValue="code" className={cn('h-full', className)}>
+    <Tabs defaultValue='code' className={cn('h-full', className)}>
       <TabsList>
-        <TabsTrigger value="code">
-          <Code size="14" />
+        <TabsTrigger value='code'>
+          <Code size='14' />
           code
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="code" className="relative">
-        <div className="flex flex-col w-full h-full">
-          <div className="px-2 flex h-9">
+      <TabsContent value='code' className='relative'>
+        <div className='flex flex-col w-full h-full'>
+          <div className='px-2 flex h-9'>
             {/* 言語選択 */}
             <Select
               defaultValue={defaultLanguage}
               onValueChange={handleLanguageChange}
               value={language}
             >
-              <SelectTrigger className="w-auto border-0 shadow-none gap-2 p-0 h-auto mr-auto">
+              <SelectTrigger className='w-auto border-0 shadow-none gap-2 p-0 h-auto mr-auto'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {Object.entries(Language).map(([key, value]) => {
+                {supportedLanguageEnum.map((language) => {
                   return (
-                    <SelectItem value={key} key={key}>
-                      {value.name}
+                    <SelectItem value={language} key={language}>
+                      {language}
                     </SelectItem>
                   );
                 })}
@@ -161,9 +143,9 @@ export const CodeTab = ({ className }: { className?: string }) => {
 
             {/* コードのリセット */}
             <Button
-              variant="ghost"
-              className="w-auto h-auto p-2"
-              aria-label="リセット"
+              variant='ghost'
+              className='w-auto h-auto p-2'
+              aria-label='リセット'
               onClick={handleCodeReset}
             >
               <RestartAltIcon size={20} />
@@ -172,7 +154,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
 
           {/* Monaco Editor */}
           <CodeEditor
-            language={Language[language].id.monaco}
+            language={language}
             defaultValue={defaultCodes[defaultLanguage]}
             // CodeEditor の兄弟要素 (親以上の兄弟も含む) の高さが確定していないと、高さ調整がバグる。
             // calc は大丈夫そう。
