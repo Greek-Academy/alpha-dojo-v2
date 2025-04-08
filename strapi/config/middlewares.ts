@@ -7,7 +7,7 @@ export default [
       contentSecurityPolicy: {
         useDefaults: true,
         directives: {
-          'script-src-elem': ["'self'", 'cdn.jsdelivr.net'],
+          'script-src-elem': ["'self'", "'unsafe-inline'", 'cdn.jsdelivr.net'],
           upgradeInsecureRequests: null,
         },
       },
