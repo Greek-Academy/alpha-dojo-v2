@@ -121,7 +121,7 @@ export const ProbremTab = async ({
         </TabsTrigger>
       </TabsList>
       <TabsContent value='description'>
-        <Card className='border-0 shadow-none'>
+        <Card className='border-0 shadow-none bg-transparent'>
           <CardHeader className='flex flex-col items-start'>
             <CardTitle className='mb-2.5'>{problem.title}</CardTitle>
             <DifficultyChip difficulty={problem.difficulty} />
@@ -182,7 +182,7 @@ export const ProbremTab = async ({
         <SubmissionList submissions={sampleSubmissions} />
       </TabsContent>
       <TabsContent value='solutions'>
-        <Card className='border-0 shadow-none'>
+        <Card className='border-0 shadow-none bg-transparent'>
           <CardHeader>
             <CardTitle>Solutions</CardTitle>
           </CardHeader>

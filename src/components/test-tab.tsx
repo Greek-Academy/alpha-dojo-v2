@@ -26,7 +26,7 @@ export const TestTab = ({ className }: { className?: string }) => {
         </TabsTrigger>
       </TabsList>
       <TabsContent value='testcase'>
-        <Card className='border-0 shadow-none'>
+        <Card className='border-0 shadow-none bg-transparent'>
           <CardHeader>
             <CardTitle>テストケースです</CardTitle>
           </CardHeader>
@@ -36,7 +36,7 @@ export const TestTab = ({ className }: { className?: string }) => {
         </Card>
       </TabsContent>
       <TabsContent value='testresult'>
-        <Card className='border-0 shadow-none'>
+        <Card className='border-0 shadow-none bg-transparent'>
           <CardHeader>
             <CardTitle>テスト結果</CardTitle>
           </CardHeader>
@@ -46,7 +46,7 @@ export const TestTab = ({ className }: { className?: string }) => {
         </Card>
       </TabsContent>
       <TabsContent value='lintresult'>
-        <Card className='border-0 shadow-none'>
+        <Card className='border-0 shadow-none bg-transparent'>
           <CardHeader>
             <CardTitle>Solutions</CardTitle>
           </CardHeader>
