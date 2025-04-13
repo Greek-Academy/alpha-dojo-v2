@@ -3,11 +3,11 @@ import {
   strapiCommonAttributesDTO,
   strapiCommonDTO,
 } from '../strapi/strapi-response';
-import { supportedLanguage } from '@/domain/entities/supported-language';
+import { supportedLanguageKey } from '@/domain/entities/language';
 
 export const languageDTO = strapiCommonDTO.extend({
   attributes: strapiCommonAttributesDTO.extend({
-    key: supportedLanguage,
+    key: supportedLanguageKey,
     label: z.string(),
   }),
 });

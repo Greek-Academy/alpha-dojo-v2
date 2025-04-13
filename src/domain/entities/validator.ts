@@ -1,4 +1,4 @@
-import { Language } from './supported-language';
+import { Language } from './language';
 
 export class Validator {
   constructor(

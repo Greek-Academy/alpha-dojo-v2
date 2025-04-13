@@ -3,9 +3,9 @@ import {
   Language,
   typescript,
   python,
-} from '../entities/supported-language';
+} from '../entities/language';
 
-export const supportedLanguageToLanguage = (
+export const languageKeyToLanguage = (
   languageKey: SupportedLanguageKey
 ): Language => {
   switch (languageKey) {
