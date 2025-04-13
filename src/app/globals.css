@@ -56,14 +56,30 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
+  --text-headline-large: 32px;
+  --text-headline-large--font-weight: 400;
+  --text-headline-large--letter-spacing: 0px;
+  --text-headline-large--line-height: 40px;
   --text-headline-medium: 28px;
   --text-headline-medium--font-weight: 400;
   --text-headline-medium--letter-spacing: 0px;
   --text-headline-medium--line-height: 36px;
+  --text-headline-small: 24px;
+  --text-headline-small--font-weight: 400;
+  --text-headline-small--letter-spacing: 0px;
+  --text-headline-small--line-height: 32px;
   --text-title-large: 22px;
   --text-title-large--font-weight: 400;
   --text-title-large--letter-spacing: 0px;
   --text-title-large--line-height: 28px;
+  --text-title-medium: 16px;
+  --text-title-medium--font-weight: 500;
+  --text-title-medium--letter-spacing: 0.15px;
+  --text-title-medium--line-height: 24px;
+  --text-title-small: 14px;
+  --text-title-small--font-weight: 500;
+  --text-title-small--letter-spacing: 0.1px;
+  --text-title-small--line-height: 20px;
   --text-body-medium: 14px;
   --text-body-medium--font-weight: 400;
   --text-body-medium--letter-spacing: 0.25px;
@@ -219,5 +235,37 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &:not(:first-child) {
+      @apply pt-4;
+    }
+  }
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  /* FIXME: コードが長い */
+  :is(ul, ol) > li > ul {
+    list-style-type: circle;
+  }
+  :is(ul, ol) > li > ol {
+    list-style-type: lower-roman;
+  }
+  :is(ul, ol) > li > :is(ul, ol) > li > ul {
+    list-style-type: square;
+  }
+  :is(ul, ol) > li > :is(ul, ol) > li > ol {
+    list-style-type: lower-alpha;
+  }
+  :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > ol {
+    list-style-type: lower-greek;
   }
 }
