@@ -6,7 +6,7 @@ import {
   judgeStatusId,
   judgeSubmission,
 } from '@/infrastructure/judge/judge-response';
-import { SupportedLanguage } from '@/domain/entities/supported-language';
+import { Language, SupportedLanguageKey } from '@/domain/entities/language';
 import { JUDGE_API_ENDPOINT } from '@/constants/paths';
 import { JUDGE_API_KEY } from '@/constants/env';
 import { JudgeRepository } from '@/domain/repositories/judge-repository';
@@ -14,7 +14,7 @@ import { Status, TestResult } from '@/domain/entities/test-result';
 
 const POLLING_INTERVAL = 3000;
 
-const languageIds = new Map<SupportedLanguage, number>([
+const languageIds = new Map<SupportedLanguageKey, number>([
   ['TYPESCRIPT', 1],
   ['PYTHON', 2],
 ]);
@@ -33,18 +33,14 @@ const statusFromId = (statusId: number): Status => {
 };
 
 export class ApiJudgeRepository implements JudgeRepository {
-  createSubmission = (
-    language: SupportedLanguage,
-    sourceCode: string,
-    stdin: string
-  ) =>
+  createSubmission = (language: Language, sourceCode: string, stdin: string) =>
     ResultAsync.fromPromise(
       fetch(
         `${JUDGE_API_ENDPOINT}/submissions/?base64_encoded=false&wait=false`,
         {
           headers: getHeaders(),
           body: JSON.stringify({
-            language_id: languageIds.get(language),
+            language_id: languageIds.get(language.key),
             source_code: sourceCode,
             stdin,
           }),

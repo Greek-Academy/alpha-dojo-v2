@@ -7,6 +7,7 @@ import { Submission, SubmissionToCreate } from '@/domain/entities/submission';
 import { errAsync, okAsync } from 'neverthrow';
 import { ResponseError } from '@/domain/entities/error';
 import { TestResult } from '@/domain/entities/test-result';
+import { python, typescript } from '@/domain/entities/language';
 
 jest.mock('@/domain/repositories/submission-repository');
 
@@ -15,7 +16,7 @@ const mockSubms: Submission[] = [
     'submission-1',
     'user-1',
     'problem-1',
-    'TYPESCRIPT',
+    typescript,
     'exampleCode-1',
     true,
     true,
@@ -27,7 +28,7 @@ const mockSubms: Submission[] = [
     'submission-2',
     'user-2',
     'problem-2',
-    'PYTHON',
+    python,
     'exampleCode-2',
     true,
     false,
@@ -39,7 +40,7 @@ const mockSubms: Submission[] = [
     'submission-3',
     'user-2',
     'problem-1',
-    'TYPESCRIPT',
+    typescript,
     'exampleCode-3',
     false,
     false,
@@ -71,7 +72,7 @@ describe('SubmissionUseCase', () => {
   const mockSubmToCreate: SubmissionToCreate = new SubmissionToCreate(
     'user-3',
     'problem-3',
-    'TYPESCRIPT',
+    typescript,
     'exampleCode-4'
   );
 
@@ -96,7 +97,7 @@ describe('SubmissionUseCase', () => {
                 ((filters.authorId === undefined ||
                   subm.authorId === filters.authorId) &&
                   (filters.language === undefined ||
-                    subm.language === filters.language) &&
+                    subm.language.key === filters.language.key) &&
                   (filters.problemId === undefined ||
                     subm.problemId === filters.problemId) &&
                   (filters.testResultId === undefined ||
@@ -156,7 +157,7 @@ describe('SubmissionUseCase', () => {
 
   it('should return submissions based on filters', async () => {
     const subms = await submUseCase.fetchSubmissions({
-      language: 'TYPESCRIPT',
+      language: typescript,
     });
     expect(subms.isOk() && subms.value.length).toBe(2);
     expect(mockSubmRepository.getSubmissions).toHaveBeenCalledTimes(1);
