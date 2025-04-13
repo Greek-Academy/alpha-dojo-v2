@@ -1,7 +1,7 @@
 import { ResultAsync } from 'neverthrow';
 import { JudgeError, JudgeErrorCode } from '@/infrastructure/judge/judge-error';
 import { TestResult } from '../entities/test-result';
-import { SupportedLanguage } from '@/domain/entities/supported-language';
+import { Language } from '@/domain/entities/language';
 
 export interface JudgeRepository {
   /**
@@ -13,7 +13,7 @@ export interface JudgeRepository {
    * @returns The submission token
    */
   createSubmission: (
-    language: SupportedLanguage,
+    language: Language,
     sourceCode: string,
     stdin: string
   ) => ResultAsync<string, JudgeError<JudgeErrorCode.CreateSubmission>>;

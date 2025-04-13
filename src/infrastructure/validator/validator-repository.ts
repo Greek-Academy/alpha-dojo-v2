@@ -1,16 +1,17 @@
 import { Validator } from '@/domain/entities/validator';
 import { ValidatorDTO } from './validator-response';
-import { SupportedLanguage } from '@/domain/entities/supported-language';
+import { SupportedLanguageKey } from '@/domain/entities/language';
+import { languageKeyToLanguage } from '@/domain/repositories/language-repository';
 
 export const newValidatorFromDTO = (
   validator: ValidatorDTO,
   problemId: string,
-  language: SupportedLanguage
+  languageKey: SupportedLanguageKey
 ) => {
   return new Validator(
     validator.id.toString(),
     problemId,
-    language,
+    languageKeyToLanguage(languageKey),
     validator.attributes.code,
     new Date(validator.attributes.createdAt),
     new Date(validator.attributes.updatedAt)

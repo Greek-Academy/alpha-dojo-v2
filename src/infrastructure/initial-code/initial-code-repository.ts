@@ -1,18 +1,18 @@
 import { InitialCode } from '@/domain/entities/initial-code';
 import { InitialCodeDTO } from './initial-code-response';
-import { SupportedLanguage } from '@/domain/entities/supported-language';
+import { SupportedLanguageKey } from '@/domain/entities/language';
+import { languageKeyToLanguage } from '@/domain/repositories/language-repository';
 
 export const newInitialCodeFromDTO = (
   initialCode: InitialCodeDTO,
   problemId: string,
-  language: SupportedLanguage
-) => {
-  return new InitialCode(
+  languageKey: SupportedLanguageKey
+) =>
+  new InitialCode(
     initialCode.id.toString(),
     problemId,
-    language,
+    languageKeyToLanguage(languageKey),
     initialCode.attributes.code,
     new Date(initialCode.attributes.createdAt),
     new Date(initialCode.attributes.updatedAt)
   );
-};
