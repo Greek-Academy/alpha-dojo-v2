@@ -1,11 +1,11 @@
-import { SupportedLanguage } from './supported-language';
+import { Language } from './supported-language';
 
 export class Submission {
   constructor(
     public readonly id: string,
     public readonly authorId: string,
     public readonly problemId: string,
-    public readonly language: SupportedLanguage,
+    public readonly language: Language,
     public readonly codeText: string,
     public readonly reviewed: boolean,
     public readonly finished: boolean,
@@ -19,7 +19,7 @@ export class SubmissionToCreate {
   constructor(
     public readonly authorId: string,
     public readonly problemId: string,
-    public readonly language: SupportedLanguage,
+    public readonly language: Language,
     public readonly codeText: string
   ) {}
 }
