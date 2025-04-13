@@ -1,19 +1,19 @@
 import {
-  SupportedLanguage,
+  SupportedLanguageKey,
   Language,
   typescript,
   python,
 } from '../entities/supported-language';
 
 export const supportedLanguageToLanguage = (
-  languageId: SupportedLanguage
+  languageKey: SupportedLanguageKey
 ): Language => {
-  switch (languageId) {
+  switch (languageKey) {
     case 'TYPESCRIPT':
       return typescript;
     case 'PYTHON':
       return python;
     default:
-      throw new Error(`Unsupported language: ${languageId}`);
+      throw new Error(`Unsupported language: ${languageKey}`);
   }
 };

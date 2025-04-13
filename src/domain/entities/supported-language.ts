@@ -1,20 +1,20 @@
 import { z } from 'zod';
 
-export const supportedLanguageEnum = [
+export const supportedLanguageKeys = [
   'TYPESCRIPT',
   'PYTHON',
 ] as const satisfies string[];
 
 /** Zod */
-export const supportedLanguage = z.enum(supportedLanguageEnum);
-export type SupportedLanguage = z.infer<typeof supportedLanguage>;
+export const supportedLanguageKey = z.enum(supportedLanguageKeys);
+export type SupportedLanguageKey = z.infer<typeof supportedLanguageKey>;
 
 export class Language {
   public readonly label: string;
   public readonly order: number;
 
   constructor(
-    public readonly id: SupportedLanguage,
+    public readonly key: SupportedLanguageKey,
     options: {
       label: string;
       order: number;
