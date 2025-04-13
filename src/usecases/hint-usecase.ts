@@ -58,7 +58,8 @@ export class HintUseCase {
         hints
           .sort((a, b) => a.order - b.order)
           .map((hint) => {
-            const { order, ...rest } = hint;
+            // order を除外する
+            const { order: _, ...rest } = hint;
             return rest;
           })
       )
