@@ -4,13 +4,17 @@
   "info": {
     "singularName": "language",
     "pluralName": "languages",
-    "displayName": "Language"
+    "displayName": "Language",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "attributes": {
-    "name": {
+    "key": {
+      "type": "string"
+    },
+    "label": {
       "type": "string"
     }
   }

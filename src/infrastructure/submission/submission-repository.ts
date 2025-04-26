@@ -5,7 +5,7 @@ import {
   submissionRequiredDTO,
   SubmissionRequiredDTO,
 } from './submission-response';
-import { SupportedLanguage } from '@/domain/entities/supported-language';
+import { SupportedLanguageKey } from '@/domain/entities/language';
 import {
   SubmissionFilters,
   SubmissionRepository,
@@ -14,7 +14,8 @@ import { ResultAsync } from 'neverthrow';
 import { normalizeError } from '@/lib/err-utils';
 import { StrapiError } from '../strapi/strapi-error';
 import { fetchStrapiData, postStrapiData } from '../strapi/strapi-utils';
-import { supportedLanguageToId } from '../language/language-repository';
+import { languageToId } from '../language/language-repository';
+import { languageKeyToLanguage } from '@/domain/repositories/language-repository';
 
 export const newSubmissionFromRequiredDTO = async (
   submission: SubmissionRequiredDTO
@@ -23,7 +24,7 @@ export const newSubmissionFromRequiredDTO = async (
     submission,
     submission.attributes.author.data.id.toString(),
     submission.attributes.problem.data.id.toString(),
-    submission.attributes.language.data.attributes.name
+    submission.attributes.language.data.attributes.key
   );
 };
 
@@ -31,13 +32,13 @@ export const newSubmissionFromDTO = async (
   submission: SubmissionDTO,
   authorId: string,
   problemId: string,
-  language: SupportedLanguage
+  languageKey: SupportedLanguageKey
 ) =>
   new Submission(
     submission.id.toString(),
     authorId,
     problemId,
-    language,
+    languageKeyToLanguage(languageKey),
     submission.attributes.code,
     /* TODO: レビュー機能の実装 */ true,
     /* TODO: レビュー機能の実装 */ true,
@@ -84,8 +85,8 @@ export class ApiSubmissionRepository implements SubmissionRepository {
                   },
                 },
                 language: {
-                  name: {
-                    $eq: filters.language,
+                  key: {
+                    $eq: filters.language ? filters.language.key : undefined,
                   },
                 },
                 problem: {
@@ -113,7 +114,7 @@ export class ApiSubmissionRepository implements SubmissionRepository {
       .mapErr((err) => err.toResponseError());
 
   postSubmission = (subm: SubmissionToCreate) =>
-    supportedLanguageToId(subm.language)
+    languageToId(subm.language)
       .andThen((langId) =>
         postStrapiData<SubmissionDTO>(
           submissionEndpoint,
@@ -133,7 +134,7 @@ export class ApiSubmissionRepository implements SubmissionRepository {
             res,
             subm.authorId,
             subm.problemId,
-            subm.language
+            subm.language.key
           ),
           normalizeError
         )
