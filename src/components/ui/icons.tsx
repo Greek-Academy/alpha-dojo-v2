@@ -58,3 +58,11 @@ export const ArrowDownwardIcon = (props: MaterialSymbolProps) => {
 export const AccountCircleIcon = (props: MaterialSymbolProps) => {
   return <MaterialSymbol {...props}>account_circle</MaterialSymbol>;
 };
+
+export const SortIcon = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>sort</MaterialSymbol>;
+};
+
+export const ManufacturingIcon = (props: MaterialSymbolProps) => {
+  return <MaterialSymbol {...props}>manufacturing</MaterialSymbol>;
+};

@@ -4,26 +4,18 @@
   "info": {
     "singularName": "language",
     "pluralName": "languages",
-    "displayName": "Language"
+    "displayName": "Language",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "attributes": {
-    "name": {
+    "key": {
       "type": "string"
     },
-    "validators": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::validator.validator",
-      "mappedBy": "language_id"
-    },
-    "initial_codes": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::initial-code.initial-code",
-      "mappedBy": "language_id"
+    "label": {
+      "type": "string"
     }
   }
 }

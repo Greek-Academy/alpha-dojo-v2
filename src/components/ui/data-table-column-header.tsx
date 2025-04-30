@@ -1,6 +1,9 @@
 import { Column } from '@tanstack/react-table';
-import { ChevronsUpDown } from 'lucide-react';
-import { ArrowUpwardIcon, ArrowDownwardIcon } from '@/components/ui/icons';
+import {
+  ArrowUpwardIcon,
+  ArrowDownwardIcon,
+  SortIcon,
+} from '@/components/ui/icons';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -31,27 +34,27 @@ export function DataTableColumnHeader<TData, TValue>({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            variant="ghost"
-            size="sm"
-            className="-ml-3 h-8 data-[state=open]:bg-accent"
+            variant='ghost'
+            size='sm'
+            className='-ml-4 -my-3 data-[state=open]:bg-accent text-neutral-600'
           >
             <span>{title}</span>
             {column.getIsSorted() === 'desc' ? (
-              <ArrowDownwardIcon />
+              <ArrowDownwardIcon size={18} />
             ) : column.getIsSorted() === 'asc' ? (
-              <ArrowUpwardIcon />
+              <ArrowUpwardIcon size={18} />
             ) : (
-              <ChevronsUpDown />
+              <SortIcon size={18} />
             )}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
+        <DropdownMenuContent align='start'>
           <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-            <ArrowUpwardIcon className="text-muted-foreground/70" />
+            <ArrowUpwardIcon className='text-muted-foreground/70' size={18} />
             昇順で並び替え
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-            <ArrowDownwardIcon className="text-muted-foreground/70" />
+            <ArrowDownwardIcon className='text-muted-foreground/70' size={18} />
             降順で並び替え
           </DropdownMenuItem>
           {/* <DropdownMenuSeparator />

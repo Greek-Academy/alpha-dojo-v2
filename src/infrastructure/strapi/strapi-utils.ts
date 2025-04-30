@@ -1,6 +1,6 @@
 import { STRAPI_API_URL } from '@/constants/paths';
 import { err, ok, ResultAsync } from 'neverthrow';
-import { withJson } from './infra-utils';
+import { withJson } from '../infra-utils';
 import { getStrapiErrorFromGet, StrapiError } from './strapi-error';
 import { z } from 'zod';
 import qs from 'qs';
@@ -10,17 +10,17 @@ import { CreateObjOneKey } from '@/lib/utils';
 /** Strapi の Relations の含めるデータを実際に指定 */
 type StrapiPopulatingAttributes<T extends { [key in string]: unknown }> =
   | {
-      [K in keyof T]?: T[K] extends {
+      [K in keyof T]?: Required<T>[K] extends {
         data: object;
       }
-        ? StrapiQueryParam<T[K]['data']>
+        ? StrapiQueryParam<Required<T>[K]['data']>
         : never;
     }
   | {
-      [K in keyof T['attributes']]?: T['attributes'][K] extends {
+      [K in keyof T['attributes']]?: Required<T['attributes']>[K] extends {
         data: object;
       }
-        ? StrapiQueryParam<T['attributes'][K]['data']>
+        ? StrapiQueryParam<Required<T['attributes']>[K]['data']>
         : never;
     };
 
@@ -100,18 +100,20 @@ type StrapiFilteringJoinOperator =
 type StrapiFilteringAttributes<T extends { [key in string]: unknown }> =
   // ID や UserDTO のフィルター (attributes 以下ではない属性)
   | {
-      [K in keyof T]?: T[K] extends { data: object }
+      [K in keyof T]?: Required<T>[K] extends { data: object }
         ? // Relations によって、更に深いデータをフィルター (再帰的に呼び出す)
-          StrapiFiltering<T[K]['data']>
+          StrapiFiltering<Required<T>[K]['data']>
         :
             | CreateObjOneKey<StrapiFilteringOperator, T[K]>
             | CreateObjOneKey<StrapiFilteringArrayOperator, T[K][]>;
     }
   // attributes の内部の属性をフィルター
   | {
-      [K in keyof T['attributes']]?: T['attributes'][K] extends { data: object }
+      [K in keyof T['attributes']]?: Required<T['attributes']>[K] extends {
+        data: object;
+      }
         ? // Relations によって、更に深いデータをフィルター (再帰的に呼び出す)
-          StrapiFiltering<T['attributes'][K]['data']>
+          StrapiFiltering<Required<T['attributes']>[K]['data']>
         :
             | CreateObjOneKey<StrapiFilteringOperator, T['attributes'][K]>
             | CreateObjOneKey<
@@ -177,7 +179,7 @@ export const fetchStrapiData = <T extends object>(
   endpoint: string,
   dataSchema: z.ZodTypeAny,
   queryParam: StrapiQueryParam<T>,
-  authToken: string
+  authToken?: string
 ): ResultAsync<T, StrapiError> =>
   ResultAsync.fromPromise(
     fetch(
@@ -188,7 +190,7 @@ export const fetchStrapiData = <T extends object>(
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
+          ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
         },
       }
     ),
@@ -202,6 +204,90 @@ export const fetchStrapiData = <T extends object>(
             z
               .object({
                 data: dataSchema,
+              })
+              .safeParse(res.js)
+          )
+        : err(getStrapiErrorFromGet(res))
+    )
+    .andThen((jres) =>
+      jres.success
+        ? ok(jres.data.data)
+        : err(
+            new StrapiError('Invalid response', undefined, {
+              cause: jres.error,
+            })
+          )
+    );
+
+/** 複数の要素を含められる Relations の接続 */
+type PostStrapiRelations<connect extends boolean> =
+  | number[]
+  | ({
+      id: number;
+    } & connect extends true
+      ? {
+          position?:
+            | {
+                before: number;
+              }
+            | {
+                after: number;
+              }
+            | {
+                start: boolean;
+              }
+            | {
+                end: boolean;
+              };
+        }
+      : null)[];
+
+/** Strapi にデータを渡す際の型。
+ * Relations を含める方法は以下を参照。
+ * @see {@link https://docs-v4.strapi.io/dev-docs/api/rest/relations Managing relations through the REST API}
+ */
+export type PostStrapiData<T extends { attributes: object }> = {
+  [K in keyof T['attributes']]?: Required<T['attributes']>[K] extends {
+    data: object;
+  }
+    ? Required<T['attributes']>[K]['data'] extends Array<unknown>
+      ? number[] & {
+          connect?: PostStrapiRelations<true>[];
+          disconnect?: PostStrapiRelations<false>[];
+          set?: PostStrapiRelations<false>[];
+        }
+      : number
+    : T['attributes'][K];
+};
+
+/** Strapi で新規エントリを作成 */
+export const postStrapiData = <ReturnType extends { attributes: object }>(
+  endpoint: string,
+  data: PostStrapiData<ReturnType>,
+  returnDataSchema: z.ZodTypeAny,
+  authToken?: string
+): ResultAsync<ReturnType, StrapiError> =>
+  ResultAsync.fromPromise(
+    fetch(`${STRAPI_API_URL}${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
+      },
+      body: {
+        data,
+      }.toString(),
+    }),
+    normalizeError
+  )
+    .andThen(withJson)
+    .mapErr(StrapiError.fromUnknown)
+    .andThen((res) =>
+      res.ok
+        ? ok(
+            z
+              .object({
+                data: returnDataSchema,
               })
               .safeParse(res.js)
           )

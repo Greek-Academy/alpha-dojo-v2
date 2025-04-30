@@ -1,6 +1,6 @@
 import React from 'react';
 import Editor, { EditorProps } from '@monaco-editor/react';
-import { SupportedLanguage } from '@/domain/entities/supported-language';
+import { Language, SupportedLanguageKey } from '@/domain/entities/language';
 import Image from 'next/image';
 import Spinner from '@/public/spinner.svg';
 import { cn } from '@/lib/utils';
@@ -10,10 +10,10 @@ export const CodeEditor = ({
   options,
   className,
   ...props
-}: EditorProps & {
-  language: SupportedLanguage;
+}: Omit<EditorProps, 'language'> & {
+  language: Language;
 }) => {
-  const monacoLanguage: { [key in SupportedLanguage]: string } = {
+  const monacoLanguage: { [key in SupportedLanguageKey]: string } = {
     TYPESCRIPT: 'typesript',
     PYTHON: 'python',
   };
@@ -26,8 +26,8 @@ export const CodeEditor = ({
 
   return (
     <Editor
-      language={monacoLanguage[language]}
-      loading={<Image src={Spinner} width={40} height={40} alt="loading" />}
+      language={monacoLanguage[language.key]}
+      loading={<Image src={Spinner} width={40} height={40} alt='loading' />}
       options={Object.assign(Options, options)}
       // サイズ変更が少し遅れるため、一瞬スクロールバーが表示されてしまうのを回避
       className={cn('overflow-hidden', className)}

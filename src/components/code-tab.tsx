@@ -1,11 +1,15 @@
+'use client';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { Code } from 'lucide-react';
 import { CodeEditor } from './code-editor';
 import {
-  SupportedLanguage,
-  supportedLanguageEnum,
-} from '@/domain/entities/supported-language';
+  Language,
+  SupportedLanguageKey,
+  supportedLanguageKeys,
+  typescript,
+} from '@/domain/entities/language';
 import {
   Select,
   SelectContent,
@@ -19,8 +23,9 @@ import { OnMount } from '@monaco-editor/react';
 import { DialogPortalProps } from '@radix-ui/react-dialog';
 import { Button } from '@/components/ui/button';
 import { RestartAltIcon } from '@icons';
+import { languageKeyToLanguage } from '@/domain/repositories/language-repository';
 
-const defaultCodes: { [key in SupportedLanguage]: string } = {
+const defaultCodes: { [key in SupportedLanguageKey]: string } = {
   TYPESCRIPT: String.raw`class Cat {
   name: string;
   age: number;
@@ -57,20 +62,19 @@ export const CodeTab = ({ className }: { className?: string }) => {
   const editorRef = React.useRef<Parameters<OnMount>[0] | null>(null);
 
   /** 既定の言語 */
-  const defaultLanguage: SupportedLanguage = 'TYPESCRIPT';
+  const defaultLanguage: Language = typescript;
 
   /** Monaco Editor のコーディング言語 */
-  const [language, setLanguage] =
-    React.useState<SupportedLanguage>(defaultLanguage);
+  const [language, setLanguage] = React.useState<Language>(defaultLanguage);
 
   /** Monaco Editor の現在のコード内容 (設定不可) */
   const getCodeValue = () => editorRef?.current?.getValue();
   const setCodeValue = (code: string) => editorRef?.current?.setValue(code);
 
   /** 言語の変更を適用 (ハイライト・デフォルトコードの両方) */
-  const changeLanguage = (newLanguage: SupportedLanguage) => {
+  const changeLanguage = (newLanguage: Language) => {
     setLanguage(newLanguage);
-    setCodeValue(defaultCodes[newLanguage]);
+    setCodeValue(defaultCodes[newLanguage.key]);
   };
 
   /** Alert のレンダリング先 */
@@ -78,8 +82,10 @@ export const CodeTab = ({ className }: { className?: string }) => {
     React.useState<DialogPortalProps['container']>(null);
 
   /** 言語選択の onChange イベントハンドラ */
-  const handleLanguageChange = async (newLanguage: SupportedLanguage) => {
-    if (getCodeValue() === defaultCodes[language])
+  const handleLanguageChange = async (newLanguageKey: SupportedLanguageKey) => {
+    const newLanguage = languageKeyToLanguage(newLanguageKey);
+
+    if (getCodeValue() === defaultCodes[language.key])
       /** デフォルトから変更されていないので、確認無しで変更 */
       return changeLanguage(newLanguage);
 
@@ -94,7 +100,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
   };
 
   const handleCodeReset = async () => {
-    if (getCodeValue() === defaultCodes[language])
+    if (getCodeValue() === defaultCodes[language.key])
       /** 変更されていなので、リセットの必要なし */
       return;
 
@@ -105,45 +111,45 @@ export const CodeTab = ({ className }: { className?: string }) => {
       alertContainer
     );
 
-    if (result) setCodeValue(defaultCodes[language]);
+    if (result) setCodeValue(defaultCodes[language.key]);
   };
 
   return (
-    <Tabs defaultValue="code" className={cn('h-full', className)}>
+    <Tabs defaultValue='code' className={cn('h-full', className)}>
       <TabsList>
-        <TabsTrigger value="code">
-          <Code size="14" />
+        <TabsTrigger value='code'>
+          <Code size='14' />
           code
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="code" className="relative">
-        <div className="flex flex-col w-full h-full">
-          <div className="px-2 flex h-9">
+      <TabsContent value='code' className='relative'>
+        <div className='flex flex-col w-full h-full'>
+          <div className='px-2 flex h-9'>
             {/* 言語選択 */}
             <Select
-              defaultValue={defaultLanguage}
+              defaultValue={defaultLanguage.key}
               onValueChange={handleLanguageChange}
-              value={language}
+              value={language.key}
             >
-              <SelectTrigger className="w-auto border-0 shadow-none gap-2 p-0 h-auto mr-auto">
+              <SelectTrigger className='w-auto border-0 shadow-none gap-2 p-0 h-auto mr-auto'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {supportedLanguageEnum.map((language) => {
-                  return (
-                    <SelectItem value={language} key={language}>
-                      {language}
+                {supportedLanguageKeys
+                  .map(languageKeyToLanguage)
+                  .map((language) => (
+                    <SelectItem value={language.key} key={language.key}>
+                      {language.label}
                     </SelectItem>
-                  );
-                })}
+                  ))}
               </SelectContent>
             </Select>
 
             {/* コードのリセット */}
             <Button
-              variant="ghost"
-              className="w-auto h-auto p-2"
-              aria-label="リセット"
+              variant='ghost'
+              className='w-auto h-auto p-2'
+              aria-label='リセット'
               onClick={handleCodeReset}
             >
               <RestartAltIcon size={20} />
@@ -153,7 +159,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
           {/* Monaco Editor */}
           <CodeEditor
             language={language}
-            defaultValue={defaultCodes[defaultLanguage]}
+            defaultValue={defaultCodes[defaultLanguage.key]}
             // CodeEditor の兄弟要素 (親以上の兄弟も含む) の高さが確定していないと、高さ調整がバグる。
             // calc は大丈夫そう。
             height={'calc(100% - 36px)'}

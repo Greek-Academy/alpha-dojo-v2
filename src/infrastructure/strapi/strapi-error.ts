@@ -22,7 +22,7 @@ export class StrapiError extends Error {
     if (err instanceof Error) {
       return new StrapiError(err.message, undefined, { cause: err });
     } else {
-      return new StrapiError('Unknown error', undefined);
+      return new StrapiError('Unknown error', undefined, { cause: err });
     }
   }
 
