@@ -19,7 +19,7 @@ export const baseSubmissionAttributesDTO = strapiCommonAttributesDTO.extend({
     })
     .optional(),
   code: z.string(),
-  test_result_id: z.string(),
+  test_result_id: z.string().nullish(),
 });
 
 /** {@link baseSubmissionAttributesDTO} の全プロパティが必須 (1次階層まで) */

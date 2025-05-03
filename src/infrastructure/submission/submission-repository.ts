@@ -42,7 +42,7 @@ export const newSubmissionFromDTO = async (
     submission.attributes.code,
     /* TODO: レビュー機能の実装 */ true,
     /* TODO: レビュー機能の実装 */ true,
-    submission.attributes.test_result_id,
+    submission.attributes.test_result_id ?? undefined,
     new Date(submission.attributes.createdAt),
     new Date(submission.attributes.updatedAt)
   );
