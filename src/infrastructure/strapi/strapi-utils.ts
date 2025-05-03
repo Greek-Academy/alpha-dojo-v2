@@ -283,9 +283,9 @@ export const postStrapiData = <ReturnType extends { attributes: object }>(
         'Content-Type': 'application/json',
         ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
       },
-      body: {
+      body: JSON.stringify({
         data,
-      }.toString(),
+      }),
     }),
     normalizeError
   )
