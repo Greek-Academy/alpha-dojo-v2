@@ -38,7 +38,8 @@ export const problemDTO = strapiCommonDTO.extend({
       .optional(),
     submissions: z
       .object({
-        data: z.array(submissionDTO),
+        // XXX: ここだけなぜか Zod の遅延評価が必要
+        data: z.lazy(() => submissionDTO.array()),
       })
       .optional(),
   }),
