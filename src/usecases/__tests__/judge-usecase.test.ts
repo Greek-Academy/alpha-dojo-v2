@@ -2,6 +2,7 @@ import { JudgeRepository } from '@/domain/repositories/judge-repository';
 import { JudgeUseCase } from '../judge-usecase';
 import { TestResult } from '@/domain/entities/test-result';
 import { okAsync } from 'neverthrow';
+import { typescript } from '@/domain/entities/language';
 
 jest.mock('@/domain/repositories/judge-repository');
 
@@ -35,7 +36,7 @@ describe('JudgeUseCase', () => {
 
   it('should return submission token', async () => {
     const submissionToken = await judgeUseCase.createSubmission(
-      'TYPESCRIPT',
+      typescript,
       'valid source code',
       'valid stdin'
     );

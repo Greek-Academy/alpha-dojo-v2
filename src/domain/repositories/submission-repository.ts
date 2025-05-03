@@ -1,11 +1,11 @@
 import { ResultAsync } from 'neverthrow';
 import { Submission, SubmissionToCreate } from '../entities/submission';
 import { ResponseError } from '../entities/error';
-import { SupportedLanguage } from '../entities/supported-language';
+import { Language } from '../entities/language';
 
 export interface SubmissionFilters {
   authorId?: string;
-  language?: SupportedLanguage;
+  language?: Language;
   problemId?: string;
   testResultId?: string;
 }

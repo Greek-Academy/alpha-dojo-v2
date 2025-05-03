@@ -25,6 +25,8 @@ import { ApiProblemRepository } from '@/infrastructure/problem/problem-repositor
 import { ProblemUseCase } from '@/usecases/problem-usecase';
 import { getAuthToken } from '@/lib/get-auth-token';
 import { notFound } from 'next/navigation';
+import { ApiHintRepository } from '@/infrastructure/hint/hint-repository';
+import { HintUseCase, SortedHints } from '@/usecases/hint-usecase';
 
 export const sampleSubmissions: Submission[] = [
   {
@@ -62,6 +64,7 @@ export const ProbremTab = async ({
   className?: string;
 }) => {
   const authToken = await getAuthToken();
+
   const problemRepository = new ApiProblemRepository(authToken);
   const problemUseCase = new ProblemUseCase(problemRepository);
   const problemResponse = await problemUseCase.fetchProblemById(
@@ -80,6 +83,15 @@ export const ProbremTab = async ({
   }
 
   const problem = problemResponse.value;
+
+  const hintRepository = new ApiHintRepository(authToken);
+  const hintUseCase = new HintUseCase(hintRepository);
+  const hintResponse = await hintUseCase.fetchHints({
+    problemId: problemId.toString(),
+  });
+
+  const hints: SortedHints = [];
+  if (hintResponse.isOk()) hints.push(...hintResponse.value);
 
   const DifficultyChip = (props: { difficulty: Difficulty }) => {
     const difficultyChipVariants = cva('', {
@@ -121,7 +133,7 @@ export const ProbremTab = async ({
         </TabsTrigger>
       </TabsList>
       <TabsContent value='description'>
-        <Card className='border-0 shadow-none'>
+        <Card className='border-0 shadow-none bg-transparent'>
           <CardHeader className='flex flex-col items-start'>
             <CardTitle className='mb-2.5'>{problem.title}</CardTitle>
             <DifficultyChip difficulty={problem.difficulty} />
@@ -140,40 +152,20 @@ export const ProbremTab = async ({
                   <Markdown>{problem.constraintsDescription}</Markdown>
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value='hint-1'>
-                <AccordionTrigger>
-                  <Lightbulb2 />
-                  Hint 1
-                </AccordionTrigger>
-                <AccordionContent>
-                  ヒント その1
-                  <br />
-                  ヒント その1
-                  <br />
-                  ヒント その1
-                  <br />
-                  ヒント その1
-                  <br />
-                  ヒント その1
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value='hint-2'>
-                <AccordionTrigger>
-                  <Lightbulb2 />
-                  Hint 2
-                </AccordionTrigger>
-                <AccordionContent>
-                  ヒント その2
-                  <br />
-                  ヒント その2
-                  <br />
-                  ヒント その2
-                  <br />
-                  ヒント その2
-                  <br />
-                  ヒント その2
-                </AccordionContent>
-              </AccordionItem>
+              {hints.map((hint, index) => (
+                <AccordionItem
+                  value={`hint-${index + 1}`}
+                  key={`hint-${index + 1}`}
+                >
+                  <AccordionTrigger>
+                    <Lightbulb2 />
+                    Hint {index + 1}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <Markdown>{hint.description}</Markdown>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
             </Accordion>
           </CardFooter>
         </Card>
@@ -182,7 +174,7 @@ export const ProbremTab = async ({
         <SubmissionList submissions={sampleSubmissions} />
       </TabsContent>
       <TabsContent value='solutions'>
-        <Card className='border-0 shadow-none'>
+        <Card className='border-0 shadow-none bg-transparent'>
           <CardHeader>
             <CardTitle>Solutions</CardTitle>
           </CardHeader>

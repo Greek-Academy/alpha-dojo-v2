@@ -15,7 +15,7 @@ function Tabs({
       className={cn(
         // "flex flex-col gap-2",
         'flex flex-col',
-        'rounded-xl overflow-hidden border',
+        'rounded-xl overflow-hidden border bg-neutral-100',
         className
       )}
       {...props}
