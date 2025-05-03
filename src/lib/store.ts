@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import submissionReducer from './features/submission/submission-slice';
+import userReducer from './features/user/user-slice';
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       submission: submissionReducer,
+      user: userReducer,
     },
   });
 };
