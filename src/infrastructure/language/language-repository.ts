@@ -6,7 +6,7 @@ import { err, ok, ResultAsync } from 'neverthrow';
 
 export const getAllLanguages = (): ResultAsync<LanguageDTO[], ResponseError> =>
   fetchStrapiData<LanguageDTO[]>(
-    '/language',
+    '/languages',
     languageDTO.array(),
     {},
     process.env.NEXT_PUBLIC_STRAPI_JWT ?? ''
