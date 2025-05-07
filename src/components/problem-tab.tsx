@@ -60,16 +60,14 @@ export const ProbremTab = async ({
   className,
   ...props
 }: ComponentProps<typeof Tabs> & {
-  problemId: number;
+  problemId: string;
   className?: string;
 }) => {
   const authToken = await getAuthToken();
 
   const problemRepository = new ApiProblemRepository(authToken);
   const problemUseCase = new ProblemUseCase(problemRepository);
-  const problemResponse = await problemUseCase.fetchProblemById(
-    problemId.toString()
-  );
+  const problemResponse = await problemUseCase.fetchProblemById(problemId);
 
   if (problemResponse.isErr()) {
     const error = problemResponse.error;
@@ -87,7 +85,7 @@ export const ProbremTab = async ({
   const hintRepository = new ApiHintRepository(authToken);
   const hintUseCase = new HintUseCase(hintRepository);
   const hintResponse = await hintUseCase.fetchHints({
-    problemId: problemId.toString(),
+    problemId,
   });
 
   const hints: SortedHints = [];

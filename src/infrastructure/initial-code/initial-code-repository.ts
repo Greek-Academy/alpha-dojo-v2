@@ -1,18 +1,90 @@
 import { InitialCode } from '@/domain/entities/initial-code';
-import { InitialCodeDTO } from './initial-code-response';
+import {
+  InitialCodeDTO,
+  InitialCodeLanguageRequiredDTO,
+  initialCodeLanguageRequiredDTO,
+} from './initial-code-response';
 import { SupportedLanguageKey } from '@/domain/entities/language';
 import { languageKeyToLanguage } from '@/domain/repositories/language-repository';
+import {
+  InitialCodeFilters,
+  InitialCodeRepository,
+} from '@/domain/repositories/initial-code-repository';
+import {
+  fetchStrapiData,
+  removeCodeTextLanguagePrefix,
+} from '../strapi/strapi-utils';
+import { ok, ResultAsync } from 'neverthrow';
+import { normalizeError } from '@/lib/err-utils';
+import { StrapiError } from '../strapi/strapi-error';
+
+export const newInitialCodeFromRequiredDTO = (
+  initialCode: InitialCodeLanguageRequiredDTO
+) =>
+  newInitialCodeFromDTO(
+    initialCode,
+    initialCode.attributes.language.data.attributes.key
+  );
 
 export const newInitialCodeFromDTO = (
   initialCode: InitialCodeDTO,
-  problemId: string,
   languageKey: SupportedLanguageKey
 ) =>
   new InitialCode(
     initialCode.id.toString(),
-    problemId,
     languageKeyToLanguage(languageKey),
-    initialCode.attributes.code,
+    removeCodeTextLanguagePrefix(initialCode.attributes.code),
     new Date(initialCode.attributes.createdAt),
     new Date(initialCode.attributes.updatedAt)
   );
+
+const initialCodeEndpoint = '/initial-codes';
+
+export class ApiInitialCodeRepository implements InitialCodeRepository {
+  constructor(private readonly authToken?: string) {}
+
+  getInitialCodeById = (id: string) =>
+    fetchStrapiData<InitialCodeLanguageRequiredDTO>(
+      `${initialCodeEndpoint}/${id}`,
+      initialCodeLanguageRequiredDTO,
+      {
+        populate: 'language',
+      },
+      this.authToken
+    )
+      .andThen((initialCode) => ok(newInitialCodeFromRequiredDTO(initialCode)))
+      .mapErr((err) => err.toResponseError());
+
+  getInitialCodes = (filters?: InitialCodeFilters) =>
+    fetchStrapiData<InitialCodeLanguageRequiredDTO[]>(
+      initialCodeEndpoint,
+      initialCodeLanguageRequiredDTO.array(),
+      {
+        populate: 'language',
+        filters: {
+          problem: {
+            id: {
+              $eq: Number(filters?.problemId),
+            },
+          },
+          language: {
+            key: {
+              $eq: filters?.language?.key,
+            },
+          },
+        },
+      },
+      this.authToken
+    )
+      .andThen((initialCodes) =>
+        ResultAsync.fromPromise(
+          Promise.all(
+            initialCodes.map((initialCode) =>
+              newInitialCodeFromRequiredDTO(initialCode)
+            )
+          ),
+          normalizeError
+        ).mapErr(StrapiError.fromUnknown)
+      )
+      .mapErr((err) => err.toResponseError());
+}

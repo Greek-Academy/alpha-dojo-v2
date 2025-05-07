@@ -30,39 +30,13 @@ import {
   setCodeText,
 } from '@/lib/features/submission/submission-slice';
 
-const defaultCodes: { [key in SupportedLanguageKey]: string } = {
-  TYPESCRIPT: String.raw`class Cat {
-  name: string;
-  age: number;
-
-  constructor(name: string, age: number) {
-    this.name = name;
-    this.age = age;
-  }
-
-  meow(): void {
-    console.log("Meow!");
-  }
-}
-
-let myCat = new Cat("Tama", 5);
-console.log(myCat.name); // 出力: Tama
-myCat.meow(); // 出力: Meow!`,
-
-  PYTHON: String.raw`class Cat:
-  def __init__(self, name, age):
-    self.name = name
-    self.age = age
-
-  def meow(self):
-    print("Meow!")
-
-  my_cat = Cat("Tama", 5)
-  print(my_cat.name)  # 出力: Tama
-  my_cat.meow()  # 出力: Meow!`,
-};
-
-export const CodeTab = ({ className }: { className?: string }) => {
+export const CodeTab = ({
+  initialCodes,
+  className,
+}: {
+  initialCodes: Partial<Record<SupportedLanguageKey, string>>;
+  className?: string;
+}) => {
   // React Redux
   const dispatch = useAppDispatch();
 
@@ -74,7 +48,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
 
   // React Redux にコードの初期値を反映
   useEffect(() => {
-    dispatch(setCodeText(defaultCodes[defaultLanguage.key]));
+    dispatch(setCodeText(initialCodes[defaultLanguage.key] ?? ''));
     dispatch(setCodeLanguage(defaultLanguage.key));
   }, []);
 
@@ -92,7 +66,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
   /** 言語の変更を適用 (ハイライト・デフォルトコードの両方) */
   const changeLanguage = (newLanguage: Language) => {
     setLanguage(newLanguage);
-    setCodeValue(defaultCodes[newLanguage.key]);
+    setCodeValue(initialCodes[newLanguage.key] ?? '');
   };
 
   /** Alert のレンダリング先 */
@@ -103,7 +77,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
   const handleLanguageChange = async (newLanguageKey: SupportedLanguageKey) => {
     const newLanguage = languageKeyToLanguage(newLanguageKey);
 
-    if (getCodeValue() === defaultCodes[language.key])
+    if (getCodeValue() === (initialCodes[language.key] ?? ''))
       /** デフォルトから変更されていないので、確認無しで変更 */
       return changeLanguage(newLanguage);
 
@@ -118,7 +92,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
   };
 
   const handleCodeReset = async () => {
-    if (getCodeValue() === defaultCodes[language.key])
+    if (getCodeValue() === (initialCodes[language.key] ?? ''))
       /** 変更されていなので、リセットの必要なし */
       return;
 
@@ -129,7 +103,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
       alertContainer
     );
 
-    if (result) setCodeValue(defaultCodes[language.key]);
+    if (result) setCodeValue(initialCodes[language.key] ?? '');
   };
 
   const handleOnChange = (value?: string) => {
@@ -181,7 +155,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
           {/* Monaco Editor */}
           <CodeEditor
             language={language}
-            defaultValue={defaultCodes[defaultLanguage.key]}
+            defaultValue={initialCodes[defaultLanguage.key]}
             // CodeEditor の兄弟要素 (親以上の兄弟も含む) の高さが確定していないと、高さ調整がバグる。
             // calc は大丈夫そう。
             height={'calc(100% - 36px)'}
