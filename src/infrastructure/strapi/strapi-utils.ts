@@ -9,6 +9,9 @@ import { CreateObjOneKey } from '@/lib/utils';
 
 /** Strapi の Relations の含めるデータを実際に指定 */
 type StrapiPopulatingAttributes<T extends { [key in string]: unknown }> =
+  | keyof T
+  | keyof T['attributes']
+  | (keyof T | keyof T['attributes'])[]
   | {
       [K in keyof T]?: Required<T>[K] extends {
         data: object;
@@ -26,8 +29,7 @@ type StrapiPopulatingAttributes<T extends { [key in string]: unknown }> =
 
 /** Strapi の Relations もデータに含める際に指定 */
 export type StrapiPopulating<T extends object> =
-  | string
-  | string[]
+  | '*'
   | (T extends Array<unknown>
       ? T[number] extends { [key in string]: unknown }
         ? StrapiPopulatingAttributes<T[number]>
