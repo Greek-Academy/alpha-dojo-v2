@@ -6,6 +6,7 @@ import { z } from 'zod';
 import qs from 'qs';
 import { normalizeError } from '@/lib/err-utils';
 import { CreateObjOneKey } from '@/lib/utils';
+import { Language } from '@/domain/entities/language';
 
 /** Strapi の Relations の含めるデータを実際に指定 */
 type StrapiPopulatingAttributes<T extends { [key in string]: unknown }> =
@@ -313,3 +314,39 @@ export const postStrapiData = <ReturnType extends { attributes: object }>(
             })
           )
     );
+
+/** Strapi の Monaco Editor に含まれる、言語情報を含む prefix を除去
+ * @example
+ * ```
+ * const codeText = '__typescript__;class Cat {...}';
+ * const codeTextWithoutLanguage = removeCodeTextLanguagePrefix(codeText);
+ * // expected: 'class Cat {...}'
+ * ```
+ */
+export const removeCodeTextLanguagePrefix = (codeText: string) => {
+  const languageRegExp = /__(.+)__;/;
+  return codeText.replace(languageRegExp, '');
+};
+
+/** Strapi の Monaco Editor 向けに、言語情報を含む prefix を追加
+ * @example
+ * ```
+ * const codeText = 'class Cat {...}';
+ * const codeTextWithLanguage = addCodeTextLanguagePrefix(codeText);
+ * // expected: '__typescript__;class Cat {...}'
+ * ```
+ */
+export const addCodeTextLanguagePrefix = (
+  codeText: string,
+  language: Language
+) => {
+  let languageKey;
+  switch (language.key) {
+    case 'TYPESCRIPT':
+      languageKey = 'typescript';
+      break;
+    case 'PYTHON':
+      languageKey = 'python';
+  }
+  return `__${languageKey}__;${codeText}`;
+};
