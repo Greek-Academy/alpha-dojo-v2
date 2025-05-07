@@ -221,10 +221,11 @@ export const fetchStrapiData = <T extends object>(
 
 /** 複数の要素を含められる Relations の接続 */
 type PostStrapiRelations<connect extends boolean> =
-  | number[]
-  | ({
+  | number
+  | {
       id: number;
-    } & connect extends true
+    }
+  | (connect extends true
       ? {
           position?:
             | {
@@ -240,7 +241,7 @@ type PostStrapiRelations<connect extends boolean> =
                 end: boolean;
               };
         }
-      : null)[];
+      : null);
 
 /** Strapi にデータを渡す際の型。
  * Relations を含める方法は以下を参照。
@@ -251,12 +252,20 @@ export type PostStrapiData<T extends { attributes: object }> = {
     data: object;
   }
     ? Required<T['attributes']>[K]['data'] extends Array<unknown>
-      ? number[] & {
-          connect?: PostStrapiRelations<true>[];
-          disconnect?: PostStrapiRelations<false>[];
-          set?: PostStrapiRelations<false>[];
-        }
-      : number
+      ?
+          | number[]
+          | {
+              connect?: PostStrapiRelations<true>[];
+              disconnect?: PostStrapiRelations<false>[];
+              set?: PostStrapiRelations<false>[];
+            }
+      :
+          | number
+          | {
+              connect?: PostStrapiRelations<true>[];
+              disconnect?: PostStrapiRelations<false>;
+              set?: PostStrapiRelations<false>;
+            }
     : T['attributes'][K];
 };
 
@@ -274,9 +283,9 @@ export const postStrapiData = <ReturnType extends { attributes: object }>(
         'Content-Type': 'application/json',
         ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
       },
-      body: {
+      body: JSON.stringify({
         data,
-      }.toString(),
+      }),
     }),
     normalizeError
   )

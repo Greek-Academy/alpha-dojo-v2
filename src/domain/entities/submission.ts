@@ -9,7 +9,7 @@ export class Submission {
     public readonly codeText: string,
     public readonly reviewed: boolean,
     public readonly finished: boolean,
-    public readonly testResultId: string,
+    public readonly testResultId: string | undefined,
     public readonly createdAt: Date,
     public readonly updatedAt: Date
   ) {}

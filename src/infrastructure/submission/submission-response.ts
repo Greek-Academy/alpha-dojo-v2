@@ -19,10 +19,10 @@ export const baseSubmissionAttributesDTO = strapiCommonAttributesDTO.extend({
     })
     .optional(),
   code: z.string(),
-  test_result_id: z.string(),
+  test_result_id: z.string().nullish(),
 });
 
-/** {@link baseSubmissionAttributesDTO} の全プロパティが必須 (1次階層まで) */
+/** {@link baseSubmissionAttributesDTO} の全 Relations が必須 (1次階層まで) */
 const baseSubmissionAttributesRequiredDTO =
   baseSubmissionAttributesDTO.required();
 
@@ -30,7 +30,7 @@ const baseSubmissionDTO = strapiCommonDTO.extend({
   attributes: baseSubmissionAttributesDTO,
 });
 
-/** {@link baseSubmissionDTO} の全プロパティが必須 (1次階層まで) */
+/** {@link baseSubmissionDTO} の全 Relations が必須 (1次階層まで) */
 const baseSubmissionRequiredDTO = strapiCommonDTO.extend({
   attributes: baseSubmissionAttributesRequiredDTO,
 });
@@ -43,7 +43,7 @@ export type SubmissionDTO = z.infer<typeof baseSubmissionDTO> & {
   };
 };
 
-/** {@link SubmissionDTO} の全プロパティが必須 (1次階層まで) */
+/** {@link SubmissionDTO} の全 Relations が必須 (1次階層まで) */
 export type SubmissionRequiredDTO = z.infer<
   typeof baseSubmissionRequiredDTO
 > & {
@@ -66,7 +66,7 @@ export const submissionDTO: z.ZodType<SubmissionDTO> = baseSubmissionDTO.extend(
   }
 );
 
-/** {@link submissionDTO} の全プロパティが必須 (1次階層まで) */
+/** {@link submissionDTO} の全 Relations が必須 (1次階層まで) */
 export const submissionRequiredDTO: z.ZodType<SubmissionRequiredDTO> =
   baseSubmissionRequiredDTO.extend({
     attributes: baseSubmissionAttributesRequiredDTO.extend({
