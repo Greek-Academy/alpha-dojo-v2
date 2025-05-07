@@ -10,7 +10,10 @@ import {
   InitialCodeFilters,
   InitialCodeRepository,
 } from '@/domain/repositories/initial-code-repository';
-import { fetchStrapiData } from '../strapi/strapi-utils';
+import {
+  fetchStrapiData,
+  removeCodeTextLanguagePrefix,
+} from '../strapi/strapi-utils';
 import { ok, ResultAsync } from 'neverthrow';
 import { normalizeError } from '@/lib/err-utils';
 import { StrapiError } from '../strapi/strapi-error';
@@ -30,7 +33,7 @@ export const newInitialCodeFromDTO = (
   new InitialCode(
     initialCode.id.toString(),
     languageKeyToLanguage(languageKey),
-    initialCode.attributes.code,
+    removeCodeTextLanguagePrefix(initialCode.attributes.code),
     new Date(initialCode.attributes.createdAt),
     new Date(initialCode.attributes.updatedAt)
   );
