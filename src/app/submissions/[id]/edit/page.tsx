@@ -27,9 +27,9 @@ samplePersons.push(new Person('dさん', 32, 'Osaka'));
 
 export default async function Home({
   params,
-}: {
-  params: Promise<{ id: number }>;
-}) {
+}: Readonly<{
+  params: Promise<{ id: string }>;
+}>) {
   return (
     <ResizablePanelGroup
       autoSaveId='submissions-1'
