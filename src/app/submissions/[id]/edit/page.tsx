@@ -6,6 +6,11 @@ import {
   ResizablePanelGroup,
   ResizableHandle,
 } from '@/components/ui/resizable';
+import { getAuthToken } from '@/lib/get-auth-token';
+import { InitialCodeUseCase } from '@/usecases/initial-code-usecase';
+import { InitialCode } from '@/domain/entities/initial-code';
+import { ApiInitialCodeRepository } from '@/infrastructure/initial-code/initial-code-repository';
+import { SupportedLanguageKey } from '@/domain/entities/language';
 
 class Person {
   name: string = '';
@@ -30,6 +35,23 @@ export default async function Home({
 }: Readonly<{
   params: Promise<{ id: string }>;
 }>) {
+  const authToken = await getAuthToken();
+
+  const initialCodeUseCase = new InitialCodeUseCase(
+    new ApiInitialCodeRepository(authToken)
+  );
+  const initialCodesResponse = await initialCodeUseCase.fetchInitialCodes({
+    problemId: (await params).id,
+  });
+  const initialCodes: InitialCode[] = initialCodesResponse.isOk()
+    ? initialCodesResponse.value
+    : [];
+  const initialCodeRecord: Partial<Record<SupportedLanguageKey, string>> = {};
+  initialCodes.forEach(
+    (initialCode) =>
+      (initialCodeRecord[initialCode.language.key] = initialCode.codeText)
+  );
+
   return (
     <ResizablePanelGroup
       autoSaveId='submissions-1'
@@ -43,7 +65,7 @@ export default async function Home({
       <ResizablePanel defaultSize={70} className='min-w-60'>
         <ResizablePanelGroup autoSaveId='submissions-2' direction='vertical'>
           <ResizablePanel defaultSize={50} className='min-h-60'>
-            <CodeTab />
+            <CodeTab initialCodes={initialCodeRecord} />
           </ResizablePanel>
           <ResizableHandle />
           <ResizablePanel defaultSize={50} className='min-h-40'>
