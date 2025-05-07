@@ -12,24 +12,6 @@ import { InitialCode } from '@/domain/entities/initial-code';
 import { ApiInitialCodeRepository } from '@/infrastructure/initial-code/initial-code-repository';
 import { SupportedLanguageKey } from '@/domain/entities/language';
 
-class Person {
-  name: string = '';
-  age: number = 0;
-  addr: string = '';
-
-  constructor(name: string, age: number, addr: string) {
-    this.name = name;
-    this.age = age;
-    this.addr = addr;
-  }
-}
-
-const samplePersons: Person[] = [];
-samplePersons.push(new Person('aさん', 14, 'kobe'));
-samplePersons.push(new Person('bさん', 15, 'Kyoto'));
-samplePersons.push(new Person('cさん', 25, 'Nagoya'));
-samplePersons.push(new Person('dさん', 32, 'Osaka'));
-
 export default async function Home({
   params,
 }: Readonly<{
