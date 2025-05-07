@@ -57,6 +57,7 @@ export class ApiInitialCodeRepository implements InitialCodeRepository {
       initialCodeEndpoint,
       initialCodeLanguageRequiredDTO.array(),
       {
+        populate: 'language',
         filters: {
           problem: {
             id: {
