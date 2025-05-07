@@ -1,11 +1,11 @@
 import { InitialCode } from '@/domain/entities/initial-code';
-import { SupportedLanguage } from '../entities/supported-language';
+import { Language } from '../entities/language';
 import { ResultAsync } from 'neverthrow';
 import { ResponseError } from '../entities/error';
 
 export interface InitialCodeFilters {
   problemId?: string;
-  language?: SupportedLanguage;
+  language?: Language;
 }
 
 export interface InitialCodeRepository {
