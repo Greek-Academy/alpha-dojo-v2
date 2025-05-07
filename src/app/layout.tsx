@@ -3,6 +3,7 @@ import { Header } from '@/app/header';
 import { notoSansJP, roboto } from '@/fonts/google-fonts';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import StoreProvider from './store-provider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -33,8 +34,10 @@ export default function RootLayout({
       )}
     >
       <body className='w-full h-full flex flex-col items-center sm:items-start text-foreground text-body-medium'>
-        <Header />
-        <main className='w-full h-full grow overflow-auto'>{children}</main>
+        <StoreProvider>
+          <Header />
+          <main className='w-full h-full grow overflow-auto'>{children}</main>
+        </StoreProvider>
       </body>
     </html>
   );

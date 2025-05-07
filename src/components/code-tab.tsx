@@ -17,13 +17,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Confirm } from '@/components/ui/alert-dialog';
 import { OnMount } from '@monaco-editor/react';
 import { DialogPortalProps } from '@radix-ui/react-dialog';
 import { Button } from '@/components/ui/button';
 import { RestartAltIcon } from '@icons';
 import { languageKeyToLanguage } from '@/domain/repositories/language-repository';
+import { useAppDispatch, useAppSelector } from '@/hooks/react-redux';
+import {
+  setCodeLanguage,
+  setCodeText,
+} from '@/lib/features/submission/submission-slice';
 
 const defaultCodes: { [key in SupportedLanguageKey]: string } = {
   TYPESCRIPT: String.raw`class Cat {
@@ -58,14 +63,27 @@ myCat.meow(); // 出力: Meow!`,
 };
 
 export const CodeTab = ({ className }: { className?: string }) => {
+  // React Redux
+  const dispatch = useAppDispatch();
+
   /** Monaco Editor への Ref */
   const editorRef = React.useRef<Parameters<OnMount>[0] | null>(null);
 
   /** 既定の言語 */
   const defaultLanguage: Language = typescript;
 
+  // React Redux にコードの初期値を反映
+  useEffect(() => {
+    dispatch(setCodeText(defaultCodes[defaultLanguage.key]));
+    dispatch(setCodeLanguage(defaultLanguage.key));
+  }, []);
+
   /** Monaco Editor のコーディング言語 */
-  const [language, setLanguage] = React.useState<Language>(defaultLanguage);
+  const language = useAppSelector((state) =>
+    languageKeyToLanguage(state.submission.newSubmission.codeLanguageKey)
+  );
+  const setLanguage = (language: Language) =>
+    dispatch(setCodeLanguage(language.key));
 
   /** Monaco Editor の現在のコード内容 (設定不可) */
   const getCodeValue = () => editorRef?.current?.getValue();
@@ -112,6 +130,10 @@ export const CodeTab = ({ className }: { className?: string }) => {
     );
 
     if (result) setCodeValue(defaultCodes[language.key]);
+  };
+
+  const handleOnChange = (value?: string) => {
+    dispatch(setCodeText(value ?? ''));
   };
 
   return (
@@ -166,6 +188,7 @@ export const CodeTab = ({ className }: { className?: string }) => {
             onMount={(editor) => {
               editorRef.current = editor;
             }}
+            onChange={handleOnChange}
           />
         </div>
         <div ref={setAlertContainer} />

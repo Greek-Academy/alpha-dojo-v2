@@ -1,4 +1,4 @@
-import { HeaderButtons } from './header-buttons';
+import { HeaderButtons } from './header-actions';
 import Link from 'next/link';
 import { MyAccount } from '@/components/my-account';
 

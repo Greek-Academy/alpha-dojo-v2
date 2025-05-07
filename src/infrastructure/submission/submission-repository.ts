@@ -42,7 +42,7 @@ export const newSubmissionFromDTO = async (
     submission.attributes.code,
     /* TODO: レビュー機能の実装 */ true,
     /* TODO: レビュー機能の実装 */ true,
-    submission.attributes.test_result_id,
+    submission.attributes.test_result_id ?? undefined,
     new Date(submission.attributes.createdAt),
     new Date(submission.attributes.updatedAt)
   );
@@ -50,7 +50,8 @@ export const newSubmissionFromDTO = async (
 const submissionEndpoint = '/submissions';
 
 export class ApiSubmissionRepository implements SubmissionRepository {
-  // TODO: Authorization はログイン時のトークンを使用する
+  constructor(private readonly authToken?: string) {}
+
   getSubmissionById = (id: string) =>
     fetchStrapiData<SubmissionRequiredDTO>(
       `${submissionEndpoint}/${id}`,
@@ -58,7 +59,7 @@ export class ApiSubmissionRepository implements SubmissionRepository {
       {
         populate: '*',
       },
-      process.env.NEXT_PUBLIC_STRAPI_JWT ?? ''
+      this.authToken
     )
       .andThen((subm) =>
         ResultAsync.fromPromise(
@@ -103,7 +104,7 @@ export class ApiSubmissionRepository implements SubmissionRepository {
             }
           : null),
       },
-      process.env.NEXT_PUBLIC_STRAPI_JWT ?? ''
+      this.authToken
     )
       .andThen((subms) =>
         ResultAsync.fromPromise(
@@ -125,7 +126,7 @@ export class ApiSubmissionRepository implements SubmissionRepository {
             code: subm.codeText,
           },
           submissionDTO,
-          process.env.NEXT_PUBLIC_STRAPI_JWT ?? ''
+          this.authToken
         ).mapErr((err) => err.toResponseError())
       )
       .andThen((res) =>
