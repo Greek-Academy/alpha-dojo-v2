@@ -20,7 +20,7 @@ export const newInitialCodeFromRequiredDTO = (
 ) =>
   newInitialCodeFromDTO(
     initialCode,
-    initialCode.attributes.language_id.data.attributes.key
+    initialCode.attributes.language.data.attributes.key
   );
 
 export const newInitialCodeFromDTO = (
@@ -45,7 +45,7 @@ export class ApiInitialCodeRepository implements InitialCodeRepository {
       `${initialCodeEndpoint}/${id}`,
       initialCodeLanguageRequiredDTO,
       {
-        populate: 'language_id',
+        populate: 'language',
       },
       this.authToken
     )
@@ -58,12 +58,12 @@ export class ApiInitialCodeRepository implements InitialCodeRepository {
       initialCodeLanguageRequiredDTO.array(),
       {
         filters: {
-          problem_id: {
+          problem: {
             id: {
               $eq: Number(filters?.problemId),
             },
           },
-          language_id: {
+          language: {
             key: {
               $eq: filters?.language?.key,
             },
