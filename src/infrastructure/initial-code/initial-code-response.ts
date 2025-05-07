@@ -8,6 +8,11 @@ import { LanguageDTO, languageDTO } from '../language/language-response';
 
 const baseInitialAttributesCodeDTO = strapiCommonAttributesDTO.extend({
   code: z.string(),
+  language_id: z
+    .object({
+      data: languageDTO,
+    })
+    .optional(),
 });
 
 const baseInitialCodeDTO = strapiCommonDTO.extend({
@@ -16,9 +21,6 @@ const baseInitialCodeDTO = strapiCommonDTO.extend({
 
 export type InitialCodeDTO = z.infer<typeof baseInitialCodeDTO> & {
   attributes: {
-    language_id?: {
-      data: LanguageDTO;
-    };
     problem_id?: {
       data: ProblemDTO;
     };
@@ -27,12 +29,28 @@ export type InitialCodeDTO = z.infer<typeof baseInitialCodeDTO> & {
 
 export const initialCodeDTO: z.ZodType<InitialCodeDTO> =
   baseInitialCodeDTO.extend({
+    attributes: baseInitialAttributesCodeDTO.extend({}),
+  });
+
+export type InitialCodeLanguageRequiredDTO = z.infer<
+  typeof baseInitialCodeDTO
+> & {
+  attributes: {
+    language_id: {
+      data: LanguageDTO;
+    };
+    problem_id?: {
+      data: ProblemDTO;
+    };
+  };
+};
+
+export const initialCodeLanguageRequiredDTO: z.ZodType<InitialCodeDTO> =
+  baseInitialCodeDTO.extend({
     attributes: baseInitialAttributesCodeDTO.extend({
-      language_id: z
-        .object({
-          data: z.lazy(() => languageDTO),
-        })
-        .optional(),
+      language_id: z.object({
+        data: z.lazy(() => languageDTO),
+      }),
       problem_id: z
         .object({
           data: z.lazy(() => problemDTO),
