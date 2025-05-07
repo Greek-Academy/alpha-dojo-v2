@@ -70,7 +70,8 @@ export class ApiInitialCodeRepository implements InitialCodeRepository {
             },
           },
         },
-      }
+      },
+      this.authToken
     )
       .andThen((initialCodes) =>
         ResultAsync.fromPromise(
